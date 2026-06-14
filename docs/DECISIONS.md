@@ -102,3 +102,4 @@ path; anything else is explicitly tagged *planned (Stage 7)*. Community **names 
 to Stage 7.
 **Consequence:** the vault is honest and reviewer-navigable now, and Stage 7 has a clear, labeled backlog
 in `obsidian/open-questions.md`. Pages link via `[[wiki-links]]`; code is referenced by relative path.
+Committed as `6cdfd2f Build Obsidian knowledge vault` (pushed to `origin/main`).

@@ -46,6 +46,9 @@ Confirmed — `artifacts/graphify/` untouched (read-only inspection).
 ## 9. Confirmation no agent/fix/baseline was run
 Confirmed — no agent, no bug fix, no baseline/token comparison; vault is documentation only.
 
-## 10. Next stage
+## 10. Commit evidence
+Committed and pushed as `6cdfd2f Build Obsidian knowledge vault`.
+
+## 11. Next stage
 Stage 7 — reverse engineering analysis (macro/meso/micro, hubs/communities, diagrams), grounded in the
 graph; see `obsidian/open-questions.md`.

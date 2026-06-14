@@ -19,8 +19,8 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 - **No final fix is implemented in this repository yet.** See `reports/bug_validation.md`.
 
 ## Current repository status
-> **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) complete** (commit `1299535`). **Stage 5 (Graphify) complete** (commit `feb78ea`) — real graph built with the official `graphifyy` tool (no LLM key): `artifacts/graphify/graph.json` (6,771 nodes / 15,365 edges), `GRAPH_REPORT.md`, and a `GRAPH_TREE.html` visual; see `reports/graphify_run.md`. **Stage 6 (Obsidian vault) is next.**
-> **Stage 6 (Obsidian vault) is IN PROGRESS** — a linked vault under `obsidian/` (index, hot, graphify-overview, architecture-map, parameter-subsystem, graph-communities, …) grounded in the real graph; commit pending.
+> **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) complete** (commit `1299535`). **Stage 5 (Graphify) complete** (commit `feb78ea`) — real graph built with the official `graphifyy` tool (no LLM key): `artifacts/graphify/graph.json` (6,771 nodes / 15,365 edges), `GRAPH_REPORT.md`, and a `GRAPH_TREE.html` visual; see `reports/graphify_run.md`.
+> **Stage 6 (Obsidian vault) complete** (commit `6cdfd2f`) — a linked vault under `obsidian/` (index, hot, graphify-overview, architecture-map, parameter-subsystem, graph-communities, …) grounded in the real graph. **Stage 7 (reverse engineering analysis) is next.**
 > The buggy Luigi source is vendored under `target_repo/luigi_buggy/` (pristine, no fix applied).
 > Still **no** final reverse-engineering analysis, **no** AI agent, **no** baseline, **no** token comparison, and **no** bug fix yet.
 > There are still **no** Graphify artifacts, **no** Obsidian analysis pages beyond placeholders, **no** AI agent, and **no** bug fix in this repository yet. Nothing here claims a completed stage that has not been completed.
@@ -30,8 +30,8 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 2. PRD / PLAN / TODO ✅ (`docs/PRD.md`, `docs/PLAN.md`, `docs/TODO.md`)
 3. **Target source acquisition** ✅ — Luigi at the buggy commit **vendored** under `target_repo/luigi_buggy/` (tracked, pristine, LICENSE preserved; commit `1299535`; see `docs/DECISIONS.md` D-007)
 4. **Graphify** run → `graph.json`, `GRAPH_REPORT.md` (`artifacts/graphify/`) ✅ (commit `feb78ea`)
-5. **Obsidian vault** → `obsidian/index.md`, `obsidian/hot.md`, linked analysis pages (macro/meso/micro) ← _next stage_
-6. Architecture **block diagram** + **OOP diagram** (`artifacts/diagrams/`)
+5. **Obsidian vault** → `obsidian/index.md`, `obsidian/hot.md`, linked analysis pages (macro/meso/micro) ✅ (commit `6cdfd2f`)
+6. Reverse engineering + architecture **block diagram** + **OOP diagram** (`artifacts/diagrams/`) ← _next stage_
 7. **AI agent workflow** (LangGraph) — baseline vs graph-guided
 8. **Bug fix** + **before/after** test proof
 9. **Token-efficiency comparison** report
