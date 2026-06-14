@@ -1,0 +1,27 @@
+# Default configuration (skeleton placeholders).
+# Real values are confirmed in later stages; nothing here is executed yet.
+
+[target]
+project = "luigi"
+source_dataset = "BugsInPy"
+bug_id = 3
+buggy_commit = "a0f1db01ddab5b4b2bda3fbe58bad09a6d94a7b4"
+fixed_commit = "3a0bfbff69addfb3be1107adab3d4914bcae3e4b"
+file_under_investigation = "luigi/parameter.py"
+symbol_under_investigation = "TupleParameter.parse"
+regression_test = "test/parameter_test.py::TestSerializeTupleParameter::testSerialize"
+
+[validation]
+python_version = "3.8.20"
+runtime = "docker"
+docker_image = "python:3.8-slim"
+
+[graphify]
+# Output locations are populated in the Graphify stage (NOT run yet).
+graph_json = "artifacts/graphify/graph.json"
+graph_report = "artifacts/graphify/GRAPH_REPORT.md"
+
+[agent]
+# framework chosen in the agent stage; default preference is LangGraph (D-004).
+framework = "langgraph"
+token_accounting_mode = "measured"  # measured | estimated | manual

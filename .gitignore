@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# uv
+.uv/
+
+# Secrets / environment
+.env
+*.key
+*.pem
+secrets.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Cloned target source (added in a later stage, never committed raw)
+target_repo/luigi/
+target_repo/src/
+
+# Large generated artifacts (keep folders via .gitkeep; ignore heavy outputs)
+artifacts/graphify/*.json
+artifacts/screenshots/*.png
+artifacts/screenshots/*.jpg
+artifacts/validation/*.log
+
+# Obsidian local workspace state
+obsidian/.obsidian/
