@@ -14,7 +14,7 @@
 - **Done & committed:** Stage 8 — Baseline naive investigation (controlled, no graph/agent): 4 files / ~24,482 est. tokens (chars/4) / 5 rounds, root cause reached — commit `8904b57`.
 - **Done & committed:** Stage 9 — Graph-guided agent (LangGraph, deterministic/no-LLM): 5 files / ~3,631 est. tokens / 8 states, root cause reached; 6 tests pass, ruff clean — commit `3b0e3c0`.
 - **Done & committed:** Stage 10 — Bug fix applied + proven (Docker/Python 3.8.20): before `TypeError`, after `1 passed`; minimal 2-line fix + regression test — commit `a3c59f1`.
-- **Next up:** Stage 11 — Token-efficiency comparison (PLANNED).
+- **In progress:** Stage 11 — Token-efficiency comparison: graph-guided ~3,631 vs baseline ~24,482 est. tokens = **−85.17% (≈6.74×)** context, both reached root cause; controlled (not universal); pending commit before marking DONE.
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -47,7 +47,7 @@
 | 8 | Baseline naive run | **DONE** (`8904b57`) | uninformed investigation metrics | Stage 4 done | baseline report + logs present | `Measure naive baseline investigation` |
 | 9 | Graph-guided agent | **DONE** (`3b0e3c0`) | LangGraph graph-guided run | Stage 5–6 done | graph-guided report + logs present | `Implement graph-guided agent workflow` |
 | 10 | Fix + before/after | **DONE** (`a3c59f1`) | minimal fix + proof | Stage 4 (+9) done | fail-before + pass-after logs + diff evidence | `Fix TupleParameter round-trip parsing` |
-| 11 | Token-efficiency comparison | **PLANNED** | baseline vs graph-guided | Stages 8–9 done | comparison report (labeled) present | `Add token-efficiency comparison report` |
+| 11 | Token-efficiency comparison | **IN_PROGRESS** (report+JSON/CSV ready; commit pending) | baseline vs graph-guided | Stages 8–9 done | comparison report (labeled) present | `Add token-efficiency comparison report` |
 | 12 | Original extension | **PLANNED** | one extension implemented | Stage 5 (+9) done | extension code + output + doc present | `Add centrality-based suspect ranking extension` |
 | 13 | README/docs hardening | **PLANNED** | finalize docs | Stages 5–12 done | docs consistent with artifacts | `Harden README and documentation` |
 | 14 | Quality gates + final audit | **PLANNED** | gates pass + audit | Stage 13 done | gates green + `final_audit.md` complete | `Run quality gates and final audit` |
@@ -172,14 +172,16 @@
 **Artifacts:** `reports/bug_fix_validation.md`, `artifacts/validation/stage10_{before_failure,after_success,fix_diff}.txt`, plus the fix in `target_repo/luigi_buggy/luigi/parameter.py` + test in `.../test/parameter_test.py`.
 **Risks/blockers:** none — fix proven; final token-efficiency comparison is Stage 11 (not claimed here). (D-007/R4 updated: the fix is now applied to the vendored tree as the Stage-10 evidence diff.)
 
-## Stage 11 — Token efficiency comparison — **PLANNED**
-- [ ] Compare baseline vs graph-guided: files read, text units, iterations, tokens
-- [ ] Add root-cause speed/quality (cheaper-but-wrong is not a win)
-- [ ] Label every value `measured | estimated | manual count`
-- [ ] Honest note if advantage is small/absent/context-dependent
-**Validation:** comparison table complete with provenance labels; numbers traceable to logs.
-**Artifacts:** `reports/token_efficiency.md`, `obsidian/token-efficiency.md`.
-**Risks/blockers:** depends on Stages 8–9 logs.
+## Stage 11 — Token efficiency comparison — **IN_PROGRESS** (report+JSON/CSV ready; not yet committed)
+- [x] Read committed Stage 8/9 metrics (no rerun, no overwrite) — D-014
+- [x] Compute deltas: tokens 24,482 → 3,631 = **−20,851 (−85.17%, ≈6.74×)**; chars −83,403 (−85.17%); files +1; units +3; states +3
+- [x] Label estimate (`chars/4`) and present nuance: more files/units but smaller targeted context; more states ≠ win
+- [x] Honest non-overclaim: controlled comparison, not a universal benchmark; bug-fix (Stage 10) excluded from measurement
+- [x] Write `reports/token_efficiency.md` + `artifacts/validation/token_efficiency_comparison.json` + `.csv`
+- [ ] Commit Stage 11 (then mark DONE — R1)
+**Validation:** comparison JSON asserts savings=20851, reduction=85.17%, factor=6.74; report tables labeled estimate; source metrics unchanged.
+**Artifacts:** `reports/token_efficiency.md`, `artifacts/validation/token_efficiency_comparison.json`, `artifacts/validation/token_efficiency_table.csv`.
+**Risks/blockers:** none — uses committed Stage 8/9 metrics; no LLM/API; not a universal claim.
 
 ## Stage 12 — Original extension — **PLANNED**
 - [ ] Implement **centrality-based suspect ranking** (unless evidence favors another — OD-1)

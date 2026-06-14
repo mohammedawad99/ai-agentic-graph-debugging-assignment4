@@ -1,0 +1,6 @@
+metric,naive_baseline,graph_guided_agent,delta,interpretation
+Estimated tokens,24482,3631,20851,lower is better (primary result)
+Characters read,97926,14523,83403,lower is better
+Files read,4,5,1,NOT the primary win
+Text units read,4,7,3,graph-guided uses smaller units
+Rounds/states,5,8,3,graph-guided models orchestration explicitly; NOT a win

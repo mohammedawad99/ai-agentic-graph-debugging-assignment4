@@ -46,6 +46,18 @@ Nothing here is claimed to pass yet (no implementation in the skeleton stage).
   (`artifacts/validation/graph_guided_agent_*`). A guard test (`test_run_does_not_touch_tracked_artifacts`)
   asserts this. Production behaviour is unchanged (`out_dir=None` → `artifacts/validation/`).
 
+## Stage 11 — token-efficiency comparison consistency check
+The comparison JSON is validated against the committed Stage 8/9 metrics with:
+```
+python3 -c "import json;d=json.load(open('artifacts/validation/token_efficiency_comparison.json'));\
+assert d['baseline']['estimated_tokens']==24482 and d['graph_guided']['estimated_tokens']==3631;\
+assert d['deltas']['token_savings']==20851 and d['deltas']['token_reduction_percent']==85.17;\
+assert d['deltas']['baseline_to_graph_guided_factor']==6.74;\
+assert d['interpretation']['universal_claim'] is False;print('OK')"
+```
+Source metric files (`baseline_naive_metrics.json`, `graph_guided_agent_metrics.json`) are **read-only** in
+this stage (`git diff` over them must be empty). No LLM/API used.
+
 ## Execution policy
 - Gates run **before any commit intended for submission** and again in the **final audit** (`reports/final_audit.md`).
 - A failing gate is fixed; results are never suppressed or faked.

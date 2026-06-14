@@ -178,3 +178,17 @@ deferred to Stage 10, and this is that stage).
 (`artifacts/validation/stage10_{before_failure,after_success,fix_diff}.txt`, `reports/bug_fix_validation.md`).
 No final token comparison claimed (Stage 11). Committed as `a3c59f1 Fix TupleParameter round-trip parsing`
 (pushed to `origin/main`).
+
+## D-014 — Final efficiency comparison uses committed Stage 8/9 metrics + the chars/4 estimate
+**Date:** 2026-06-14
+**Context:** Stage 11 must compare the naive baseline (Stage 8) and graph-guided agent (Stage 9) **without**
+re-running either (re-running risks drift; the graph-guided run is already idempotent, D-012).
+**Decision:** Build the comparison **only** from the committed metric files
+(`baseline_naive_metrics.json` @ `8904b57`, `graph_guided_agent_metrics.json` @ `3b0e3c0`), applying the
+same `characters/4` estimate (D-011). Emit `reports/token_efficiency.md` +
+`artifacts/validation/token_efficiency_comparison.json` + `.csv`. Frame the result as a **controlled,
+single-case comparison** (`universal_claim=false`), present **context volume** (tokens/chars) as the only
+demonstrated win — **not** file count or workflow-state count — and exclude the Stage-10 bug fix from the
+measurement.
+**Evidence / guardrails:** tokens 24,482 → 3,631 = **−20,851 (−85.17%, ≈6.74×)**; chars −83,403 (−85.17%);
+files +1, units +3, states +3 (explicitly **not** wins). No LLM/API ($0). Source metric files unchanged.

@@ -12,7 +12,9 @@
 - Stage 8 baseline (naive): ~24,482 est. tokens, $0 (raw-source reading; no LLM).
 - Stage 9 graph-guided agent: ~3,631 est. tokens, $0 (deterministic LangGraph; no LLM) — commit `3b0e3c0`.
 - Stage 10 bug fix + before/after proof: **$0 / no LLM API** (manual 2-line fix + Docker/Python 3.8 pytest) — commit `a3c59f1`.
-- These are **per-protocol estimates**, not a final comparison (Stage 11 will publish the comparison).
+- Stage 11 token-efficiency comparison: **$0 / no LLM API** (pure arithmetic over committed Stage 8/9 metrics).
+- **Final result (controlled, NOT universal):** graph-guided ~3,631 vs baseline ~24,482 est. tokens →
+  **−85.17% (~6.74×) less context** for the same root cause. Estimate via `chars/4`, not exact tokenization.
 
 ## Future token / cost tracking (agent stage)
 The **token-efficiency experiment** will compare two workflows on the same Luigi bug:

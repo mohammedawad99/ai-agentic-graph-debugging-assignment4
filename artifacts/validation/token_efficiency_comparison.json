@@ -1,0 +1,51 @@
+{
+  "created_at_utc": "2026-06-14",
+  "method": "estimated_tokens = characters / 4  (approximation; NOT exact API tokenization)",
+  "source_files": {
+    "baseline_metrics_path": "artifacts/validation/baseline_naive_metrics.json",
+    "graph_guided_metrics_path": "artifacts/validation/graph_guided_agent_metrics.json"
+  },
+  "baseline": {
+    "total_files_read": 4,
+    "total_text_units_read": 4,
+    "total_characters_read": 97926,
+    "estimated_tokens": 24482,
+    "investigation_rounds": 5,
+    "root_cause_reached": true,
+    "graphify_used": false,
+    "obsidian_used": false,
+    "agent_used": false
+  },
+  "graph_guided": {
+    "total_files_read": 5,
+    "total_text_units_read": 7,
+    "total_characters_read": 14523,
+    "estimated_tokens": 3631,
+    "investigation_rounds": 8,
+    "root_cause_reached": true,
+    "graphify_used": true,
+    "obsidian_used": true,
+    "agent_used": true,
+    "llm_used": false,
+    "api_cost_usd": 0
+  },
+  "deltas": {
+    "token_savings": 20851,
+    "token_reduction_percent": 85.17,
+    "graph_guided_token_ratio_percent": 14.83,
+    "baseline_to_graph_guided_factor": 6.74,
+    "character_savings": 83403,
+    "character_reduction_percent": 85.17,
+    "file_count_delta": 1,
+    "text_unit_delta": 3,
+    "round_delta": 3
+  },
+  "interpretation": {
+    "controlled_comparison": true,
+    "universal_claim": false,
+    "llm_api_used_for_graph_guided": false,
+    "api_cost_usd": 0,
+    "bug_fix_stage_excluded_from_measurement": true,
+    "main_claim": "Graph-guided workflow reduced estimated context volume, not necessarily file count or workflow states."
+  }
+}
