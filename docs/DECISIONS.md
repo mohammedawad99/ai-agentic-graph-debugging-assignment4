@@ -120,3 +120,4 @@ no-LLM, so communities are unnamed and only structural (AST/heuristic) edges exi
 **Consequence:** a defensible, honest Stage-7 analysis (`reports/reverse_engineering.md` +
 `obsidian/reverse-engineering-analysis.md`) that graders can verify against the artifacts; rendering the
 diagrams into the README is deferred to Stage 13 polish. No bug fix, agent, or baseline implied.
+Committed as `8991916 Analyze Luigi architecture and bug path` (pushed to `origin/main`).

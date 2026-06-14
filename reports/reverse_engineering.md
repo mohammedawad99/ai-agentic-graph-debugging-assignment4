@@ -115,5 +115,8 @@ except ValueError:
 - No Graphify artifacts changed (`artifacts/graphify/` untouched).
 - No agent run. No baseline run. **No bug fix applied** (buggy `except ValueError:` still present).
 
-## 13. Next stage
+## 13. Commit evidence
+Committed and pushed as `8991916 Analyze Luigi architecture and bug path`.
+
+## 14. Next stage
 Stage 8 — Baseline naive investigation.
