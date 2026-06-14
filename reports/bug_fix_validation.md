@@ -77,5 +77,8 @@ class TestSerializeTupleParameter(LuigiTestCase):
 This is **bug-fix validation only**, not the final token-efficiency comparison. The before/after proof is a
 focused regression test, not a full upstream test run.
 
-## 13. Next stage
+## 13. Commit evidence
+Committed and pushed as `a3c59f1 Fix TupleParameter round-trip parsing`.
+
+## 14. Next stage
 Stage 11 — token-efficiency comparison (baseline vs graph-guided).

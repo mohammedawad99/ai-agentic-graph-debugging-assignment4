@@ -36,7 +36,7 @@ Nothing here is claimed to pass yet (no implementation in the skeleton stage).
   so the vendored Luigi source (Stage-4) is **not** linted (it has thousands of pre-existing upstream style issues).
 - Q5 secret-scan, Q6 artifact-scan, and the dedicated Q4 checker script run in the final audit (Stage 14).
 
-## Stage 10 — bug-fix test evidence
+## Stage 10 — bug-fix test evidence (commit `a3c59f1`)
 - Project gates re-run after the fix: `uv run pytest` → **6 passed**; `uv run ruff check .` → **All checks passed**; `uv run ruff format --check .` → **clean**.
 - **Luigi targeted regression** (`TestSerializeTupleParameter::testSerialize`) runs under **Docker/Python 3.8.20**
   (Luigi 2.8.3 cannot import on the host's 3.12): **before** = `TypeError` (1 failed); **after** = `1 passed`.

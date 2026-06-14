@@ -176,4 +176,5 @@ deferred to Stage 10, and this is that stage).
 **Evidence / guardrails:** before = `TypeError: 'int' object is not iterable` (1 failed); after = `1 passed`
 (Docker/Python 3.8.20); diff confined to one function + one test class
 (`artifacts/validation/stage10_{before_failure,after_success,fix_diff}.txt`, `reports/bug_fix_validation.md`).
-No final token comparison claimed (Stage 11).
+No final token comparison claimed (Stage 11). Committed as `a3c59f1 Fix TupleParameter round-trip parsing`
+(pushed to `origin/main`).
