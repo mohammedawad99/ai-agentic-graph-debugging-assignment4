@@ -1,25 +1,31 @@
-# Index — Luigi Bug 3 Knowledge Vault (PLACEHOLDER)
+# Index — Luigi Bug 3 Knowledge Vault
 
-> Status: **skeleton**. This Obsidian vault is populated after the Graphify run (PLAN steps 4–5).
-> Links below are intentional placeholders; target pages are created in later stages.
+Navigation hub for the Assignment 04 knowledge vault. Pages are grounded in the **real Graphify
+artifacts** (`artifacts/graphify/graph.json`, `GRAPH_REPORT.md`) and the **vendored source**
+(`target_repo/luigi_buggy/`). Anything not yet verified is labeled *planned (Stage 7)*.
 
-## Entry points
-- [[hot]] — graph hubs / hotspots (most-connected and most-changed code)
-- [[macro-architecture]] — system-level view (subsystems, package map) _(later)_
-- [[meso-subsystem-parameter]] — the `parameter` subsystem around the bug _(later)_
-- [[micro-tupleparameter-parse]] — the defect site `TupleParameter.parse` _(later)_
-- [[bug-3-root-cause]] — root-cause narrative _(later)_
-- [[graph-report]] — summary mirror of `artifacts/graphify/GRAPH_REPORT.md` _(later)_
+## How to read this vault (recommended order)
+1. **[[graphify-overview]]** — how the graph was built (no-LLM AST route) and what artifacts exist.
+2. **[[architecture-map]]** — macro view of the codebase from the graph + source paths.
+3. **[[graph-communities]]** — communities/hubs from `GRAPH_REPORT.md` (macro reading).
+4. **[[parameter-subsystem]]** — meso view: the parameter classes around the bug.
+5. **[[hot]]** — micro view: the focused bug context (`TupleParameter.parse`).
+6. **[[bug-investigation-seed]]** — seed for the later investigation (Stages 7/10).
+7. **[[token-efficiency-plan]]** — what the later baseline-vs-graph comparison will measure.
 
-## Target at a glance
-- **Project:** Luigi (workflow / DAG scheduling engine), via BugsInPy
-- **Bug:** 3 — `TupleParameter.parse` in `luigi/parameter.py`
-- **Regression test:** `test/parameter_test.py::TestSerializeTupleParameter::testSerialize`
-- **Validated:** fail→pass confirmed in Docker / Python 3.8.20 (see `reports/bug_validation.md`)
+## Supporting pages
+- [[sources]] — provenance: every artifact/source path this vault relies on.
+- [[open-questions]] — what Stage 7 still needs to verify.
+- [[README]] — what this directory is and how to open it.
 
-## How to read this vault (planned)
-1. Start at **macro** (whole-system shape) →
-2. zoom to **meso** (the parameter subsystem) →
-3. zoom to **micro** (the buggy function and its callers/callees).
+## Target at a glance (grounded)
+- **Project:** Luigi (workflow / DAG engine), via BugsInPy — buggy commit `a0f1db01…`.
+- **Bug:** 3 — `TupleParameter.parse` in `luigi/parameter.py`.
+- **Graph node:** `luigi_parameter_tupleparameter` → `TupleParameter` @ `luigi/parameter.py:L1066`
+  (method node `luigi_parameter_tupleparameter_parse` → `.parse()` @ `L1095`).
+- **Graph size:** `graph.json` = **6,771 nodes / 15,365 links**; `GRAPH_REPORT.md` = **6,705 nodes /
+  13,222 edges / 326 communities** (post-dedup view). **Token cost: 0** (no LLM used).
 
-_No analysis content is asserted yet; nothing here is final._
+## Honesty note
+This is an **early knowledge vault**, not the final reverse-engineering analysis. Final macro/meso/micro
+interpretation, hub/bottleneck ranking, and the bug fix all happen in later stages.

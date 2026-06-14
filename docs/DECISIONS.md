@@ -88,3 +88,17 @@ edges; `GRAPH_REPORT.md`; `GRAPH_TREE.html`); token cost 0; vendored source veri
 `graphify-out/` removed); bug still unfixed; full method in `reports/graphify_run.md` and
 `artifacts/graphify/graphify_run.log`. Committed as `feb78ea Run Graphify on Luigi target repository`
 (pushed to `origin/main`).
+
+## D-009 — Obsidian vault structure: macro→micro navigation, grounded-or-labeled
+**Date:** 2026-06-14
+**Context:** Stage 6. The vault must be an *active knowledge space* that graders can navigate, built from
+the real Graphify artifacts without over-claiming.
+**Decision:** Structure `obsidian/` as a hub-and-spoke vault entered from `index.md`, in macro→micro order:
+`graphify-overview` → `architecture-map` → `graph-communities` → `parameter-subsystem` → `hot` →
+`bug-investigation-seed` → `token-efficiency-plan`, plus `sources`/`open-questions`/`README`. **Grounding
+rule:** every architecture/graph statement must be backed by `graph.json`, `GRAPH_REPORT.md`, or a source
+path; anything else is explicitly tagged *planned (Stage 7)*. Community **names stay placeholders**
+("Community N") because clustering used `--no-label` (no LLM); semantic naming + hub ranking are deferred
+to Stage 7.
+**Consequence:** the vault is honest and reviewer-navigable now, and Stage 7 has a clear, labeled backlog
+in `obsidian/open-questions.md`. Pages link via `[[wiki-links]]`; code is referenced by relative path.

@@ -9,7 +9,7 @@
 - **Done & committed:** Stage 0 skeleton + requirements audit (`3fc110d`), Stage 1 PRD (`018c580`), Stage 2 PLAN (`8a7ff9c`), Stage 3 TODO (`485f3b5`).
 - **Done & committed:** Stage 4 — target repository acquisition (Luigi source vendored to `target_repo/luigi_buggy/`, validated) — commit `1299535`.
 - **Done & committed:** Stage 5 — Graphify run with the official `graphifyy` tool (no LLM key). Real artifacts in `artifacts/graphify/` (`graph.json` 6,771 nodes / 15,365 edges, `GRAPH_REPORT.md`, `GRAPH_TREE.html`) — commit `feb78ea`.
-- **Next up:** Stage 6 — Obsidian vault construction (PLANNED).
+- **In progress:** Stage 6 — Obsidian vault built under `obsidian/` (9 required + 2 optional pages, grounded in real Graphify artifacts); pending commit before marking DONE.
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -37,7 +37,7 @@
 | 3 | TODO | **IN_PROGRESS** | execution checklist | PLAN done | TODO reviewed + committed | `Write assignment 4 execution TODO` |
 | 4 | Target repo acquisition | **DONE** (`1299535`) | import Luigi@buggy | TODO committed (R2) | target present + provenance + counts verified (vendored, pristine) | `Acquire Luigi buggy target repository` |
 | 5 | Graphify first run | **DONE** (`feb78ea`) | build code graph | Stage 4 done | `graph.json` + `GRAPH_REPORT.md` present + run logged | `Run Graphify on Luigi target repository` |
-| 6 | Obsidian vault | **PLANNED** | active knowledge vault | Stage 5 done | linked vault (index/hot + pages) resolves | `Build Obsidian vault for Luigi analysis` |
+| 6 | Obsidian vault | **IN_PROGRESS** (built; commit pending) | active knowledge vault | Stage 5 done | linked vault (index/hot + pages) resolves | `Build Obsidian vault for Luigi analysis` |
 | 7 | Reverse engineering | **PLANNED** | macro/meso/micro + diagrams | Stage 5–6 done | RE notes + block + OOP diagrams present | `Add reverse-engineering analysis and diagrams` |
 | 8 | Baseline naive run | **PLANNED** | uninformed investigation metrics | Stage 4 done | baseline report + logs present | `Add baseline naive investigation run` |
 | 9 | Graph-guided agent | **PLANNED** | LangGraph graph-guided run | Stage 5–6 done | graph-guided report + logs present | `Add graph-guided LangGraph agent workflow` |
@@ -104,16 +104,17 @@
 **Artifacts:** `artifacts/graphify/{graph.json, GRAPH_REPORT.md, GRAPH_TREE.html, .graphify_labels.json, .graphify_root, manifest.json, graphify_run.log}`; report `reports/graphify_run.md`.
 **Risks/blockers:** none outstanding. Note: standard `graph.html` viz skipped (>5000 nodes) → used `GRAPH_TREE.html` instead; `GRAPH_REPORT.md` reports 6,705/13,222 after dedup vs graph.json 6,771/15,365 (both real; documented in `reports/graphify_run.md` §9).
 
-## Stage 6 — Obsidian vault construction — **PLANNED**
-- [ ] `index.md` navigation hub
-- [ ] `hot.md` hubs/hotspots + defect path
-- [ ] `macro-architecture.md`, `meso-subsystem-parameter.md`, `micro-tupleparameter-parse.md`
-- [ ] `bug-3-root-cause.md`, `before-after.md`, `token-efficiency.md`, `graph-report.md`
-- [ ] Link pages with `[[wiki-links]]`; ensure they resolve
-- [ ] Ensure vault reads as active knowledge, not a file dump
-**Validation:** check `[[links]]` resolve; `index.md` references ≥3 pages.
-**Artifacts:** `obsidian/*.md`.
-**Risks/blockers:** depends on Stage 5 graph data (metrics labeled `measured`).
+## Stage 6 — Obsidian vault construction — **IN_PROGRESS** (built; not yet committed)
+- [x] `index.md` navigation hub (reading order: graphify → architecture → communities → parameter → hot)
+- [x] `hot.md` bug context (`TupleParameter.parse`, node `luigi_parameter_tupleparameter`, L1066/L1095)
+- [x] `graphify-overview.md`, `architecture-map.md`, `parameter-subsystem.md`, `graph-communities.md`
+- [x] `bug-investigation-seed.md`, `token-efficiency-plan.md`, `README.md` (+ optional `sources.md`, `open-questions.md`)
+- [x] Link pages with `[[wiki-links]]`; ground every claim in `graph.json`/`GRAPH_REPORT.md`/source (else label *planned*)
+- [x] Report `reports/obsidian_vault.md`; design decision **D-009**
+- [ ] Commit Stage 6 vault (then mark DONE — R1)
+**Validation:** 9 required pages + 2 optional present; `[[wiki-links]]` resolve; `index.md` references ≥3 pages; no Luigi/Graphify-artifact edits.
+**Artifacts:** `obsidian/*.md`, `reports/obsidian_vault.md`.
+**Risks/blockers:** none — community names are placeholders (no LLM); real naming/hub ranking deferred to Stage 7 (labeled).
 
 ## Stage 7 — Reverse engineering analysis — **PLANNED**
 - [ ] Macro graph reading (subsystem map, biggest clusters)
