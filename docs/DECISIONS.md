@@ -61,7 +61,8 @@ repo** and **no patches/fix** applied (source kept pristine/buggy). Source edits
 later bug-fix stage (Stage 10); until then the tree stays the exact buggy version.
 **Evidence / guardrails:** verified `git rev-parse HEAD == a0f1db01…` in the temp clone; `no nested .git`;
 `LICENSE` preserved; buggy line present at `luigi/parameter.py:1118`, fixed pattern absent; provenance in
-`target_repo/README.md`; method + checks in `reports/target_repository_acquisition.md`.
+`target_repo/README.md`; method + checks in `reports/target_repository_acquisition.md`. Committed as
+`1299535 Acquire Luigi buggy target repository` (pushed to `origin/main`).
 **Consequence:** the vendored tree is tracked deliberately (not git-ignored). All planning/process docs were
 **reconciled to this policy before the Stage-4 commit**: `docs/PLAN.md` (§1/§5/§6/§18/§22), `docs/TODO.md`
 (rule R4, Stage 4), `README.md`, `docs/PRD.md` (§8 in-scope, §9 out-of-scope, FR-01, §26 constraints, §28

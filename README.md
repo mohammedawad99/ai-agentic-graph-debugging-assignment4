@@ -19,15 +19,15 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 - **No final fix is implemented in this repository yet.** See `reports/bug_validation.md`.
 
 ## Current repository status
-> **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) in progress.**
+> **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) complete** (commit `1299535`). **Stage 5 (Graphify) is next.**
 > The buggy Luigi source is vendored under `target_repo/luigi_buggy/` (pristine, no fix applied).
 > There are still **no** Graphify artifacts, **no** Obsidian analysis pages beyond placeholders, **no** AI agent, and **no** bug fix in this repository yet. Nothing here claims a completed stage that has not been completed.
 
 ## Planned workflow stages
 1. **Skeleton + Requirements Audit** ✅
 2. PRD / PLAN / TODO ✅ (`docs/PRD.md`, `docs/PLAN.md`, `docs/TODO.md`)
-3. **Target source acquisition** ← _current stage_ — Luigi at the buggy commit **vendored** under `target_repo/luigi_buggy/` (tracked, pristine, LICENSE preserved; see `docs/DECISIONS.md` D-007)
-4. **Graphify** run → `graph.json`, `GRAPH_REPORT.md` (`artifacts/graphify/`)
+3. **Target source acquisition** ✅ — Luigi at the buggy commit **vendored** under `target_repo/luigi_buggy/` (tracked, pristine, LICENSE preserved; commit `1299535`; see `docs/DECISIONS.md` D-007)
+4. **Graphify** run → `graph.json`, `GRAPH_REPORT.md` (`artifacts/graphify/`) ← _next stage_
 5. **Obsidian vault** → `obsidian/index.md`, `obsidian/hot.md`, linked analysis pages (macro/meso/micro)
 6. Architecture **block diagram** + **OOP diagram** (`artifacts/diagrams/`)
 7. **AI agent workflow** (LangGraph) — baseline vs graph-guided

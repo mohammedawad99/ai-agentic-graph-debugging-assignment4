@@ -7,7 +7,8 @@
 
 ## 1. Project status summary
 - **Done & committed:** Stage 0 skeleton + requirements audit (`3fc110d`), Stage 1 PRD (`018c580`), Stage 2 PLAN (`8a7ff9c`), Stage 3 TODO (`485f3b5`).
-- **In progress:** Stage 4 — target repository acquisition (Luigi source vendored to `target_repo/luigi_buggy/`, validated, **not yet committed**).
+- **Done & committed:** Stage 4 — target repository acquisition (Luigi source vendored to `target_repo/luigi_buggy/`, validated) — commit `1299535`.
+- **Next up:** Stage 5 — Graphify setup and first graph run (PLANNED).
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -33,7 +34,7 @@
 | 1 | PRD | **DONE** | product requirements | Stage 0 done | PRD committed | `Write assignment 4 PRD` |
 | 2 | Technical PLAN | **DONE** | implementation strategy | PRD done | PLAN committed | `Write assignment 4 technical plan` |
 | 3 | TODO | **IN_PROGRESS** | execution checklist | PLAN done | TODO reviewed + committed | `Write assignment 4 execution TODO` |
-| 4 | Target repo acquisition | **IN_PROGRESS** | import Luigi@buggy | TODO committed (R2) | target present + provenance + counts verified (vendored, pristine) | `Vendor Luigi buggy source for analysis` |
+| 4 | Target repo acquisition | **DONE** (`1299535`) | import Luigi@buggy | TODO committed (R2) | target present + provenance + counts verified (vendored, pristine) | `Acquire Luigi buggy target repository` |
 | 5 | Graphify first run | **PLANNED** | build code graph | Stage 4 done | `graph.json` + `GRAPH_REPORT.md` present + run logged | `Add Graphify graph and report for Luigi` |
 | 6 | Obsidian vault | **PLANNED** | active knowledge vault | Stage 5 done | linked vault (index/hot + pages) resolves | `Build Obsidian vault for Luigi analysis` |
 | 7 | Reverse engineering | **PLANNED** | macro/meso/micro + diagrams | Stage 5–6 done | RE notes + block + OOP diagrams present | `Add reverse-engineering analysis and diagrams` |
@@ -76,7 +77,7 @@
 **Exit criteria:** TODO reviewed and committed → unlocks Stage 4 (R2).
 **Risks/blockers:** none.
 
-## Stage 4 — Target repository acquisition — **IN_PROGRESS**
+## Stage 4 — Target repository acquisition — **DONE** (commit `1299535`)
 - [x] Fetch Luigi buggy commit `a0f1db01…` (temp clone) and verify `rev-parse HEAD` matches
 - [x] Vendor source into `target_repo/luigi_buggy/` excluding `.git`/`.github`/caches; no nested `.git` (D-007)
 - [x] Preserve upstream `LICENSE`; record provenance in `target_repo/README.md`
@@ -87,7 +88,7 @@
 - [ ] (Later, Stage 10) overlay regression test from fixed commit `3a0bfbff…` for the fix proof
 **Validation:** `test ! -d target_repo/luigi_buggy/.git`; `find target_repo/luigi_buggy -name '*.py' | wc -l`; grep buggy/fixed patterns; `git rev-parse` in temp clone.
 **Evidence (Stage 4):** `target_repo/luigi_buggy/**` (vendored source), `target_repo/README.md` (provenance + policy), `reports/target_repository_acquisition.md` (method + validation), and `docs/DECISIONS.md` **D-007** (vendoring decision).
-**Evidence status:** acquisition done, validated, and reconciled in docs; **Stage 4 stays IN_PROGRESS until the commit exists** (R1 — vendored tree currently untracked).
+**Evidence status:** acquisition done, validated, reconciled in docs, and **committed** as `1299535 Acquire Luigi buggy target repository` (R1 satisfied — vendored tree now tracked).
 **Risks/blockers:** none outstanding (policy reconciled via D-007); Docker needed for later test stages.
 
 ## Stage 5 — Graphify setup and first graph run — **PLANNED**

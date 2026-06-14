@@ -45,9 +45,10 @@ Vendored source is **pristine/buggy**:
 
 ## 9. Files changed / created in the assignment repo
 - **Created:** `target_repo/luigi_buggy/**` (vendored source); `reports/target_repository_acquisition.md` (this file).
-- **Updated:** `target_repo/README.md` (now documents the vendored source + policy change);
-  `docs/DECISIONS.md` (D-007 vendoring decision); `docs/TODO.md` (Stage 4 → IN_PROGRESS, evidence noted).
-- **Not touched:** all Luigi logic (no patches). `docs/PRD.md` left unchanged (out of this round's allowed edits).
+- **Updated:** `target_repo/README.md` (documents the vendored source + policy); `docs/DECISIONS.md`
+  (D-007 vendoring decision); `docs/TODO.md` (Stage 4 marked **DONE**, commit evidence noted); plus the
+  policy reconciliation across `docs/PLAN.md`, `docs/PRD.md`, `docs/AI_WORKFLOW.md`, and `README.md`.
+- **Not touched:** all Luigi logic (no patches).
 
 ## 10. Reconciliation status (resolved — all docs)
 The vendoring policy is **approved and fully reconciled before the Stage-4 commit** (decision **D-007**).
@@ -58,5 +59,6 @@ Updated to match the vendored-and-tracked policy: `docs/PLAN.md` (§1 overview, 
 **No residual policy contradiction remains.**
 
 ## 11. Status
-Stage 4 acquisition performed and validated. **No commit and no push were made.** The vendored source is
-currently **untracked** in git (`?? target_repo/luigi_buggy/`).
+Stage 4 acquisition performed, validated, and **committed**: `1299535 Acquire Luigi buggy target repository`
+(373 files changed, +69,928 / −50; pushed to `origin/main`). The vendored source is now tracked under
+`target_repo/luigi_buggy/`. No Graphify, agent, or bug fix was performed.
