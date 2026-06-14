@@ -36,6 +36,10 @@ target_repo/src/
 
 # Large generated artifacts (keep folders via .gitkeep; ignore heavy outputs)
 artifacts/graphify/*.json
+# ...but the required Stage 5 Graphify artifacts ARE tracked deliberately (D-008 / OD-5):
+!artifacts/graphify/graph.json
+!artifacts/graphify/.graphify_labels.json
+!artifacts/graphify/manifest.json
 artifacts/screenshots/*.png
 artifacts/screenshots/*.jpg
 artifacts/validation/*.log

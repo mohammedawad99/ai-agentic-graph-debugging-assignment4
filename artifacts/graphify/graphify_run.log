@@ -1,0 +1,31 @@
+error: no LLM API key found (63 doc/paper/image file(s) need semantic extraction). Set GEMINI_API_KEY or GOOGLE_API_KEY (gemini), MOONSHOT_API_KEY (kimi), ANTHROPIC_API_KEY (claude), OPENAI_API_KEY (openai), DEEPSEEK_API_KEY (deepseek), or pass --backend. A code-only corpus needs no key.
+[graphify extract] scanning /home/awad_moha/ai-agentic-graph-debugging-assignment4/target_repo/luigi_buggy
+[graphify extract] found 264 code, 24 docs, 0 papers, 39 images
+EXIT_CODE=1
+[graphify] WARNING: new graph has 6705 nodes but existing graph.json has 6771 (net -66). Refusing to overwrite. Possible causes: missing chunk files from a previous session, or fuzzy dedup collapsed same-named symbols across files during an --update on an already-current graph. Run a full rebuild (/graphify .) to be safe, or pass force=True only if you have verified the reduction is legitimate.
+Loading existing graph...
+Graph: 6705 nodes, 13222 edges
+Re-clustering...
+Skipped graph.html: Graph has 6705 nodes - too large for HTML viz (limit: 5000). Use --no-viz, raise GRAPHIFY_VIZ_NODE_LIMIT, or reduce input size.
+Done - 326 communities. GRAPH_REPORT.md and graph.json updated.
+EXIT=0
+wrote target_repo/luigi_buggy/graphify-out/GRAPH_TREE.html (456.6 KB)
+open with: xdg-open target_repo/luigi_buggy/graphify-out/GRAPH_TREE.html  (or file:///home/awad_moha/ai-agentic-graph-debugging-assignment4/target_repo/luigi_buggy/graphify-out/GRAPH_TREE.html)
+EXIT=0
+
+## ===== CANONICAL COMMAND SEQUENCE (Stage 5, successful) =====
+# tool: graphify 0.8.39 (PyPI package: graphifyy), installed via: uv tool install graphifyy
+# 1) AST code-graph build (NO LLM key required for a code-only corpus):
+graphify update target_repo/luigi_buggy --no-cluster
+#    -> target_repo/luigi_buggy/graphify-out/graph.json  (6771 nodes, 15365 edges)
+# 2) Clustering + report + Obsidian-wiki links (NO LLM via --no-label):
+graphify cluster-only target_repo/luigi_buggy --no-label
+#    -> GRAPH_REPORT.md (6705 nodes / 13222 edges / 326 communities after dedup)
+# 3) Large-graph visual (HTML collapsible tree):
+graphify tree --graph target_repo/luigi_buggy/graphify-out/graph.json \
+              --output target_repo/luigi_buggy/graphify-out/GRAPH_TREE.html --label luigi_buggy
+# NOTE: an earlier `graphify extract ... --no-cluster` attempt FAILED with
+#   "no LLM API key found (63 doc/paper/image files need semantic extraction)".
+#   Resolved by using the no-LLM `update` path on the code corpus (docs/images not graphed).
+# Final artifacts copied to artifacts/graphify/; the in-tree graphify-out/ (incl. cache/) was removed
+# so target_repo/luigi_buggy/ stays pristine.

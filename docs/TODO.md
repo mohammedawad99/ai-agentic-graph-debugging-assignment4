@@ -8,7 +8,7 @@
 ## 1. Project status summary
 - **Done & committed:** Stage 0 skeleton + requirements audit (`3fc110d`), Stage 1 PRD (`018c580`), Stage 2 PLAN (`8a7ff9c`), Stage 3 TODO (`485f3b5`).
 - **Done & committed:** Stage 4 — target repository acquisition (Luigi source vendored to `target_repo/luigi_buggy/`, validated) — commit `1299535`.
-- **Next up:** Stage 5 — Graphify setup and first graph run (PLANNED).
+- **In progress:** Stage 5 — Graphify run **succeeded** with the official `graphifyy` tool (no LLM key). Real artifacts in `artifacts/graphify/` (`graph.json` 6,771 nodes / 15,365 edges, `GRAPH_REPORT.md`, `GRAPH_TREE.html`); pending commit before marking DONE.
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -35,7 +35,7 @@
 | 2 | Technical PLAN | **DONE** | implementation strategy | PRD done | PLAN committed | `Write assignment 4 technical plan` |
 | 3 | TODO | **IN_PROGRESS** | execution checklist | PLAN done | TODO reviewed + committed | `Write assignment 4 execution TODO` |
 | 4 | Target repo acquisition | **DONE** (`1299535`) | import Luigi@buggy | TODO committed (R2) | target present + provenance + counts verified (vendored, pristine) | `Acquire Luigi buggy target repository` |
-| 5 | Graphify first run | **PLANNED** | build code graph | Stage 4 done | `graph.json` + `GRAPH_REPORT.md` present + run logged | `Add Graphify graph and report for Luigi` |
+| 5 | Graphify first run | **IN_PROGRESS** (artifacts ready; commit pending) | build code graph | Stage 4 done | `graph.json` + `GRAPH_REPORT.md` present + run logged | `Add Graphify graph and report for Luigi` |
 | 6 | Obsidian vault | **PLANNED** | active knowledge vault | Stage 5 done | linked vault (index/hot + pages) resolves | `Build Obsidian vault for Luigi analysis` |
 | 7 | Reverse engineering | **PLANNED** | macro/meso/micro + diagrams | Stage 5–6 done | RE notes + block + OOP diagrams present | `Add reverse-engineering analysis and diagrams` |
 | 8 | Baseline naive run | **PLANNED** | uninformed investigation metrics | Stage 4 done | baseline report + logs present | `Add baseline naive investigation run` |
@@ -91,16 +91,17 @@
 **Evidence status:** acquisition done, validated, reconciled in docs, and **committed** as `1299535 Acquire Luigi buggy target repository` (R1 satisfied — vendored tree now tracked).
 **Risks/blockers:** none outstanding (policy reconciled via D-007); Docker needed for later test stages.
 
-## Stage 5 — Graphify setup and first graph run — **PLANNED**
-- [ ] Install/configure Graphify if needed (record steps; no global installs without note)
-- [ ] Run Graphify on `target_repo/luigi_buggy/` (scope to core if needed; log exclusions)
-- [ ] Collect `graph.json`, `GRAPH_REPORT.md`, and `graph.html` if generated → `artifacts/graphify/`
-- [ ] Validate artifact presence + `graph.json` is valid JSON with node/edge counts
-- [ ] Decide `graph.json` tracking (force-add vs reduced `graph.core.json`) — OD-5
-- [ ] Document command + output in `artifacts/validation/graphify_run.log`
-**Validation:** `python -c "import json;json.load(open('artifacts/graphify/graph.json'))"`; file existence checks.
-**Artifacts:** `artifacts/graphify/*`, run log.
-**Risks/blockers:** Graphify output format may differ → adapt `graph_io.py`; size/noise → scope + log.
+## Stage 5 — Graphify setup and first graph run — **IN_PROGRESS** (artifacts produced; not yet committed)
+- [x] Resolve the "graphify not found" blocker — official PyPI package is **`graphifyy`**; install via `uv tool install graphifyy` (Graphify 0.8.39) — **D-008**
+- [x] Build the graph **without an LLM key** (code-only corpus): `graphify update … --no-cluster`, then `graphify cluster-only … --no-label`, then `graphify tree …`
+- [x] Collect artifacts → `artifacts/graphify/`: `graph.json`, `GRAPH_REPORT.md`, `GRAPH_TREE.html`, metadata, `manifest.json`, run log
+- [x] Validate `graph.json`: valid JSON, **6,771 nodes / 15,365 edges** (token cost 0); `TupleParameter` node present
+- [x] Keep vendored source pristine (removed in-tree `graphify-out/` incl. cache) — verified 0 changes
+- [x] Resolve OD-5: **track full `graph.json`** via `git add -f` at commit (past `artifacts/graphify/*.json` ignore) — D-008
+- [ ] Commit Stage 5 artifacts (then mark Stage 5 DONE — R1)
+**Validation:** `python -c "import json;json.load(open('artifacts/graphify/graph.json'))"` → valid; `GRAPH_REPORT.md` present; `GRAPH_TREE.html` present.
+**Artifacts:** `artifacts/graphify/{graph.json, GRAPH_REPORT.md, GRAPH_TREE.html, .graphify_labels.json, .graphify_root, manifest.json, graphify_run.log}`; report `reports/graphify_run.md`.
+**Risks/blockers:** none outstanding. Note: standard `graph.html` viz skipped (>5000 nodes) → used `GRAPH_TREE.html` instead; `GRAPH_REPORT.md` reports 6,705/13,222 after dedup vs graph.json 6,771/15,365 (both real; documented in `reports/graphify_run.md` §9).
 
 ## Stage 6 — Obsidian vault construction — **PLANNED**
 - [ ] `index.md` navigation hub

@@ -19,8 +19,9 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 - **No final fix is implemented in this repository yet.** See `reports/bug_validation.md`.
 
 ## Current repository status
-> **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) complete** (commit `1299535`). **Stage 5 (Graphify) is next.**
+> **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) complete** (commit `1299535`). **Stage 5 (Graphify) run succeeded** — real graph built with the official `graphifyy` tool (no LLM key): `artifacts/graphify/graph.json` (6,771 nodes / 15,365 edges), `GRAPH_REPORT.md`, and a `GRAPH_TREE.html` visual; see `reports/graphify_run.md`. Commit pending.
 > The buggy Luigi source is vendored under `target_repo/luigi_buggy/` (pristine, no fix applied).
+> Still **no** Obsidian analysis pages beyond placeholders, **no** AI agent, and **no** bug fix yet.
 > There are still **no** Graphify artifacts, **no** Obsidian analysis pages beyond placeholders, **no** AI agent, and **no** bug fix in this repository yet. Nothing here claims a completed stage that has not been completed.
 
 ## Planned workflow stages

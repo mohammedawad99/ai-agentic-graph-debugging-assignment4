@@ -67,3 +67,23 @@ later bug-fix stage (Stage 10); until then the tree stays the exact buggy versio
 **reconciled to this policy before the Stage-4 commit**: `docs/PLAN.md` (§1/§5/§6/§18/§22), `docs/TODO.md`
 (rule R4, Stage 4), `README.md`, `docs/PRD.md` (§8 in-scope, §9 out-of-scope, FR-01, §26 constraints, §28
 milestone), and `docs/AI_WORKFLOW.md` (vendored-source handling policy). No residual contradiction remains.
+
+## D-008 — Use the official Graphify package `graphifyy` (no-LLM code-graph build); track `graph.json`
+**Date:** 2026-06-14
+**Context:** Stage 5. The CLI `graphify` was initially "not found" because the **PyPI package is
+`graphifyy` (double-y)** while the command is `graphify`. Also, `graphify extract` requires an LLM API key
+when the corpus contains docs/images (the vendored tree has `doc/` + `luigi/static/` web assets) — but we
+use **no paid APIs/secrets**.
+**Alternatives considered:** (A) write our own AST grapher — **rejected** (assignment requires the real
+Graphify tool); (B) supply an LLM key for full semantic extraction — **rejected** (no paid API); (C) use
+Graphify's **no-LLM code path** on the code corpus — **chosen**.
+**Decision:** Install the official tool via `uv tool install graphifyy` (Graphify 0.8.39) and build the
+graph with the **no-LLM** commands: `graphify update <path> --no-cluster` (AST), then
+`graphify cluster-only <path> --no-label` (clustering + `GRAPH_REPORT.md`, placeholder community names),
+then `graphify tree …` for a large-graph HTML visual. Docs/images are not graphed (code-only corpus → no
+key). Also resolves **OD-5**: the full `graph.json` is **tracked** (force-added past the
+`artifacts/graphify/*.json` ignore rule) so graders can access the graph evidence.
+**Evidence / guardrails:** real artifacts in `artifacts/graphify/` (`graph.json` 6,771 nodes / 15,365
+edges; `GRAPH_REPORT.md`; `GRAPH_TREE.html`); token cost 0; vendored source verified pristine (in-tree
+`graphify-out/` removed); bug still unfixed; full method in `reports/graphify_run.md` and
+`artifacts/graphify/graphify_run.log`.
