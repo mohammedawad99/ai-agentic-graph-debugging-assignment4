@@ -91,5 +91,8 @@ The **bug fix** and its before/after proof live in Stage 10 (`reports/bug_fix_va
 - No baseline rerun · no graph-guided rerun · no metric artifacts overwritten.
 - No Luigi source changed · no Graphify artifacts changed · no Obsidian pages changed.
 
-## 16. Next stage
+## 16. Commit evidence
+Committed and pushed as `dad0413 Compare baseline and graph-guided token use`.
+
+## 17. Next stage
 Stage 12 — original extension (centrality-based suspect ranking), per `docs/TODO.md`.

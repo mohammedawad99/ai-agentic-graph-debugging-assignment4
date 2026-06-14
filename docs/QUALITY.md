@@ -46,7 +46,7 @@ Nothing here is claimed to pass yet (no implementation in the skeleton stage).
   (`artifacts/validation/graph_guided_agent_*`). A guard test (`test_run_does_not_touch_tracked_artifacts`)
   asserts this. Production behaviour is unchanged (`out_dir=None` → `artifacts/validation/`).
 
-## Stage 11 — token-efficiency comparison consistency check
+## Stage 11 — token-efficiency comparison consistency check (commit `dad0413`)
 The comparison JSON is validated against the committed Stage 8/9 metrics with:
 ```
 python3 -c "import json;d=json.load(open('artifacts/validation/token_efficiency_comparison.json'));\

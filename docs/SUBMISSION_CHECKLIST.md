@@ -42,7 +42,7 @@ Tick only when real, in-repo evidence exists. Mirrors `docs/REQUIREMENTS_AUDIT.m
 - [x] Token counts (labeled `estimated` via chars/4) (R-26) — baseline 24,482 vs graph-guided 3,631
 - [x] Files/text units read (R-27) — baseline 4/4 vs graph-guided 5/7
 - [x] Iteration counts (R-28) — baseline 5 rounds vs graph-guided 8 states
-- [x] Comparison report (R-29) — `reports/token_efficiency.md` (+ JSON/CSV); commit pending
+- [x] Comparison report (R-29) — `reports/token_efficiency.md` (+ JSON/CSV) — commit `dad0413`
 
 ## Polish & integrity
 - [ ] Original extension (R-30)

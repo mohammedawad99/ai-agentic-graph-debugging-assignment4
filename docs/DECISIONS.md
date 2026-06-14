@@ -192,3 +192,4 @@ demonstrated win — **not** file count or workflow-state count — and exclude 
 measurement.
 **Evidence / guardrails:** tokens 24,482 → 3,631 = **−20,851 (−85.17%, ≈6.74×)**; chars −83,403 (−85.17%);
 files +1, units +3, states +3 (explicitly **not** wins). No LLM/API ($0). Source metric files unchanged.
+Committed as `dad0413 Compare baseline and graph-guided token use` (pushed to `origin/main`).
