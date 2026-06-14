@@ -45,7 +45,7 @@ Tick only when real, in-repo evidence exists. Mirrors `docs/REQUIREMENTS_AUDIT.m
 - [x] Comparison report (R-29) — `reports/token_efficiency.md` (+ JSON/CSV) — commit `dad0413`
 
 ## Polish & integrity
-- [x] Original extension (R-30) — centrality-based suspect ranking (`reports/original_extension.md`); commit pending
+- [x] Original extension (R-30) — centrality-based suspect ranking (`reports/original_extension.md`) — commit `de32d76`
 - [ ] Screenshots/diagrams embedded (R-31)
 - [x] README scaffold with required sections (R-32, in progress)
 - [x] AI workflow doc (R-33)

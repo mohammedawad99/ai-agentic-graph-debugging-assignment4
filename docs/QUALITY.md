@@ -58,7 +58,7 @@ assert d['interpretation']['universal_claim'] is False;print('OK')"
 Source metric files (`baseline_naive_metrics.json`, `graph_guided_agent_metrics.json`) are **read-only** in
 this stage (`git diff` over them must be empty). No LLM/API used.
 
-## Stage 12 — original extension test evidence
+## Stage 12 — original extension test evidence (commit `de32d76`)
 - `uv run pytest` → **13 passed** (6 new in `tests/unit/test_centrality_ranking.py` — degree, relevance,
   ranking order, candidate filter, known-target detection, idempotent `out_dir` write).
 - `uv run ruff check .` → **All checks passed**; `uv run ruff format --check .` → clean.

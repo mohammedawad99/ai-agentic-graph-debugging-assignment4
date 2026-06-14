@@ -15,7 +15,8 @@
 - **Done & committed:** Stage 9 — Graph-guided agent (LangGraph, deterministic/no-LLM): 5 files / ~3,631 est. tokens / 8 states, root cause reached; 6 tests pass, ruff clean — commit `3b0e3c0`.
 - **Done & committed:** Stage 10 — Bug fix applied + proven (Docker/Python 3.8.20): before `TypeError`, after `1 passed`; minimal 2-line fix + regression test — commit `a3c59f1`.
 - **Done & committed:** Stage 11 — Token-efficiency comparison: graph-guided ~3,631 vs baseline ~24,482 est. tokens = **−85.17% (≈6.74×)** context, both reached root cause; controlled (not universal) — commit `dad0413`.
-- **In progress:** Stage 12 — Original extension (centrality-based suspect ranking): deterministic/no-LLM; bug method ranks #6/2,169, 13 of top 20 in `parameter.py`; 13 tests pass; pending commit before marking DONE.
+- **Done & committed:** Stage 12 — Original extension (centrality-based suspect ranking): deterministic/no-LLM; bug method ranks #6/2,169, 13 of top 20 in `parameter.py`; 13 tests pass — commit `de32d76`.
+- **Next up:** Stage 13 — README and documentation hardening / final packaging (PLANNED).
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -49,7 +50,7 @@
 | 9 | Graph-guided agent | **DONE** (`3b0e3c0`) | LangGraph graph-guided run | Stage 5–6 done | graph-guided report + logs present | `Implement graph-guided agent workflow` |
 | 10 | Fix + before/after | **DONE** (`a3c59f1`) | minimal fix + proof | Stage 4 (+9) done | fail-before + pass-after logs + diff evidence | `Fix TupleParameter round-trip parsing` |
 | 11 | Token-efficiency comparison | **DONE** (`dad0413`) | baseline vs graph-guided | Stages 8–9 done | comparison report (labeled) present | `Compare baseline and graph-guided token use` |
-| 12 | Original extension | **IN_PROGRESS** (built+tested; commit pending) | one extension implemented | Stage 5 (+9) done | extension code + output + doc present | `Add centrality-based suspect ranking extension` |
+| 12 | Original extension | **DONE** (`de32d76`) | one extension implemented | Stage 5 (+9) done | extension code + output + doc present | `Add centrality suspect ranking extension` |
 | 13 | README/docs hardening | **PLANNED** | finalize docs | Stages 5–12 done | docs consistent with artifacts | `Harden README and documentation` |
 | 14 | Quality gates + final audit | **PLANNED** | gates pass + audit | Stage 13 done | gates green + `final_audit.md` complete | `Run quality gates and final audit` |
 | 15 | Moodle submission prep | **PLANNED** | wrapper PDF + submit | Stage 14 done | template PDF ready (outside repo if required) | _(no repo commit unless template required in-repo)_ |
@@ -184,13 +185,13 @@
 **Artifacts:** `reports/token_efficiency.md`, `artifacts/validation/token_efficiency_comparison.json`, `artifacts/validation/token_efficiency_table.csv`.
 **Risks/blockers:** none — uses committed Stage 8/9 metrics; no LLM/API; not a universal claim.
 
-## Stage 12 — Original extension — **IN_PROGRESS** (built+tested; not yet committed)
+## Stage 12 — Original extension — **DONE** (commit `de32d76`)
 - [x] Implement **centrality-based suspect ranking** (`src/ex04_graph_debugger/centrality_ranking.py`, ≤150 lines, stdlib-only, no LLM) — D-015
 - [x] Filter to Luigi production code (exclude vendored d3/viz, tests, rationale) → 2,169 candidates; blend `0.6*relevance + 0.4*normdeg`
 - [x] Document method + result: bug method `TupleParameter.parse` ranks **#6 / 2,169**; **13 of top 20** in `luigi/parameter.py`; `ListParameter.serialize` #5
 - [x] Emit `centrality_suspect_ranking.{json,csv}` + `_top20.txt`; honest limitations (triage heuristic, not causality)
 - [x] Add 6 unit tests (synthetic fixture; idempotent via `out_dir`) — 13 tests pass; ruff clean
-- [ ] Commit Stage 12 (then mark DONE — R1)
+- [x] Commit Stage 12 — commit `de32d76 Add centrality suspect ranking extension` (Stage 12 DONE)
 **Validation:** ranking JSON flags graphify=true/llm=false/cost=0; bug targets found; `uv run pytest` (13 pass), ruff check/format clean; module ≤150 code lines.
 **Artifacts:** `src/ex04_graph_debugger/centrality_ranking.py`, `tests/unit/test_centrality_ranking.py`, `reports/original_extension.md`, `artifacts/validation/centrality_suspect_ranking.{json,csv}`, `…_top20.txt`.
 **Risks/blockers:** none — read-only on `graph.json`; no universal/root-cause claim (it's a triage heuristic).

@@ -93,5 +93,8 @@ Outputs: `artifacts/validation/centrality_suspect_ranking.{json,csv}` and `…_t
 - No Luigi source/test changed; the applied bug fix is unchanged.
 - **No LLM / API**: `llm_used=false`, `api_cost_usd=0`.
 
-## 13. Next stage
+## 13. Commit evidence
+Committed and pushed as `de32d76 Add centrality suspect ranking extension`.
+
+## 14. Next stage
 Stage 13 — final audit / packaging (per `docs/TODO.md`).

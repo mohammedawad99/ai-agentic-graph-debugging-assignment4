@@ -208,3 +208,4 @@ JSON/CSV/top-20 + a report; framed explicitly as a **triage heuristic, not proof
 **Evidence / guardrails:** 2,169 candidates; bug method `TupleParameter.parse` ranks **#6 / 2,169**, **13 of
 the top 20** are in `luigi/parameter.py`, `ListParameter.serialize` (root culprit) ranks #5. Module ≤150
 code lines; 6 new fixture tests (13 total pass); ruff clean; `graph.json` unchanged; no universal claim.
+Committed as `de32d76 Add centrality suspect ranking extension` (pushed to `origin/main`).

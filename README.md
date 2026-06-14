@@ -23,7 +23,7 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 > **Stage 6 (Obsidian vault) complete** (commit `6cdfd2f`). **Stage 7 (reverse engineering) complete** (commit `8991916`). **Stage 8 (baseline naive investigation) complete** (commit `8904b57`) — 4 files / ~24,482 est. tokens / 5 rounds. **Stage 9 (graph-guided agent workflow) complete** (commit `3b0e3c0`) — a **deterministic LangGraph** workflow (no LLM, $0): graph/Obsidian-first context routing reads 5 targeted files / ~3,631 est. tokens / 8 states, root cause reached; see `reports/graph_guided_agent.md`.
 > **Stage 10 (bug fix + before/after proof) complete** (commit `a3c59f1`) — the minimal 2-line fix to `TupleParameter.parse` is applied to `target_repo/luigi_buggy/` with a focused regression test; proven under Docker/Python 3.8.20 (before: `TypeError: 'int' object is not iterable`; after: `1 passed`); see `reports/bug_fix_validation.md`. **Stage 11 (token-efficiency comparison) is next.**
 > **Stage 11 (token-efficiency comparison) complete** (commit `dad0413`) — graph-guided **~3,631** vs baseline **~24,482** est. tokens (`chars/4`) = **−20,851 (≈85.17%, ~6.74×) less context**, both reaching the same root cause; a **controlled** comparison (NOT a universal benchmark), $0/no LLM; see `reports/token_efficiency.md`.
-> **Stage 12 (original extension — centrality-based suspect ranking) is IN PROGRESS** — a deterministic, no-LLM tool (`src/ex04_graph_debugger/centrality_ranking.py`) that ranks 2,169 Luigi code nodes by `0.6·relevance + 0.4·normalized-degree`: the bug method `TupleParameter.parse` ranks **#6 / 2,169** and **13 of the top 20** are in `luigi/parameter.py`; see `reports/original_extension.md`. A triage heuristic (NOT proof of causality). Commit pending. **Final audit** still to come. Nothing here claims a completed stage that has not been completed.
+> **Stage 12 (original extension — centrality-based suspect ranking) complete** (commit `de32d76`) — a deterministic, no-LLM tool (`src/ex04_graph_debugger/centrality_ranking.py`) that ranks 2,169 Luigi code nodes by `0.6·relevance + 0.4·normalized-degree`: the bug method `TupleParameter.parse` ranks **#6 / 2,169** and **13 of the top 20** are in `luigi/parameter.py`; see `reports/original_extension.md`. A triage heuristic (NOT proof of causality). **Stage 13 (final README/docs hardening + audit) is next.** Final audit and Moodle packaging still to come. Nothing here claims a completed stage that has not been completed.
 
 ## Planned workflow stages
 1. **Skeleton + Requirements Audit** ✅
@@ -35,7 +35,7 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 7. **Baseline naive investigation** (Stage 8) ✅ (commit `8904b57`); **graph-guided LangGraph agent** (Stage 9) ✅ (commit `3b0e3c0`, deterministic/no LLM)
 8. **Bug fix** + **before/after** test proof ✅ (commit `a3c59f1`, proven under Docker/Python 3.8)
 9. **Token-efficiency comparison** report ✅ (commit `dad0413`, ~85% less context)
-10. **Original extension** (centrality-based suspect ranking) ⏳ _in progress (#6/2,169; commit pending)_; then final README, diagrams, **final audit** ← _next stage_
+10. **Original extension** (centrality-based suspect ranking) ✅ (commit `de32d76`, #6/2,169); then final README, diagrams, **final audit** ← _next stage_
 
 ## Repository layout
 ```
