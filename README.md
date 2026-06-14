@@ -19,13 +19,14 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 - **No final fix is implemented in this repository yet.** See `reports/bug_validation.md`.
 
 ## Current repository status
-> **Skeleton + Requirements Audit ONLY.**
-> There are **no** final Graphify artifacts, **no** Obsidian analysis pages beyond placeholders, **no** AI agent, and **no** bug fix in this repository yet. Nothing here claims a completed stage that has not been completed.
+> **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) in progress.**
+> The buggy Luigi source is vendored under `target_repo/luigi_buggy/` (pristine, no fix applied).
+> There are still **no** Graphify artifacts, **no** Obsidian analysis pages beyond placeholders, **no** AI agent, and **no** bug fix in this repository yet. Nothing here claims a completed stage that has not been completed.
 
 ## Planned workflow stages
-1. **Skeleton + Requirements Audit** ← _current stage_
-2. PRD / PLAN / TODO approval (`docs/PRD.md`, `docs/PLAN.md`, `docs/TODO.md`)
-3. Bring in target source (Luigi at the buggy commit) — under `target_repo/` (git-ignored), never committed raw
+1. **Skeleton + Requirements Audit** ✅
+2. PRD / PLAN / TODO ✅ (`docs/PRD.md`, `docs/PLAN.md`, `docs/TODO.md`)
+3. **Target source acquisition** ← _current stage_ — Luigi at the buggy commit **vendored** under `target_repo/luigi_buggy/` (tracked, pristine, LICENSE preserved; see `docs/DECISIONS.md` D-007)
 4. **Graphify** run → `graph.json`, `GRAPH_REPORT.md` (`artifacts/graphify/`)
 5. **Obsidian vault** → `obsidian/index.md`, `obsidian/hot.md`, linked analysis pages (macro/meso/micro)
 6. Architecture **block diagram** + **OOP diagram** (`artifacts/diagrams/`)
@@ -40,7 +41,7 @@ docs/        requirements audit, PRD/PLAN/TODO, AI workflow, prompts, decisions,
 src/         ex04_graph_debugger package (placeholder; implemented in later stages)
 tests/       unit/ and integration/ (empty; tests added with implementation)
 config/      default.toml (target + validation metadata)
-target_repo/ where Luigi source will be placed later (git-ignored; not present yet)
+target_repo/ vendored Luigi buggy source under luigi_buggy/ (tracked, pristine; D-007)
 artifacts/   graphify/, screenshots/, diagrams/, validation/ outputs (later stages)
 obsidian/    knowledge vault (index.md, hot.md + analysis pages later)
 reports/     selection, validation, analysis, token-efficiency, before/after, final audit

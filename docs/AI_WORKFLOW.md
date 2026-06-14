@@ -34,4 +34,10 @@ agent workflow, and the bug fix. AI is a tool that accelerates and structures th
 
 ## Commit discipline
 - Work happens on a branch; nothing is committed or pushed without explicit student review and approval.
-- Generated heavy artifacts are git-ignored or stored deliberately; raw cloned target source is never committed.
+- Generated heavy artifacts are git-ignored or stored deliberately. The target source is **vendored** under `target_repo/luigi_buggy/` (tracked, Apache-2.0, LICENSE/provenance preserved, upstream `.git` excluded; **D-007**).
+
+## Vendored-source handling policy (D-007)
+- The vendored Luigi source is kept **pristine** at the buggy commit `a0f1db01…`.
+- AI assistance may **inspect** the vendored source only through the planned stages (Graphify, Obsidian, reverse engineering, agent investigation) and **must not silently modify it**.
+- **Any** change to the vendored source must be **stage-gated and documented**: source edits are **forbidden before the Stage 10 bug-fix stage**, where the minimal fix is applied and captured as controlled before/after **diffs and logs**.
+- A patch demonstrated during validation is reverted so the analyzed tree stays the exact buggy version unless Stage 10 deliberately applies it.

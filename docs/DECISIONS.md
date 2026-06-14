@@ -37,3 +37,32 @@ Architecture/strategy decisions. Each entry: context → decision → consequenc
 **Context:** Course process emphasizes planning and review before coding.
 **Decision:** This repository stays at **skeleton + requirements audit**; no agent code, no Graphify run, no bug fix until `docs/PRD.md`, `docs/PLAN.md`, `docs/TODO.md` are written and approved.
 **Consequence:** `src/` and `tests/` carry placeholders only; status labels in the audit reflect this.
+
+## D-007 — Vendor the buggy Luigi source into the repo (supersedes the "git-ignore raw source" note)
+**Date:** 2026-06-14
+**Context:** Stage 4 acquisition. The earlier PLAN (§6/§18, rule R4) proposed keeping the raw Luigi source
+git-ignored under `target_repo/luigi/` and never committing it. For reproducibility (graders and Graphify
+should read the exact target without re-cloning) the source is instead **vendored** into the tracked path
+`target_repo/luigi_buggy/`.
+**Alternatives considered:**
+- **(A) Git-ignored scripted clone** — keep an acquisition script + commit metadata; graders re-clone the
+  buggy commit themselves. *Pros:* no third-party source in our history; smallest repo. *Cons:* graders
+  depend on network/upstream availability; the "exact source analyzed" is not directly visible; Graphify and
+  the Obsidian/RE evidence point at files not present in the repo.
+- **(B) Vendored source (chosen)** — copy the exact buggy tree into `target_repo/luigi_buggy/`. *Pros:*
+  reviewers and Graphify read the precise analyzed source directly; evidence (graphs, notes, diffs) maps to
+  in-repo files; reproducible without re-cloning. *Cons:* third-party source enters our history; larger repo.
+**Tradeoff:** for a reverse-engineering / graph-analysis / evidence-based-debugging assignment, direct
+reviewer access to the exact source (B) outweighs the larger repo size (A). Apache-2.0 permits redistribution
+with the preserved `LICENSE`, so vendoring is licit.
+**Decision:** Vendor the Luigi source at the buggy commit `a0f1db01…` into `target_repo/luigi_buggy/`,
+**excluding** upstream `.git` and `.github`, **preserving** `LICENSE` (Apache-2.0), with **no nested git
+repo** and **no patches/fix** applied (source kept pristine/buggy). Source edits are permitted only in the
+later bug-fix stage (Stage 10); until then the tree stays the exact buggy version.
+**Evidence / guardrails:** verified `git rev-parse HEAD == a0f1db01…` in the temp clone; `no nested .git`;
+`LICENSE` preserved; buggy line present at `luigi/parameter.py:1118`, fixed pattern absent; provenance in
+`target_repo/README.md`; method + checks in `reports/target_repository_acquisition.md`.
+**Consequence:** the vendored tree is tracked deliberately (not git-ignored). All planning/process docs were
+**reconciled to this policy before the Stage-4 commit**: `docs/PLAN.md` (§1/§5/§6/§18/§22), `docs/TODO.md`
+(rule R4, Stage 4), `README.md`, `docs/PRD.md` (§8 in-scope, §9 out-of-scope, FR-01, §26 constraints, §28
+milestone), and `docs/AI_WORKFLOW.md` (vendored-source handling policy). No residual contradiction remains.

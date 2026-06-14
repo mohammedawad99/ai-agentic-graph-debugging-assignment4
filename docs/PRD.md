@@ -90,7 +90,7 @@ approximately 10,000+ lines of code and at least 70 code files**. Interpretation
 efficiency comparison showing a real, labeled difference (or honestly reporting if it does not).
 
 ## 8. In-scope items
-- Cloning Luigi at the buggy commit **into a git-ignored working area** (later stage).
+- Vendoring the exact buggy Luigi source under **`target_repo/luigi_buggy/`** (tracked, pristine; **D-007**).
 - Graphify graph generation and reading (macro/meso/micro).
 - Obsidian vault with linked analysis pages.
 - One LangGraph (or CrewAI) agent workflow with two modes: baseline naive and graph-guided.
@@ -102,14 +102,14 @@ efficiency comparison showing a real, labeled difference (or honestly reporting 
 ## 9. Out-of-scope items
 - Fixing any Luigi bug other than bug 3; refactoring Luigi's architecture.
 - Upgrading Luigi to modern Python or modifying upstream beyond the minimal patch.
-- Committing the raw cloned Luigi source into this repository.
+- Committing upstream `.git` history or upstream CI config (excluded from the vendored tree). The Luigi *source* itself is intentionally vendored under `target_repo/luigi_buggy/` (D-007).
 - Production deployment, packaging for distribution, or performance tuning of Luigi.
 - Any claim of being "production-ready."
 
 ## 10. Functional requirements
 | ID | Requirement |
 |----|-------------|
-| FR-01 | Acquire Luigi at commit `a0f1db01…` into a git-ignored working area; record provenance. |
+| FR-01 | Vendor Luigi at commit `a0f1db01…` into tracked `target_repo/luigi_buggy/` (pristine; `.git` excluded; LICENSE/provenance preserved; no fix applied) — D-007. |
 | FR-02 | Run Graphify over the target and produce `graph.json`. |
 | FR-03 | Produce `GRAPH_REPORT.md` summarizing nodes, edges, hubs, and communities. |
 | FR-04 | Provide graph **reading evidence** at macro, meso, and micro levels. |
@@ -267,7 +267,7 @@ The chosen extension is finalized in PLAN; this PRD only fixes the requirement t
 ## 26. Constraints
 - Faithful target tests run only under **Python 3.8** (via Docker), not the host's 3.12.
 - The fix must remain **minimal** and confined to the bug; no broader refactoring.
-- The raw Luigi source must **not** be committed to this repository.
+- The vendored Luigi source (`target_repo/luigi_buggy/`) is kept **pristine** at the buggy commit; it must **not** be modified before the Stage 10 bug-fix stage, and upstream `.git` must **not** be embedded (D-007).
 - Work proceeds stage-by-stage; **no implementation before PRD/PLAN/TODO approval** _(D-006)_.
 - No paid services beyond a single LLM provider used locally in the agent stage.
 
@@ -284,7 +284,7 @@ The chosen extension is finalized in PLAN; this PRD only fixes the requirement t
 1. **Skeleton + Requirements Audit** — done (prior stage); **GitHub repo created and pushed** (`main`, `3fc110d`).
 2. **PRD** — this document.
 3. **PLAN / TODO** — finalize and approve.
-4. **Acquire target** — Luigi at buggy commit into git-ignored `target_repo/`.
+4. **Acquire target** — Luigi at buggy commit vendored into tracked `target_repo/luigi_buggy/` (pristine; D-007).
 5. **Graphify** — `graph.json` + `GRAPH_REPORT.md`.
 6. **Obsidian vault** — `index.md`, `hot.md`, analysis pages.
 7. **Diagrams** — block + OOP.

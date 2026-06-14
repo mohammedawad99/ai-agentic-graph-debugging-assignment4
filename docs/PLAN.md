@@ -10,8 +10,8 @@ This document translates `docs/PRD.md` into an implementation strategy; it does 
 ---
 
 ## 1. Plan overview
-This plan turns the PRD into a concrete, staged build: import the target (Luigi at the buggy commit) into
-a git-ignored area, generate a Graphify code graph, document it as an Obsidian vault, then run a
+This plan turns the PRD into a concrete, staged build: vendor the target (Luigi at the buggy commit) into
+the tracked `target_repo/luigi_buggy/` (kept pristine; **D-007**), generate a Graphify code graph, document it as an Obsidian vault, then run a
 LangGraph agent in two modes — **baseline naive** and **graph-guided** — on the same bug, measure their
 cost, apply a minimal real fix with before/after proof, and report a token-efficiency comparison plus one
 original extension. Every stage produces in-repo, reproducible evidence with provenance labels.
@@ -56,7 +56,7 @@ the target is accessed only as files on disk and via the Docker test runner.
 
 ## 5. Data / artifact flow
 ```
-Luigi@buggy ──clone──> target_repo/luigi/ (git-ignored)
+Luigi@buggy ──vendor──> target_repo/luigi_buggy/ (tracked, pristine; .git excluded)
         │
         ├─ Graphify ──> artifacts/graphify/graph.json ──> GRAPH_REPORT.md (+ graph.html?)
         │                                   │
@@ -71,9 +71,12 @@ Luigi@buggy ──clone──> target_repo/luigi/ (git-ignored)
 ```
 
 ## 6. Target-repo acquisition plan
-- **Where:** `target_repo/luigi/` — **git-ignored** (already in `.gitignore`), never committed raw.
-- **How:** shallow-fetch the exact buggy commit, mirroring the validated procedure:
-  `git init` → add origin `spotify/luigi` → `git fetch --depth 1 origin a0f1db01…` → `git checkout FETCH_HEAD`.
+- **Where:** `target_repo/luigi_buggy/` — **vendored and tracked** in this repo (approved policy, **D-007**),
+  kept **pristine** at the verified buggy commit. Upstream `.git`/`.github` are **excluded** (no nested repo);
+  upstream `LICENSE`/provenance are **preserved**. No bug fix is applied during acquisition.
+- **How:** shallow-fetch the exact buggy commit into a **temporary** working area, mirroring the validated procedure:
+  `git init` → add origin `spotify/luigi` → `git fetch --depth 1 origin a0f1db01…` → `git checkout FETCH_HEAD`,
+  then copy the checked-out tree into `target_repo/luigi_buggy/` excluding `.git`/`.github`/caches/build outputs.
 - **Regression test overlay:** the target test ships with the **fixed** commit (`3a0bfbff…`), so overlay
   `test/parameter_test.py` from the fixed commit onto the buggy source — exactly as BugsInPy does — and
   record this as an intentional, documented overlay (proof: class absent at buggy, present at fixed).
@@ -89,7 +92,7 @@ Luigi@buggy ──clone──> target_repo/luigi/ (git-ignored)
 - **Rationale:** Luigi 2.8.3 uses `from collections import Mapping` (removed in 3.10) → must run on 3.8 (D-005).
 
 ## 8. Graphify execution plan
-- **Input:** `target_repo/luigi/` (focus on core: `luigi/` package; note any `contrib/` exclusions).
+- **Input:** `target_repo/luigi_buggy/` (focus on core: `luigi/` package; note any `contrib/` exclusions).
 - **Run:** execute Graphify per its documented CLI/usage; capture stdout/stderr to `artifacts/validation/graphify_run.log`.
 - **Scope control:** if the full repo is too large/noisy, scope to the core subsystem (`parameter`, `task`, `scheduler`, `worker`) and **log what was excluded** (no silent truncation).
 - **Output target:** `artifacts/graphify/` (see §9). Re-runs overwrite deterministically.
@@ -193,8 +196,8 @@ Comparison table in `reports/token_efficiency.md`:
 - **Failing-before:** capture target test failing on buggy source (`TypeError: 'int' object is not iterable`).
 - **Minimal patch (known):** in `TupleParameter.parse` — `except (ValueError, TypeError):` and `return tuple(literal_eval(x))`; confined to that function.
 - **Passing-after:** same test passes post-patch.
-- **Validation clean-state policy:** during measurement/validation, apply patch then `git checkout` the target files and remove build/cache artifacts so the working area returns pristine.
-- **Final target-repo patch policy:** the demonstrated fix and its before/after logs are committed **as evidence in our repo** (`reports/`, `artifacts/validation/`, plus the diff text); the **raw Luigi tree is never committed**. The fix lives as a recorded diff, not as committed third-party source.
+- **Validation clean-state policy:** during measurement/validation, run the test in Docker, apply the patch to a working copy, then restore so the vendored tree returns pristine; remove build/cache artifacts.
+- **Vendored-source policy (D-007):** `target_repo/luigi_buggy/` is **kept pristine at the buggy commit** through acquisition and analysis. **Source changes are allowed only in the later bug-fix stage (Stage 10).** The fix and its before/after logs are captured as **evidence** (`reports/before_after.md`, `artifacts/validation/`, plus the diff text); the demonstrated fix is recorded as a diff/logs, so the analyzed source stays the exact buggy version unless/until the bug-fix stage deliberately applies it.
 
 ## 19. Testing plan
 - **Our project tests (`tests/`):** unit tests for `graph_io`, `metrics`, `patcher`, `config`; integration test for the workflows with a **mocked LLM** (deterministic, no API needed).
@@ -211,7 +214,7 @@ Comparison table in `reports/token_efficiency.md`:
 | Format | `uv run ruff format --check .` | no diffs |
 | Line limit | `uv run python scripts/check_line_limit.py` | every `src/**/*.py` ≤ 150 lines |
 | Secret scan | `uv run python scripts/secret_scan.py` | no secrets in tracked files |
-| Artifact scan | manual/script | no raw target source / no oversized artifacts committed |
+| Artifact scan | manual/script | only the intended vendored source (`target_repo/luigi_buggy/`, no nested `.git`) is tracked; no oversized/generated blobs committed |
 | README/docs consistency | review + checklist | claims match repo reality |
 Gates run before any submission commit and again in the final audit.
 
@@ -224,7 +227,7 @@ Gates run before any submission commit and again in the final audit.
 - No secrets in tracked files; only `.env.example` with empty placeholders is committed.
 - `.env`, `*.key`, `*.pem` are git-ignored; a secret-scan gate runs before submission.
 - No paid API is required by default; an LLM key is needed **only** in the agent stage and stays local.
-- The raw Luigi source and any large artifacts are git-ignored or curated.
+- The vendored Luigi source (`target_repo/luigi_buggy/`, Apache-2.0, LICENSE preserved) is tracked deliberately (D-007); large generated artifacts are git-ignored or curated.
 
 ## 23. Evidence and provenance plan
 - **Logs →** `artifacts/validation/` (test logs, graphify run log, workflow logs).
@@ -268,7 +271,7 @@ Candidates (2–3 considered; **one required** for final implementation):
 | 1 | PRD | `docs/PRD.md` | done (`018c580`) |
 | 2 | PLAN | `docs/PLAN.md` | this stage |
 | 3 | TODO | `docs/TODO.md` task list | planned |
-| 4 | Target import | `target_repo/luigi/` (ignored) | planned |
+| 4 | Target import | `target_repo/luigi_buggy/` (vendored, pristine; D-007) | in progress (acquired; commit pending) |
 | 5 | Graphify | `graph.json`, `GRAPH_REPORT.md` | planned |
 | 6 | Obsidian | vault pages | planned |
 | 7 | Baseline | naive run + metrics | planned |
