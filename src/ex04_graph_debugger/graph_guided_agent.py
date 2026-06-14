@@ -51,8 +51,12 @@ def build_graph(acc: MetricsAccumulator):
     return g.compile()
 
 
-def run() -> dict:
-    """Execute the workflow and return the full metrics dict."""
+def run(out_dir: str | None = None) -> dict:
+    """Execute the workflow and return the full metrics dict.
+
+    out_dir=None writes artifacts to the production locations (artifacts/validation/);
+    pass a directory (e.g. a pytest tmp_path) to keep tests from touching tracked files.
+    """
     acc = MetricsAccumulator()
     app = build_graph(acc)
     final = app.invoke({"trace": []})
@@ -73,13 +77,20 @@ def run() -> dict:
         "baseline_reference": st.BASELINE_REFERENCE,
         "root_cause": final.get("root_cause", ""),
     }
-    _persist(metrics, final.get("trace", []))
+    _persist(metrics, final.get("trace", []), out_dir)
     return metrics
 
 
-def _persist(metrics: dict, trace: list[str]) -> None:
-    Path("artifacts/validation").mkdir(parents=True, exist_ok=True)
-    Path(st.METRICS_OUT).write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+def _persist(metrics: dict, trace: list[str], out_dir: str | None = None) -> None:
+    if out_dir is None:
+        m_path, t_path, f_path = Path(st.METRICS_OUT), Path(st.TRACE_OUT), Path(st.FILES_READ_OUT)
+    else:
+        base = Path(out_dir)
+        m_path = base / Path(st.METRICS_OUT).name
+        t_path = base / Path(st.TRACE_OUT).name
+        f_path = base / Path(st.FILES_READ_OUT).name
+    m_path.parent.mkdir(parents=True, exist_ok=True)
+    m_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
 
     lines = ["# Graph-guided agent trace (LangGraph; graph/Obsidian-first; no LLM)"]
     lines += [f"{i + 1:2d}. {msg}" for i, msg in enumerate(trace)]
@@ -94,7 +105,7 @@ def _persist(metrics: dict, trace: list[str]) -> None:
         f"agent_used={metrics['agent_used']} llm_used={metrics['llm_used']} "
         f"api_cost_usd={metrics['api_cost_usd']} bug_fix_applied={metrics['bug_fix_applied']}",
     ]
-    Path(st.TRACE_OUT).write_text("\n".join(lines) + "\n", encoding="utf-8")
+    t_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     fr = ["# Graph-guided agent — text units read (targeted; graph/Obsidian-first)"]
     for r in metrics["records"]:
@@ -104,7 +115,7 @@ def _persist(metrics: dict, trace: list[str]) -> None:
             f"est_tokens={r['estimated_tokens_chars_div_4']}  — {r['reason']}"
         )
     fr.append(f"\nTOTAL chars={metrics['total_characters_read']} est_tokens={et}")
-    Path(st.FILES_READ_OUT).write_text("\n".join(fr) + "\n", encoding="utf-8")
+    f_path.write_text("\n".join(fr) + "\n", encoding="utf-8")
 
 
 def main() -> None:

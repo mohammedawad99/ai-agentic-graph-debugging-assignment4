@@ -155,3 +155,25 @@ reached (`reports/graph_guided_agent.md`, `artifacts/validation/graph_guided_age
 dependency or key required. The **final** baseline-vs-graph comparison is deferred to Stage 11 (not claimed
 here); a preliminary, clearly-labeled observation appears in the report. Committed as
 `3b0e3c0 Implement graph-guided agent workflow` (pushed to `origin/main`).
+
+## D-013 — Minimal Luigi fix = TWO lines (widen except AND wrap literal_eval in tuple)
+**Date:** 2026-06-14
+**Context:** Stage 10. The bug brief suggested widening `except ValueError` → `except (ValueError, TypeError)`
+as the minimal fix. Validation under Docker/Python 3.8 showed that change **alone is insufficient**: it
+stops the `TypeError`, but the fallback `literal_eval("[1, 2, 3]")` returns a **list**, so the regression
+test then fails with `AssertionError ((1,2,3) != [1,2,3])`.
+**Decision:** Apply the **two-line** minimal fix in `TupleParameter.parse` (no unrelated refactor) — exactly
+the upstream BugsInPy patch:
+```diff
+-        except ValueError:
+-            return literal_eval(x)
++        except (ValueError, TypeError):
++            return tuple(literal_eval(x))
+```
+Add a focused regression test `TestSerializeTupleParameter.testSerialize` (none existed at the buggy commit).
+The fix is applied to the vendored tree as the Stage-10 evidence (updates D-007/R4: source edits were
+deferred to Stage 10, and this is that stage).
+**Evidence / guardrails:** before = `TypeError: 'int' object is not iterable` (1 failed); after = `1 passed`
+(Docker/Python 3.8.20); diff confined to one function + one test class
+(`artifacts/validation/stage10_{before_failure,after_success,fix_diff}.txt`, `reports/bug_fix_validation.md`).
+No final token comparison claimed (Stage 11).

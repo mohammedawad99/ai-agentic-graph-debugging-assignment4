@@ -13,7 +13,7 @@
 - **Done & committed:** Stage 7 — Reverse engineering analysis: report + 3 Mermaid diagrams + Obsidian analysis page (macro/meso/micro, evidence-tagged) — commit `8991916`.
 - **Done & committed:** Stage 8 — Baseline naive investigation (controlled, no graph/agent): 4 files / ~24,482 est. tokens (chars/4) / 5 rounds, root cause reached — commit `8904b57`.
 - **Done & committed:** Stage 9 — Graph-guided agent (LangGraph, deterministic/no-LLM): 5 files / ~3,631 est. tokens / 8 states, root cause reached; 6 tests pass, ruff clean — commit `3b0e3c0`.
-- **Next up:** Stage 10 — Bug fix and before/after proof (PLANNED).
+- **In progress:** Stage 10 — Bug fix applied + proven (Docker/Python 3.8.20): before `TypeError`, after `1 passed`; minimal 2-line fix + regression test; pending commit before marking DONE.
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -45,7 +45,7 @@
 | 7 | Reverse engineering | **DONE** (`8991916`) | macro/meso/micro + diagrams | Stage 5–6 done | RE notes + block + OOP diagrams present | `Analyze Luigi architecture and bug path` |
 | 8 | Baseline naive run | **DONE** (`8904b57`) | uninformed investigation metrics | Stage 4 done | baseline report + logs present | `Measure naive baseline investigation` |
 | 9 | Graph-guided agent | **DONE** (`3b0e3c0`) | LangGraph graph-guided run | Stage 5–6 done | graph-guided report + logs present | `Implement graph-guided agent workflow` |
-| 10 | Fix + before/after | **PLANNED** | minimal fix + proof | Stage 4 (+9) done | fail-before + pass-after logs + diff evidence | `Add Luigi bug 3 fix with before/after evidence` |
+| 10 | Fix + before/after | **IN_PROGRESS** (fixed+proven; commit pending) | minimal fix + proof | Stage 4 (+9) done | fail-before + pass-after logs + diff evidence | `Fix Luigi TupleParameter.parse with before/after proof` |
 | 11 | Token-efficiency comparison | **PLANNED** | baseline vs graph-guided | Stages 8–9 done | comparison report (labeled) present | `Add token-efficiency comparison report` |
 | 12 | Original extension | **PLANNED** | one extension implemented | Stage 5 (+9) done | extension code + output + doc present | `Add centrality-based suspect ranking extension` |
 | 13 | README/docs hardening | **PLANNED** | finalize docs | Stages 5–12 done | docs consistent with artifacts | `Harden README and documentation` |
@@ -158,16 +158,18 @@
 **Artifacts:** `src/ex04_graph_debugger/{metrics,source_reader,agent_state,nodes,graph_guided_agent}.py`, `tests/unit/test_graph_guided_agent.py`, `reports/graph_guided_agent.md`, `artifacts/validation/graph_guided_agent_{metrics.json,trace.log,files_read.txt}`.
 **Risks/blockers:** none — no API key required (deterministic). Final baseline-vs-graph comparison reserved for Stage 11 (not claimed here).
 
-## Stage 10 — Bug fix and before/after proof — **PLANNED**
-- [ ] Run failing test **before** fix in Docker/Python 3.8 → capture `failing_before.log`
-- [ ] Apply minimal fix in `TupleParameter.parse` (`except (ValueError, TypeError)`, `tuple(literal_eval(x))`)
-- [ ] Run passing test **after** fix → capture `passing_after.log`
-- [ ] Save patch/diff evidence (recorded diff text; raw tree not committed — R4)
-- [ ] Document root cause in `reports/bug_analysis.md`
-- [ ] Confirm no unrelated changes (diff confined to the function)
-**Validation:** two logs present (fail then pass); diff shows only the target function.
-**Artifacts:** `artifacts/validation/failing_before.log`, `passing_after.log`, `reports/before_after.md`.
-**Risks/blockers:** Docker availability.
+## Stage 10 — Bug fix and before/after proof — **IN_PROGRESS** (fixed+proven; not yet committed)
+- [x] Add focused regression test `TestSerializeTupleParameter::testSerialize` (none existed at buggy commit)
+- [x] Run failing test **before** fix in Docker/Python 3.8.20 → `TypeError: 'int' object is not iterable` (`stage10_before_failure.txt`)
+- [x] Apply minimal fix in `TupleParameter.parse`: `except (ValueError, TypeError)` **and** `tuple(literal_eval(x))` (both lines required — D-013)
+- [x] Run passing test **after** fix → `1 passed` (`stage10_after_success.txt`)
+- [x] Save diff evidence — `stage10_fix_diff.txt` (2 source lines + 1 test class; no unrelated changes)
+- [x] Document root cause + before/after in `reports/bug_fix_validation.md`
+- [x] Project quality gates: `uv run pytest` (6 pass), `ruff check`/`format --check` clean
+- [ ] Commit Stage 10 (then mark DONE — R1)
+**Validation:** before (fail/TypeError) + after (pass) logs present; diff confined to `TupleParameter.parse` + one test class.
+**Artifacts:** `reports/bug_fix_validation.md`, `artifacts/validation/stage10_{before_failure,after_success,fix_diff}.txt`, plus the fix in `target_repo/luigi_buggy/luigi/parameter.py` + test in `.../test/parameter_test.py`.
+**Risks/blockers:** none — fix proven; final token-efficiency comparison is Stage 11 (not claimed here). (D-007/R4 updated: the fix is now applied to the vendored tree as the Stage-10 evidence diff.)
 
 ## Stage 11 — Token efficiency comparison — **PLANNED**
 - [ ] Compare baseline vs graph-guided: files read, text units, iterations, tokens

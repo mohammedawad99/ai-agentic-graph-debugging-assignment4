@@ -1099,6 +1099,16 @@ class TestTaskParameter(LuigiTestCase):
         self.assertTrue(self.run_locally(['MainTask']))
 
 
+class TestSerializeTupleParameter(LuigiTestCase):
+    def testSerialize(self):
+        # Regression test for the TupleParameter serialize/parse round-trip
+        # (Assignment 04, Stage 10). A flat tuple of ints must survive a
+        # serialize -> parse round-trip without raising TypeError.
+        the_tuple = (1, 2, 3)
+        param = luigi.TupleParameter()
+        self.assertEqual(param.parse(param.serialize(the_tuple)), the_tuple)
+
+
 class NewStyleParameters822Test(LuigiTestCase):
     """
     I bet these tests created at 2015-03-08 are reduntant by now (Oct 2015).

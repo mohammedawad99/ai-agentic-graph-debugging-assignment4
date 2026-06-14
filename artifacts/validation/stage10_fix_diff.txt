@@ -1,0 +1,36 @@
+diff --git a/target_repo/luigi_buggy/luigi/parameter.py b/target_repo/luigi_buggy/luigi/parameter.py
+index 13c6f8a..6639520 100644
+--- a/target_repo/luigi_buggy/luigi/parameter.py
++++ b/target_repo/luigi_buggy/luigi/parameter.py
+@@ -1114,8 +1114,8 @@ class TupleParameter(ListParameter):
+         try:
+             # loop required to parse tuple of tuples
+             return tuple(tuple(x) for x in json.loads(x, object_pairs_hook=_FrozenOrderedDict))
+-        except ValueError:
+-            return literal_eval(x)  # if this causes an error, let that error be raised.
++        except (ValueError, TypeError):
++            return tuple(literal_eval(x))  # if this causes an error, let that error be raised.
+ 
+ 
+ class NumericalParameter(Parameter):
+diff --git a/target_repo/luigi_buggy/test/parameter_test.py b/target_repo/luigi_buggy/test/parameter_test.py
+index 4a758fe..77f397e 100644
+--- a/target_repo/luigi_buggy/test/parameter_test.py
++++ b/target_repo/luigi_buggy/test/parameter_test.py
+@@ -1099,6 +1099,16 @@ class TestTaskParameter(LuigiTestCase):
+         self.assertTrue(self.run_locally(['MainTask']))
+ 
+ 
++class TestSerializeTupleParameter(LuigiTestCase):
++    def testSerialize(self):
++        # Regression test for the TupleParameter serialize/parse round-trip
++        # (Assignment 04, Stage 10). A flat tuple of ints must survive a
++        # serialize -> parse round-trip without raising TypeError.
++        the_tuple = (1, 2, 3)
++        param = luigi.TupleParameter()
++        self.assertEqual(param.parse(param.serialize(the_tuple)), the_tuple)
++
++
+ class NewStyleParameters822Test(LuigiTestCase):
+     """
+     I bet these tests created at 2015-03-08 are reduntant by now (Oct 2015).

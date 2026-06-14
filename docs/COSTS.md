@@ -11,6 +11,7 @@
 ## Measured run costs so far (estimate, `characters/4`; D-011)
 - Stage 8 baseline (naive): ~24,482 est. tokens, $0 (raw-source reading; no LLM).
 - Stage 9 graph-guided agent: ~3,631 est. tokens, $0 (deterministic LangGraph; no LLM) — commit `3b0e3c0`.
+- Stage 10 bug fix + before/after proof: **$0 / no LLM API** (manual 2-line fix + Docker/Python 3.8 pytest).
 - These are **per-protocol estimates**, not a final comparison (Stage 11 will publish the comparison).
 
 ## Future token / cost tracking (agent stage)

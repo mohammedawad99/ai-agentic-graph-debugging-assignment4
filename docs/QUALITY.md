@@ -36,6 +36,16 @@ Nothing here is claimed to pass yet (no implementation in the skeleton stage).
   so the vendored Luigi source (Stage-4) is **not** linted (it has thousands of pre-existing upstream style issues).
 - Q5 secret-scan, Q6 artifact-scan, and the dedicated Q4 checker script run in the final audit (Stage 14).
 
+## Stage 10 — bug-fix test evidence
+- Project gates re-run after the fix: `uv run pytest` → **6 passed**; `uv run ruff check .` → **All checks passed**; `uv run ruff format --check .` → **clean**.
+- **Luigi targeted regression** (`TestSerializeTupleParameter::testSerialize`) runs under **Docker/Python 3.8.20**
+  (Luigi 2.8.3 cannot import on the host's 3.12): **before** = `TypeError` (1 failed); **after** = `1 passed`.
+  This is a **focused** test, not a full upstream-suite run (stated honestly in `reports/bug_fix_validation.md`).
+- **Idempotent test gate:** `graph_guided_agent.run()` takes an optional `out_dir`; the unit tests pass a
+  pytest `tmp_path`, so `uv run pytest` no longer mutates the tracked Stage 9 artifacts
+  (`artifacts/validation/graph_guided_agent_*`). A guard test (`test_run_does_not_touch_tracked_artifacts`)
+  asserts this. Production behaviour is unchanged (`out_dir=None` → `artifacts/validation/`).
+
 ## Execution policy
 - Gates run **before any commit intended for submission** and again in the **final audit** (`reports/final_audit.md`).
 - A failing gate is fixed; results are never suppressed or faked.

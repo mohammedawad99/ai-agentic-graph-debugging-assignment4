@@ -41,8 +41,8 @@ def test_workflow_loads_real_graph_metadata() -> None:
     assert rec.source_type == "graphify"
 
 
-def test_run_produces_expected_flags(tmp_path, monkeypatch) -> None:
-    metrics = gga.run()
+def test_run_produces_expected_flags(tmp_path) -> None:
+    metrics = gga.run(out_dir=str(tmp_path))  # write to tmp, never touch tracked artifacts
     assert metrics["graphify_used"] is True
     assert metrics["obsidian_used"] is True
     assert metrics["agent_used"] is True
@@ -55,15 +55,24 @@ def test_run_produces_expected_flags(tmp_path, monkeypatch) -> None:
     assert metrics["estimated_tokens"] < metrics["baseline_reference"]["baseline_estimated_tokens"]
 
 
-def test_run_does_not_modify_target_source() -> None:
+def test_run_does_not_modify_target_source(tmp_path) -> None:
     src = Path("target_repo/luigi_buggy/luigi/parameter.py")
     before = src.read_bytes()
-    gga.run()
+    gga.run(out_dir=str(tmp_path))
     assert src.read_bytes() == before  # workflow is read-only on the target
 
 
-def test_metrics_file_is_valid_json_after_run() -> None:
-    gga.run()
-    data = json.loads(Path("artifacts/validation/graph_guided_agent_metrics.json").read_text())
+def test_metrics_file_is_valid_json_after_run(tmp_path) -> None:
+    gga.run(out_dir=str(tmp_path))
+    data = json.loads((tmp_path / "graph_guided_agent_metrics.json").read_text())
     assert data["framework"] == "langgraph"
     assert "TupleParameter" in data["root_cause"]
+
+
+def test_run_does_not_touch_tracked_artifacts(tmp_path) -> None:
+    # Idempotence guard: writing to a tmp dir must NOT create/modify the production paths.
+    prod = Path("artifacts/validation/graph_guided_agent_metrics.json")
+    before = prod.read_bytes() if prod.exists() else None
+    gga.run(out_dir=str(tmp_path))
+    after = prod.read_bytes() if prod.exists() else None
+    assert after == before  # tracked Stage 9 artifact unchanged by the test run
