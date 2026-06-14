@@ -19,12 +19,17 @@ Initial community/hub notes from `artifacts/graphify/GRAPH_REPORT.md`. Community
   `ChoiceParameter`, "Load the --module parameter", "Helper for parsing command line arguments." The bug
   node has an INFERRED `uses` edge into this cluster.
 
-## Hubs (what "hub" means here)
-- The report's **Community Hubs** section is a navigation index of all 326 communities, not yet a ranked
-  hub/God-node list.
-- **Planned (Stage 7):** rank true hubs/bottlenecks by node degree/centrality computed from `graph.json`
-  (e.g., is `scheduler.py`/`task.py`/`worker.py` a God node?), and give the bug-relevant communities real
-  names. These rankings are **not asserted yet**.
+## Hubs (Stage 7 — degree from `graph.json`)
+Initial degree (in+out) ranking computed from `graph.json` edges:
+- **Highest degree overall = vendored JS libs:** `d3.min.js` (deg≈481), `dagre-d3.min.js` (deg≈218) under
+  `luigi/static/visualiser/`. These are **graph God-nodes but NOT core architecture** — a measurement
+  artifact from bundling the web UI.
+- **Highest-degree CORE nodes:** `MockTarget` (test utility, deg≈250), `luigi` package root (≈223),
+  **`scheduler`** (`luigi_scheduler_scheduler`, deg≈137), `six` compat (≈114).
+- **Reading:** the runtime center of mass is the **scheduler/worker** core; `parameter.py` (111 nodes) is a
+  mid-sized, well-defined subsystem where the bug lives.
+- **Still placeholder / open:** real community *names* (no LLM) and a formal centrality (betweenness)
+  ranking — see [[open-questions]] and [[reverse-engineering-analysis]].
 
 ## What needs Stage 7 verification
 - Real names for Community 1 / Community 58 (and others on the bug path).

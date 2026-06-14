@@ -1,0 +1,21 @@
+%% Micro bug path — TupleParameter.parse (Stage 7, NO fix applied)
+%% Grounded in luigi/parameter.py L1095-1118. Symptom from earlier Docker/3.8 validation.
+flowchart TD
+    A["Tuple value, e.g. the_tuple = (1, 2, 3)"]
+    B["serialize (inherited from ListParameter, L1055)\njson.dumps((1,2,3)) -> '[1, 2, 3]'"]
+    C["TupleParameter.parse(x) called with x = '[1, 2, 3]'  (L1095)"]
+    D["try: json.loads(x) -> [1, 2, 3]   (a flat list of ints)"]
+    E["tuple(tuple(x) for x in [1,2,3])\n-> evaluates tuple(1) on first int element"]
+    F["TypeError: 'int' object is not iterable"]
+    G["except ValueError:  (L1117)  <-- DOES NOT catch TypeError"]
+    H["TypeError propagates out of parse  (test fails)"]
+    NOFIX["Stage 7: NO patch applied.\nKnown fix reserved for Stage 10:\nexcept (ValueError, TypeError): return tuple(literal_eval(x))"]
+
+    A --> B --> C --> D --> E --> F
+    F --> G --> H
+    H -.-> NOFIX
+
+    classDef bug fill:#ffd6d6,stroke:#c00,stroke-width:2px;
+    classDef note fill:#eef,stroke:#557;
+    class F,G,H bug;
+    class NOFIX note;

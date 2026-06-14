@@ -40,8 +40,16 @@ Parameter (luigi_parameter_parameter, L93)
 handling (see [[hot]]). Parsing also interacts with config/CLI inputs, which is why the graph links it to
 the cmdline parser.
 
+## Stage 7 finding (grounded)
+`TupleParameter` **overrides `parse` only** and **inherits `ListParameter.serialize` (`json.dumps`)** —
+there is no `serialize` node for it in `graph.json`. This serialize/parse **asymmetry** is the structural
+root of the bug. `ListParameter.parse` (L1046) returns `list(json.loads(...))`; `TupleParameter.parse`
+(L1095) wraps it as a tuple-of-tuples, which breaks on a flat list of ints. Full write-up:
+[[reverse-engineering-analysis]].
+
 ## Source / links
 - Source: `target_repo/luigi_buggy/luigi/parameter.py`
-- [[hot]] · [[architecture-map]] · [[graph-communities]] · [[index]]
+- [[reverse-engineering-analysis]] · [[hot]] · [[architecture-map]] · [[graph-communities]] · [[index]]
 
-*Deeper call-path tracing (callers of `parse`, config readers) is **planned (Stage 7)**.*
+*Deeper call-path tracing (exact callers of `parse`, config readers) remains for Stage 8/9; the
+parameter→CLI edge is INFERRED.*

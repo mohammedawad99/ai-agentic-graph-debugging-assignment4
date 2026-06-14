@@ -3,10 +3,12 @@
 Things this vault deliberately does **not** assert yet — to be verified in the reverse-engineering stage.
 
 ## Graph reading
-- [ ] Rank true **hubs / God nodes / bottlenecks** by degree/centrality from `graph.json`
-  (candidates to check: `scheduler.py`, `task.py`, `worker.py`, `parameter.py`).
-- [ ] Give real **names** to the placeholder communities on the bug path (Community 1, Community 58, …).
-- [ ] Confirm the macro subsystem grouping in [[architecture-map]] against actual edges (not just file paths).
+- [x] **(Stage 7, partial)** Degree-based hub ranking computed: top God-nodes are vendored d3 JS libs
+  (measurement artifact); top core hub is `scheduler` (deg≈137). See [[graph-communities]].
+  - [ ] Still open: a formal **betweenness/centrality** ranking (not just degree).
+- [ ] Give real **names** to the placeholder communities on the bug path (Community 1, Community 58, …) — still open (no LLM).
+- [x] **(Stage 7, partial)** Macro subsystem grouping sketched from node counts + degree + communities;
+  exact boundaries remain *interpretation* (326 placeholder communities), not edge-proven labels.
 
 ## Bug path
 - [ ] Enumerate **callers** of `TupleParameter.parse` / `ListParameter.parse` from `graph.json` edges.

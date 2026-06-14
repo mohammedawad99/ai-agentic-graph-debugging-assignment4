@@ -1,0 +1,38 @@
+%% Luigi — high-level block architecture (Stage 7 reverse engineering)
+%% Grounded in: source tree of target_repo/luigi_buggy/luigi/ + graph.json node counts.
+%% Boundaries are an interpretation from file paths + node counts (NOT fully proven by edges);
+%% the TupleParameter.parse placement IS graph-grounded (luigi/parameter.py:L1095).
+flowchart TD
+    subgraph Entry["Entry / definition"]
+        CLI["CLI: luigi/cmdline.py, luigi/cmdline_parser.py (CmdlineParser @ L28)"]
+        TASKDEF["Task definition: class MyTask(luigi.Task) with Parameters"]
+    end
+
+    subgraph Params["Parameter system  (luigi/parameter.py, 111 code nodes)"]
+        PARAM["Parameter (L93)"]
+        LISTP["ListParameter (L1006)"]
+        TUPLEP["TupleParameter (L1066)"]
+        PARSE["TupleParameter.parse (L1095)  <-- BUG SITE"]
+        SER["serialize (inherited from ListParameter, L1055)"]
+    end
+
+    subgraph Core["Task / scheduling core"]
+        TASK["Task / registry (luigi/task.py)"]
+        SCHED["Scheduler (luigi/scheduler.py, 135 nodes, hub deg~137)"]
+        WORKER["Worker / execution (luigi/worker.py, 79 nodes)"]
+    end
+
+    CONFIG["Config (luigi/configuration/*) + CLI values"]
+    UI["Web UI / static assets (luigi/static/*; d3 libs are graph God-nodes, not core logic)"]
+
+    CLI -->|values from cmdline| Params
+    CONFIG -->|values from config| Params
+    TASKDEF --> Params
+    PARAM --> LISTP --> TUPLEP --> PARSE
+    TUPLEP -.inherits serialize.-> SER
+    Params -->|parsed parameter values| TASK
+    TASK --> SCHED --> WORKER
+    SCHED -. status .-> UI
+
+    classDef bug fill:#ffd6d6,stroke:#c00,stroke-width:2px;
+    class PARSE bug;

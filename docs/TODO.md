@@ -10,7 +10,7 @@
 - **Done & committed:** Stage 4 — target repository acquisition (Luigi source vendored to `target_repo/luigi_buggy/`, validated) — commit `1299535`.
 - **Done & committed:** Stage 5 — Graphify run with the official `graphifyy` tool (no LLM key). Real artifacts in `artifacts/graphify/` (`graph.json` 6,771 nodes / 15,365 edges, `GRAPH_REPORT.md`, `GRAPH_TREE.html`) — commit `feb78ea`.
 - **Done & committed:** Stage 6 — Obsidian vault under `obsidian/` (9 required + 2 optional pages, grounded in real Graphify artifacts) — commit `6cdfd2f`.
-- **Next up:** Stage 7 — Reverse engineering analysis (PLANNED).
+- **In progress:** Stage 7 — Reverse engineering analysis: report + 3 Mermaid diagrams + Obsidian analysis page (macro/meso/micro, evidence-tagged); pending commit before marking DONE.
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -39,7 +39,7 @@
 | 4 | Target repo acquisition | **DONE** (`1299535`) | import Luigi@buggy | TODO committed (R2) | target present + provenance + counts verified (vendored, pristine) | `Acquire Luigi buggy target repository` |
 | 5 | Graphify first run | **DONE** (`feb78ea`) | build code graph | Stage 4 done | `graph.json` + `GRAPH_REPORT.md` present + run logged | `Run Graphify on Luigi target repository` |
 | 6 | Obsidian vault | **DONE** (`6cdfd2f`) | active knowledge vault | Stage 5 done | linked vault (index/hot + pages) resolves | `Build Obsidian knowledge vault` |
-| 7 | Reverse engineering | **PLANNED** | macro/meso/micro + diagrams | Stage 5–6 done | RE notes + block + OOP diagrams present | `Add reverse-engineering analysis and diagrams` |
+| 7 | Reverse engineering | **IN_PROGRESS** (analysis+diagrams ready; commit pending) | macro/meso/micro + diagrams | Stage 5–6 done | RE notes + block + OOP diagrams present | `Add reverse-engineering analysis and diagrams` |
 | 8 | Baseline naive run | **PLANNED** | uninformed investigation metrics | Stage 4 done | baseline report + logs present | `Add baseline naive investigation run` |
 | 9 | Graph-guided agent | **PLANNED** | LangGraph graph-guided run | Stage 5–6 done | graph-guided report + logs present | `Add graph-guided LangGraph agent workflow` |
 | 10 | Fix + before/after | **PLANNED** | minimal fix + proof | Stage 4 (+9) done | fail-before + pass-after logs + diff evidence | `Add Luigi bug 3 fix with before/after evidence` |
@@ -117,17 +117,19 @@
 **Artifacts:** `obsidian/*.md`, `reports/obsidian_vault.md`.
 **Risks/blockers:** none — community names are placeholders (no LLM); real naming/hub ranking deferred to Stage 7 (labeled).
 
-## Stage 7 — Reverse engineering analysis — **PLANNED**
-- [ ] Macro graph reading (subsystem map, biggest clusters)
-- [ ] Meso subsystem analysis (`parameter` + `task`/`scheduler`/`worker`)
-- [ ] Micro bug-path analysis (`TupleParameter.parse`, callers/callees, API→test path)
-- [ ] Identify hubs / communities / God nodes-bottlenecks (with measured values)
-- [ ] Document the parameter serialization path
-- [ ] Block architecture diagram → `artifacts/diagrams/`
-- [ ] OOP/class diagram (`Parameter`→`ListParameter`→`TupleParameter`) → `artifacts/diagrams/`
-**Validation:** diagrams exist and embed in README; RE claims cite graph nodes.
-**Artifacts:** `reports/bug_analysis.md` (partial), `artifacts/diagrams/*`, Obsidian micro/meso/macro pages.
-**Risks/blockers:** graph granularity decision (OD-2).
+## Stage 7 — Reverse engineering analysis — **IN_PROGRESS** (analysis+diagrams ready; not yet committed)
+- [x] Macro graph reading (node counts + degree hubs; God-node caveat = vendored d3 JS)
+- [x] Meso subsystem analysis (`Parameter`→`ListParameter`→`TupleParameter`, `DictParameter`)
+- [x] Micro bug-path analysis (`TupleParameter.parse` L1095; serialize/parse asymmetry; `TypeError`)
+- [x] Identify hubs / communities with measured degree (scheduler deg≈137; Community 1 / 58)
+- [x] Document the parameter serialization path (inherited `json.dumps` vs overridden `parse`)
+- [x] Block architecture diagram → `artifacts/diagrams/architecture_block.mmd`
+- [x] OOP/class diagram → `artifacts/diagrams/oop_parameter_diagram.mmd` (+ `bug_path.mmd`)
+- [x] Report `reports/reverse_engineering.md`; Obsidian `reverse-engineering-analysis.md` + cross-links; decision D-010
+- [ ] Commit Stage 7 (then mark DONE — R1); embed diagrams in README (Stage 13 polish)
+**Validation:** 3 `.mmd` diagrams + RE report + Obsidian page present; RE claims tagged EXTRACTED/INFERRED/interpretation; no Luigi/Graphify-artifact edits.
+**Artifacts:** `reports/reverse_engineering.md`, `artifacts/diagrams/*.mmd`, `obsidian/reverse-engineering-analysis.md` (+ updated pages).
+**Risks/blockers:** community naming + formal centrality ranking still open (no LLM) — tracked in `obsidian/open-questions.md`.
 
 ## Stage 8 — Baseline naive investigation — **PLANNED**
 - [ ] Define naive workflow (no graph/hot context)

@@ -10,8 +10,9 @@ artifacts** (`artifacts/graphify/graph.json`, `GRAPH_REPORT.md`) and the **vendo
 3. **[[graph-communities]]** — communities/hubs from `GRAPH_REPORT.md` (macro reading).
 4. **[[parameter-subsystem]]** — meso view: the parameter classes around the bug.
 5. **[[hot]]** — micro view: the focused bug context (`TupleParameter.parse`).
-6. **[[bug-investigation-seed]]** — seed for the later investigation (Stages 7/10).
-7. **[[token-efficiency-plan]]** — what the later baseline-vs-graph comparison will measure.
+6. **[[reverse-engineering-analysis]]** — Stage 7 macro→meso→micro analysis (evidence-tagged).
+7. **[[bug-investigation-seed]]** — seed for the later investigation (Stages 8–10).
+8. **[[token-efficiency-plan]]** — what the later baseline-vs-graph comparison will measure.
 
 ## Supporting pages
 - [[sources]] — provenance: every artifact/source path this vault relies on.

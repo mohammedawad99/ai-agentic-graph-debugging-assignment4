@@ -27,10 +27,17 @@ This is **not** the final Stage 7 reverse engineering — it is an orientation m
 - **CLI / cmdline** (`luigi/cmdline_parser.py`) — connected to the bug node via an INFERRED `uses` edge.
 - **Web UI / static** (`luigi/static/…`) — non-core assets; mostly excluded from the bug analysis.
 
+## Stage 7 update
+A degree-based hub ranking now exists (see [[graph-communities]]): the runtime center is the
+**scheduler/worker** core (`scheduler` deg≈137), while the very top God-nodes are **vendored d3 JS libs**
+(a measurement artifact, not core logic). Full analysis: [[reverse-engineering-analysis]]. The block
+diagram for this map is `artifacts/diagrams/architecture_block.mmd`.
+
 ## Pointers
+- Stage 7 analysis: [[reverse-engineering-analysis]]
 - Community/hub view: [[graph-communities]]
 - Bug context: [[hot]]
 - How the graph was built: [[graphify-overview]]
 - Provenance: [[sources]]
 
-*Labeled-planned items must be verified against `graph.json` edges in Stage 7 before being stated as fact.*
+*Items still marked planned must be verified against `graph.json` edges before being stated as fact.*

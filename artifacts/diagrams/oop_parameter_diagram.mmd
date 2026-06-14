@@ -1,0 +1,33 @@
+%% Luigi parameter classes — OOP/class diagram (Stage 7)
+%% Grounded in graph.json nodes + luigi/parameter.py source lines.
+%% Inheritance edges TupleParameter->ListParameter and *->Parameter are EXTRACTED in graph.json.
+classDiagram
+    class Parameter {
+        <<L93, base : object>>
+        +parse(x)
+        +serialize(x)
+        +normalize(x)
+    }
+    class ListParameter {
+        <<L1006>>
+        +parse(x)  L1046  : list(json.loads(x))
+        +serialize(x)  L1055  : json.dumps(x, _DictParamEncoder)
+        +normalize(x)  L1037  : _recursively_freeze(x)
+    }
+    class TupleParameter {
+        <<L1066>>
+        +parse(x)  L1095  OVERRIDE  : tuple(tuple(x) for x in json.loads(x)) except ValueError
+        %% NOTE: no serialize override -> inherits ListParameter.serialize (json.dumps)
+    }
+    class DictParameter {
+        <<L950>>
+        +parse(x)  L989
+        +serialize(x)  L1002
+        +normalize(x)  L983
+    }
+
+    Parameter <|-- ListParameter
+    Parameter <|-- DictParameter
+    ListParameter <|-- TupleParameter
+
+    note for TupleParameter "Overrides parse only.\nInherits serialize from ListParameter (json.dumps).\nparse @ L1095 is the bug site (narrow except ValueError)."

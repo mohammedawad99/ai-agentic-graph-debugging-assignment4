@@ -36,7 +36,13 @@ except ValueError:                       # <-- buggy guard (too narrow)
 - `luigi_parameter` (module) **contains** `TupleParameter` — EXTRACTED
 - `luigi/__init__` **imports** `TupleParameter` — EXTRACTED
 
+## Why the guard fails (Stage 7)
+`serialize` (inherited from `ListParameter` = `json.dumps`) turns `(1,2,3)` into `"[1, 2, 3]"`; `parse`
+then `json.loads` → `[1,2,3]` and runs `tuple(1)` on an int → `TypeError`. The `except ValueError:` is too
+narrow to catch it. Full analysis: [[reverse-engineering-analysis]].
+
 ## Related pages
+- [[reverse-engineering-analysis]] — Stage 7 macro→meso→micro.
 - [[parameter-subsystem]] — the parameter class family (meso).
 - [[bug-investigation-seed]] — what still needs proving in-repo.
 - [[graphify-overview]] · [[architecture-map]] · [[index]]

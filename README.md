@@ -20,9 +20,9 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 
 ## Current repository status
 > **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) complete** (commit `1299535`). **Stage 5 (Graphify) complete** (commit `feb78ea`) — real graph built with the official `graphifyy` tool (no LLM key): `artifacts/graphify/graph.json` (6,771 nodes / 15,365 edges), `GRAPH_REPORT.md`, and a `GRAPH_TREE.html` visual; see `reports/graphify_run.md`.
-> **Stage 6 (Obsidian vault) complete** (commit `6cdfd2f`) — a linked vault under `obsidian/` (index, hot, graphify-overview, architecture-map, parameter-subsystem, graph-communities, …) grounded in the real graph. **Stage 7 (reverse engineering analysis) is next.**
+> **Stage 6 (Obsidian vault) complete** (commit `6cdfd2f`). **Stage 7 (reverse engineering) is IN PROGRESS** — `reports/reverse_engineering.md` + Mermaid diagrams (`artifacts/diagrams/architecture_block.mmd`, `oop_parameter_diagram.mmd`, `bug_path.mmd`) + `obsidian/reverse-engineering-analysis.md`, all evidence-tagged (EXTRACTED/INFERRED); commit pending.
 > The buggy Luigi source is vendored under `target_repo/luigi_buggy/` (pristine, no fix applied).
-> Still **no** final reverse-engineering analysis, **no** AI agent, **no** baseline, **no** token comparison, and **no** bug fix yet.
+> Still **no** AI agent, **no** baseline, **no** token comparison, and **no** bug fix yet.
 > There are still **no** Graphify artifacts, **no** Obsidian analysis pages beyond placeholders, **no** AI agent, and **no** bug fix in this repository yet. Nothing here claims a completed stage that has not been completed.
 
 ## Planned workflow stages

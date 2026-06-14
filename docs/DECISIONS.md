@@ -103,3 +103,20 @@ to Stage 7.
 **Consequence:** the vault is honest and reviewer-navigable now, and Stage 7 has a clear, labeled backlog
 in `obsidian/open-questions.md`. Pages link via `[[wiki-links]]`; code is referenced by relative path.
 Committed as `6cdfd2f Build Obsidian knowledge vault` (pushed to `origin/main`).
+
+## D-010 — Reverse-engineering method: evidence tags, degree-based hubs, Mermaid `.mmd` diagrams
+**Date:** 2026-06-14
+**Context:** Stage 7 must reverse-engineer Luigi from the real graph without overclaiming. Graphify ran
+no-LLM, so communities are unnamed and only structural (AST/heuristic) edges exist.
+**Decision:**
+- **Evidence tagging** — every claim is tagged **EXTRACTED** (in `graph.json`/`GRAPH_REPORT.md`/source),
+  **INFERRED** (Graphify heuristic edge, ~0.54 confidence band), or *interpretation*. Nothing is said to be
+  "proved" by Graphify unless directly present.
+- **Hubs by degree** — rank hubs by node degree computed from `graph.json` (no LLM). Explicitly flag the
+  top God-nodes as **vendored d3 JS libraries** (web-UI bundling artifact, not core architecture). Formal
+  betweenness/centrality and real community names remain open (`obsidian/open-questions.md`).
+- **Diagrams as Mermaid `.mmd`** under `artifacts/diagrams/` (text, diff-able, no binary/fabricated images):
+  `architecture_block.mmd`, `oop_parameter_diagram.mmd`, `bug_path.mmd`.
+**Consequence:** a defensible, honest Stage-7 analysis (`reports/reverse_engineering.md` +
+`obsidian/reverse-engineering-analysis.md`) that graders can verify against the artifacts; rendering the
+diagrams into the README is deferred to Stage 13 polish. No bug fix, agent, or baseline implied.
