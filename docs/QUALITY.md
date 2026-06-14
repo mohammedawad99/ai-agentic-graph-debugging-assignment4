@@ -25,7 +25,7 @@ Nothing here is claimed to pass yet (no implementation in the skeleton stage).
 - Patterns: `ANTHROPIC_API_KEY=`, `OPENAI_API_KEY=`, `sk-`, `-----BEGIN ... KEY-----`, generic high-entropy tokens.
 - `.env` is git-ignored; only `.env.example` (no real values) is tracked.
 
-## Gate-run evidence (Stage 9 — first code added)
+## Gate-run evidence (Stage 9 — first code added; commit `3b0e3c0`)
 | Gate | Command | Result (2026-06-14) |
 |------|---------|---------------------|
 | Q1 Tests | `uv run pytest` | **6 passed** (`tests/unit/test_graph_guided_agent.py`) |

@@ -97,5 +97,8 @@ protocol, **not** the validated Stage 11 token-efficiency comparison.
 - **No bug fix applied** (`except ValueError:` still present; fixed pattern absent).
 - **No final token-efficiency comparison claimed** (reserved for Stage 11; `reports/token_efficiency.md` not written).
 
-## 16. Next stage
+## 16. Commit evidence
+Committed and pushed as `3b0e3c0 Implement graph-guided agent workflow`.
+
+## 17. Next stage
 Stage 10 — bug fix and before/after proof (per `docs/TODO.md`).

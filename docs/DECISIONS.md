@@ -153,4 +153,5 @@ vendored Luigi source is not linted.
 **Consequence:** graph-guided run = **5 files / 14,523 chars / ~3,631 est. tokens / 8 states**, root cause
 reached (`reports/graph_guided_agent.md`, `artifacts/validation/graph_guided_agent_metrics.json`). No LLM
 dependency or key required. The **final** baseline-vs-graph comparison is deferred to Stage 11 (not claimed
-here); a preliminary, clearly-labeled observation appears in the report.
+here); a preliminary, clearly-labeled observation appears in the report. Committed as
+`3b0e3c0 Implement graph-guided agent workflow` (pushed to `origin/main`).
