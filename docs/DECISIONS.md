@@ -193,3 +193,18 @@ measurement.
 **Evidence / guardrails:** tokens 24,482 → 3,631 = **−20,851 (−85.17%, ≈6.74×)**; chars −83,403 (−85.17%);
 files +1, units +3, states +3 (explicitly **not** wins). No LLM/API ($0). Source metric files unchanged.
 Committed as `dad0413 Compare baseline and graph-guided token use` (pushed to `origin/main`).
+
+## D-015 — Original extension: centrality + relevance suspect ranking (deterministic, no-LLM)
+**Date:** 2026-06-14
+**Context:** Stage 12 must add original value (OD-1). The graph already exists; ranking *unknown* suspects
+is a natural, reusable analytic the required flow does not provide.
+**Decision:** Implement `src/ex04_graph_debugger/centrality_ranking.py` (stdlib only — **no networkx**, no
+LLM, $0) that reads `graph.json` read-only and scores candidates with
+`final = 0.6*relevance + 0.4*normalized_degree`. **Candidate filter:** Luigi production code only
+(`file_type=code`, path under `luigi/`, excluding vendored `static/visualiser`/JS/CSS/HTML/font assets,
+tests, and rationale nodes) so huge viz nodes (`d3.min.js`) cannot dominate. Relevance = count of bug query
+terms (`tuple, parameter, parse, serialize, json, literal_eval, typeerror, iterable, list`). Outputs
+JSON/CSV/top-20 + a report; framed explicitly as a **triage heuristic, not proof of causality**.
+**Evidence / guardrails:** 2,169 candidates; bug method `TupleParameter.parse` ranks **#6 / 2,169**, **13 of
+the top 20** are in `luigi/parameter.py`, `ListParameter.serialize` (root culprit) ranks #5. Module ≤150
+code lines; 6 new fixture tests (13 total pass); ruff clean; `graph.json` unchanged; no universal claim.

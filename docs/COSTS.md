@@ -13,6 +13,7 @@
 - Stage 9 graph-guided agent: ~3,631 est. tokens, $0 (deterministic LangGraph; no LLM) — commit `3b0e3c0`.
 - Stage 10 bug fix + before/after proof: **$0 / no LLM API** (manual 2-line fix + Docker/Python 3.8 pytest) — commit `a3c59f1`.
 - Stage 11 token-efficiency comparison: **$0 / no LLM API** (pure arithmetic over committed Stage 8/9 metrics) — commit `dad0413`.
+- Stage 12 original extension (centrality suspect ranking): **$0 / no LLM API** (deterministic stdlib analytic over `graph.json`).
 - **Final result (controlled, NOT universal):** graph-guided ~3,631 vs baseline ~24,482 est. tokens →
   **−85.17% (~6.74×) less context** for the same root cause. Estimate via `chars/4`, not exact tokenization.
 

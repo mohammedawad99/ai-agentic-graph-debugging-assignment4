@@ -1,0 +1,21 @@
+# Centrality-based suspect ranking — top 20 (Luigi production code)
+ 1. MockTarget  [luigi/mock.py:L104]  final=0.4 rel=0.0 ndeg=1.0
+ 2. scheduler  [luigi/scheduler.py:L126]  final=0.2192 rel=0.0 ndeg=0.548
+ 3. ._parse_list()  [luigi/parameter.py:L254]  final=0.2064 rel=0.3333 ndeg=0.016
+ 4. .parse()  [luigi/parameter.py:L1046]  final=0.2032 rel=0.3333 ndeg=0.008
+ 5. .serialize()  [luigi/parameter.py:L1055]  final=0.2032 rel=0.3333 ndeg=0.008
+ 6. .parse()  [luigi/parameter.py:L1095]  final=0.2032 rel=0.3333 ndeg=0.008
+ 7. parameter.py  [luigi/parameter.py:L1]  final=0.1915 rel=0.1111 ndeg=0.312
+ 8. six.py  [luigi/six.py:L1]  final=0.1824 rel=0.0 ndeg=0.456
+ 9. CmdlineParser  [luigi/cmdline_parser.py:L28]  final=0.1579 rel=0.1111 ndeg=0.228
+10. S3Client  [luigi/contrib/s3.py:L95]  final=0.1552 rel=0.0 ndeg=0.388
+11. Parameter  [luigi/parameter.py:L93]  final=0.1531 rel=0.1111 ndeg=0.216
+12. ParameterException  [luigi/parameter.py:L65]  final=0.1499 rel=0.1111 ndeg=0.208
+13. ListParameter  [luigi/parameter.py:L1006]  final=0.1477 rel=0.2222 ndeg=0.036
+14. .parse()  [luigi/parameter.py:L1243]  final=0.1445 rel=0.2222 ndeg=0.028
+15. TupleParameter  [luigi/parameter.py:L1066]  final=0.1429 rel=0.2222 ndeg=0.024
+16. .parse()  [luigi/parameter.py:L789]  final=0.1413 rel=0.2222 ndeg=0.02
+17. worker.py  [luigi/worker.py:L1]  final=0.1392 rel=0.0 ndeg=0.348
+18. ._parse_or_no_value()  [luigi/parameter.py:L314]  final=0.1381 rel=0.2222 ndeg=0.012
+19. ._parser_global_dest()  [luigi/parameter.py:L321]  final=0.1381 rel=0.2222 ndeg=0.012
+20. .parse()  [luigi/parameter.py:L725]  final=0.1381 rel=0.2222 ndeg=0.012

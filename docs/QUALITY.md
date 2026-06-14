@@ -58,6 +58,13 @@ assert d['interpretation']['universal_claim'] is False;print('OK')"
 Source metric files (`baseline_naive_metrics.json`, `graph_guided_agent_metrics.json`) are **read-only** in
 this stage (`git diff` over them must be empty). No LLM/API used.
 
+## Stage 12 — original extension test evidence
+- `uv run pytest` → **13 passed** (6 new in `tests/unit/test_centrality_ranking.py` — degree, relevance,
+  ranking order, candidate filter, known-target detection, idempotent `out_dir` write).
+- `uv run ruff check .` → **All checks passed**; `uv run ruff format --check .` → clean.
+- `src/ex04_graph_debugger/centrality_ranking.py` ≤ 150 code lines; deterministic, no LLM/API; reads
+  `graph.json` read-only.
+
 ## Execution policy
 - Gates run **before any commit intended for submission** and again in the **final audit** (`reports/final_audit.md`).
 - A failing gate is fixed; results are never suppressed or faked.
