@@ -1,9 +1,17 @@
 # Costs & Resource Awareness — Assignment 04 (MaRs-777)
 
 ## Current status
-- **No paid API usage to date.** Selection, re-selection, validation, and this skeleton stage used
-  only local tooling (git, Python, Docker, uv) and no billed LLM API calls from this project.
+- **No paid API usage to date — through Stage 9.** Selection, validation, Graphify, Obsidian, reverse
+  engineering, the naive baseline, and the **graph-guided agent (Stage 9)** all ran with **no billed LLM
+  API calls**.
+- **Stage 9 agent: `llm_used = false`, `api_cost_usd = 0`.** The graph-guided workflow is a **deterministic
+  LangGraph** state machine (no API key required) — see `docs/DECISIONS.md` D-012.
 - No secrets or API keys are stored in the repository (`.env` is git-ignored; only `.env.example` exists).
+
+## Measured run costs so far (estimate, `characters/4`; D-011)
+- Stage 8 baseline (naive): ~24,482 est. tokens, $0 (raw-source reading; no LLM).
+- Stage 9 graph-guided agent: ~3,631 est. tokens, $0 (deterministic LangGraph; no LLM).
+- These are **per-protocol estimates**, not a final comparison (Stage 11 will publish the comparison).
 
 ## Future token / cost tracking (agent stage)
 The **token-efficiency experiment** will compare two workflows on the same Luigi bug:

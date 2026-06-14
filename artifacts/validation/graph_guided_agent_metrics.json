@@ -1,0 +1,88 @@
+{
+  "created_at_utc": "2026-06-14",
+  "method": "estimated_tokens = characters / 4  (approximation; NOT exact API tokenization)",
+  "total_files_read": 5,
+  "total_text_units_read": 7,
+  "total_characters_read": 14523,
+  "estimated_tokens": 3631,
+  "records": [
+    {
+      "path": "artifacts/graphify/graph.json",
+      "source_type": "graphify",
+      "reason": "locate bug node + methods + edges (graph-first)",
+      "start_line": null,
+      "end_line": null,
+      "characters": 1790,
+      "estimated_tokens_chars_div_4": 448
+    },
+    {
+      "path": "obsidian/index.md",
+      "source_type": "obsidian",
+      "reason": "vault navigation / reading order",
+      "start_line": null,
+      "end_line": null,
+      "characters": 2043,
+      "estimated_tokens_chars_div_4": 511
+    },
+    {
+      "path": "obsidian/hot.md",
+      "source_type": "obsidian",
+      "reason": "focused bug context for TupleParameter.parse",
+      "start_line": null,
+      "end_line": null,
+      "characters": 2736,
+      "estimated_tokens_chars_div_4": 684
+    },
+    {
+      "path": "obsidian/parameter-subsystem.md",
+      "source_type": "obsidian",
+      "reason": "meso parameter-subsystem analysis",
+      "start_line": null,
+      "end_line": null,
+      "characters": 2988,
+      "estimated_tokens_chars_div_4": 747
+    },
+    {
+      "path": "target_repo/luigi_buggy/luigi/parameter.py",
+      "source_type": "source",
+      "reason": "Parameter base class basics (graph node @ L93)",
+      "start_line": 90,
+      "end_line": 135,
+      "characters": 1780,
+      "estimated_tokens_chars_div_4": 445
+    },
+    {
+      "path": "target_repo/luigi_buggy/luigi/parameter.py",
+      "source_type": "source",
+      "reason": "ListParameter parse/serialize \u2014 inherited serialize is json.dumps (graph node @ L1006)",
+      "start_line": 1006,
+      "end_line": 1066,
+      "characters": 1455,
+      "estimated_tokens_chars_div_4": 364
+    },
+    {
+      "path": "target_repo/luigi_buggy/luigi/parameter.py",
+      "source_type": "source",
+      "reason": "TupleParameter class + overridden parse \u2014 bug method (graph node @ L1066/L1095)",
+      "start_line": 1066,
+      "end_line": 1120,
+      "characters": 1731,
+      "estimated_tokens_chars_div_4": 433
+    }
+  ],
+  "investigation_rounds": 8,
+  "root_cause_reached": true,
+  "graphify_used": true,
+  "obsidian_used": true,
+  "agent_used": true,
+  "llm_used": false,
+  "api_cost_usd": 0,
+  "bug_fix_applied": false,
+  "framework": "langgraph",
+  "baseline_reference": {
+    "baseline_estimated_tokens": 24482,
+    "baseline_files_read": 4,
+    "baseline_rounds": 5
+  },
+  "root_cause": "TupleParameter (L1066) extends ListParameter and overrides parse only; it inherits ListParameter.serialize (json.dumps). serialize((1,2,3)) -> '[1, 2, 3]'. TupleParameter.parse (L1095) does json.loads -> [1,2,3] then tuple(tuple(x) for x in ...) which runs tuple(1) on an int -> TypeError: 'int' object is not iterable. The guard 'except ValueError' (L1117) is too narrow to catch the TypeError, so it propagates."
+}

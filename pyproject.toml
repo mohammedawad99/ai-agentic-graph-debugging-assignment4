@@ -10,7 +10,9 @@ authors = [{ name = "MaRs-777" }]
 # NOTE: dependencies are intentionally minimal at the skeleton stage.
 # Agent/Graphify/token-accounting deps are added in their respective stages,
 # after PRD/PLAN/TODO approval (see docs/DECISIONS.md D-006).
-dependencies = []
+dependencies = [
+    "langgraph>=1.2.5",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -32,6 +34,8 @@ packages = ["src/ex04_graph_debugger"]
 line-length = 100
 target-version = "py310"
 src = ["src", "tests"]
+# Lint only OUR code. Vendored target source and generated artifacts are out of scope.
+extend-exclude = ["target_repo", "artifacts", "obsidian", ".venv"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

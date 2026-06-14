@@ -137,3 +137,20 @@ to produce exact token counts (OD-3). It also must be honest that the bug is alr
 (`reports/baseline_naive_investigation.md`, `artifacts/validation/baseline_naive_metrics.json`). Limitations
 (coarse estimate; protocol-defined, not an empirical average) are stated in the report. No comparison is
 claimed complete yet. Committed as `8904b57 Measure naive baseline investigation` (pushed to `origin/main`).
+
+## D-012 — Graph-guided agent is a deterministic LangGraph workflow (no LLM, no API key)
+**Date:** 2026-06-14
+**Context:** Stage 9 needs an agentic graph-guided workflow, but the project uses **no paid APIs/secrets**.
+The assignment's goal here is **graph-guided orchestration and measured context routing**, not text
+generation. Confirms **OD-6** (LangGraph over CrewAI).
+**Decision:** Implement the workflow as a **compiled LangGraph `StateGraph`** with 8 bounded, tool-like
+nodes that read the graph sub-graph + Obsidian pages **before** targeted source ranges. It is **fully
+deterministic**: `llm_used = false`, `api_cost_usd = 0`. The "agent" value is the bounded, graph-first
+context routing. Token accounting reuses the baseline's `characters/4` estimate (D-011) for a like-for-like
+Stage 11 comparison. Code lives in `src/ex04_graph_debugger/` as small modules (each ≤150 lines), with unit
+tests. Ruff is scoped to **our** code (`extend-exclude = target_repo, artifacts, obsidian, .venv`) so the
+vendored Luigi source is not linted.
+**Consequence:** graph-guided run = **5 files / 14,523 chars / ~3,631 est. tokens / 8 states**, root cause
+reached (`reports/graph_guided_agent.md`, `artifacts/validation/graph_guided_agent_metrics.json`). No LLM
+dependency or key required. The **final** baseline-vs-graph comparison is deferred to Stage 11 (not claimed
+here); a preliminary, clearly-labeled observation appears in the report.

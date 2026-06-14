@@ -12,7 +12,7 @@
 - **Done & committed:** Stage 6 — Obsidian vault under `obsidian/` (9 required + 2 optional pages, grounded in real Graphify artifacts) — commit `6cdfd2f`.
 - **Done & committed:** Stage 7 — Reverse engineering analysis: report + 3 Mermaid diagrams + Obsidian analysis page (macro/meso/micro, evidence-tagged) — commit `8991916`.
 - **Done & committed:** Stage 8 — Baseline naive investigation (controlled, no graph/agent): 4 files / ~24,482 est. tokens (chars/4) / 5 rounds, root cause reached — commit `8904b57`.
-- **Next up:** Stage 9 — Graph-guided agent workflow (PLANNED).
+- **In progress:** Stage 9 — Graph-guided agent (LangGraph, deterministic/no-LLM): 5 files / ~3,631 est. tokens / 8 states, root cause reached; 6 tests pass, ruff clean; pending commit before marking DONE.
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -43,7 +43,7 @@
 | 6 | Obsidian vault | **DONE** (`6cdfd2f`) | active knowledge vault | Stage 5 done | linked vault (index/hot + pages) resolves | `Build Obsidian knowledge vault` |
 | 7 | Reverse engineering | **DONE** (`8991916`) | macro/meso/micro + diagrams | Stage 5–6 done | RE notes + block + OOP diagrams present | `Analyze Luigi architecture and bug path` |
 | 8 | Baseline naive run | **DONE** (`8904b57`) | uninformed investigation metrics | Stage 4 done | baseline report + logs present | `Measure naive baseline investigation` |
-| 9 | Graph-guided agent | **PLANNED** | LangGraph graph-guided run | Stage 5–6 done | graph-guided report + logs present | `Add graph-guided LangGraph agent workflow` |
+| 9 | Graph-guided agent | **IN_PROGRESS** (workflow+metrics ready; commit pending) | LangGraph graph-guided run | Stage 5–6 done | graph-guided report + logs present | `Add graph-guided LangGraph agent workflow` |
 | 10 | Fix + before/after | **PLANNED** | minimal fix + proof | Stage 4 (+9) done | fail-before + pass-after logs + diff evidence | `Add Luigi bug 3 fix with before/after evidence` |
 | 11 | Token-efficiency comparison | **PLANNED** | baseline vs graph-guided | Stages 8–9 done | comparison report (labeled) present | `Add token-efficiency comparison report` |
 | 12 | Original extension | **PLANNED** | one extension implemented | Stage 5 (+9) done | extension code + output + doc present | `Add centrality-based suspect ranking extension` |
@@ -145,15 +145,17 @@
 **Artifacts:** `reports/baseline_naive_investigation.md`, `artifacts/validation/baseline_naive_{metrics.json,trace.log,files_read.txt}`.
 **Risks/blockers:** token estimate is coarse (OD-3); baseline is protocol-defined, not an empirical average (OD-4) — both stated in the report's Limitations.
 
-## Stage 9 — Graph-guided agent workflow — **PLANNED**
-- [ ] Implement/configure LangGraph workflow (states per `docs/PLAN.md` §14)
-- [ ] Enforce bounded steps + controlled context (no uncontrolled full-repo reads)
-- [ ] Consult Graphify/Obsidian **before** raw code
-- [ ] Record files / tokens / iterations (same counters as baseline)
-- [ ] Save graph-guided report + raw logs
-**Validation:** run completes within step cap; logs show graph-first ordering.
-**Artifacts:** `src/ex04_graph_debugger/*`, `artifacts/validation/graph_guided_*.log`, report section.
-**Risks/blockers:** requires local LLM key (agent stage only); confirm LangGraph vs CrewAI (OD-6).
+## Stage 9 — Graph-guided agent workflow — **IN_PROGRESS** (workflow+metrics ready; not yet committed)
+- [x] Implement LangGraph workflow — 8 bounded states (`metrics`, `source_reader`, `agent_state`, `nodes`, `graph_guided_agent`; all ≤150 lines) — confirms LangGraph over CrewAI (OD-6 / D-012)
+- [x] Enforce bounded steps + controlled context (graph sub-graph + 3 Obsidian pages + 3 targeted source ranges; NO full-file read)
+- [x] Consult Graphify/Obsidian **before** raw code (trace shows graph-first ordering)
+- [x] Record files/tokens/rounds (same `chars/4` method as baseline): 5 files / 7 units / 14,523 chars / **3,631 est. tokens** / 8 rounds
+- [x] **Deterministic, no-LLM** workflow → `llm_used:false`, `api_cost_usd:0` (no API key needed — D-012)
+- [x] Save report + metrics + trace + files-read; add unit tests (6 pass); ruff clean
+- [ ] Commit Stage 9 (then mark DONE — R1)
+**Validation:** `graph_guided_agent_metrics.json` flags graphify/obsidian/agent=true, bug_fix=false; `uv run pytest` (6 pass); `uv run ruff check .` / `format --check` clean.
+**Artifacts:** `src/ex04_graph_debugger/{metrics,source_reader,agent_state,nodes,graph_guided_agent}.py`, `tests/unit/test_graph_guided_agent.py`, `reports/graph_guided_agent.md`, `artifacts/validation/graph_guided_agent_{metrics.json,trace.log,files_read.txt}`.
+**Risks/blockers:** none — no API key required (deterministic). Final baseline-vs-graph comparison reserved for Stage 11 (not claimed here).
 
 ## Stage 10 — Bug fix and before/after proof — **PLANNED**
 - [ ] Run failing test **before** fix in Docker/Python 3.8 → capture `failing_before.log`

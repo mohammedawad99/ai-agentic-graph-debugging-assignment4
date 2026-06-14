@@ -20,9 +20,9 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 
 ## Current repository status
 > **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) complete** (commit `1299535`). **Stage 5 (Graphify) complete** (commit `feb78ea`) — real graph built with the official `graphifyy` tool (no LLM key): `artifacts/graphify/graph.json` (6,771 nodes / 15,365 edges), `GRAPH_REPORT.md`, and a `GRAPH_TREE.html` visual; see `reports/graphify_run.md`.
-> **Stage 6 (Obsidian vault) complete** (commit `6cdfd2f`). **Stage 7 (reverse engineering) complete** (commit `8991916`). **Stage 8 (baseline naive investigation) complete** (commit `8904b57`) — a controlled raw-source baseline (no Graphify/Obsidian/agent): 4 files / ~24,482 estimated tokens (chars/4) / 5 rounds, root cause reached; see `reports/baseline_naive_investigation.md`. **Stage 9 (graph-guided agent workflow) is next.**
+> **Stage 6 (Obsidian vault) complete** (commit `6cdfd2f`). **Stage 7 (reverse engineering) complete** (commit `8991916`). **Stage 8 (baseline naive investigation) complete** (commit `8904b57`) — 4 files / ~24,482 est. tokens / 5 rounds. **Stage 9 (graph-guided agent workflow) is IN PROGRESS** — a **deterministic LangGraph** workflow (no LLM, $0): graph/Obsidian-first context routing reads 5 targeted files / ~3,631 est. tokens / 8 states, root cause reached; see `reports/graph_guided_agent.md`. Commit pending.
 > The buggy Luigi source is vendored under `target_repo/luigi_buggy/` (pristine, no fix applied).
-> Still **no** AI agent, **no** graph-guided run, **no** token-efficiency comparison, and **no** bug fix yet.
+> Preliminary (NOT the final Stage 11 comparison): graph-guided ~3,631 vs baseline ~24,482 est. tokens. Still **no** token-efficiency comparison report and **no** bug fix yet.
 > There are still **no** Graphify artifacts, **no** Obsidian analysis pages beyond placeholders, **no** AI agent, and **no** bug fix in this repository yet. Nothing here claims a completed stage that has not been completed.
 
 ## Planned workflow stages
@@ -32,8 +32,8 @@ The selected bug was **faithfully reproduced and validated in Docker** using **P
 4. **Graphify** run → `graph.json`, `GRAPH_REPORT.md` (`artifacts/graphify/`) ✅ (commit `feb78ea`)
 5. **Obsidian vault** → `obsidian/index.md`, `obsidian/hot.md`, linked analysis pages (macro/meso/micro) ✅ (commit `6cdfd2f`)
 6. Reverse engineering + architecture **block diagram** + **OOP diagram** (`artifacts/diagrams/`) ✅ (commit `8991916`)
-7. **Baseline naive investigation** (Stage 8) ✅ (commit `8904b57`) — then a **graph-guided AI agent** (LangGraph) for the baseline-vs-graph comparison ← _next stage (agent not started)_
-8. **Bug fix** + **before/after** test proof
+7. **Baseline naive investigation** (Stage 8) ✅ (commit `8904b57`); **graph-guided LangGraph agent** (Stage 9) ⏳ _in progress (deterministic, no LLM)_
+8. **Bug fix** + **before/after** test proof ← _next stage_
 9. **Token-efficiency comparison** report
 10. Final README, screenshots/diagrams, original extensions, **final audit**
 

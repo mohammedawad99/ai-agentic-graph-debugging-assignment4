@@ -25,6 +25,17 @@ Nothing here is claimed to pass yet (no implementation in the skeleton stage).
 - Patterns: `ANTHROPIC_API_KEY=`, `OPENAI_API_KEY=`, `sk-`, `-----BEGIN ... KEY-----`, generic high-entropy tokens.
 - `.env` is git-ignored; only `.env.example` (no real values) is tracked.
 
+## Gate-run evidence (Stage 9 — first code added)
+| Gate | Command | Result (2026-06-14) |
+|------|---------|---------------------|
+| Q1 Tests | `uv run pytest` | **6 passed** (`tests/unit/test_graph_guided_agent.py`) |
+| Q2 Lint | `uv run ruff check .` | **All checks passed** |
+| Q3 Format | `uv run ruff format --check .` | **7 files already formatted** |
+| Q4 Line limit | `wc -l src/ex04_graph_debugger/*.py` | all ≤150 (max 137) |
+- Ruff is scoped to our code via `[tool.ruff] extend-exclude = ["target_repo", "artifacts", "obsidian", ".venv"]`
+  so the vendored Luigi source (Stage-4) is **not** linted (it has thousands of pre-existing upstream style issues).
+- Q5 secret-scan, Q6 artifact-scan, and the dedicated Q4 checker script run in the final audit (Stage 14).
+
 ## Execution policy
 - Gates run **before any commit intended for submission** and again in the **final audit** (`reports/final_audit.md`).
 - A failing gate is fixed; results are never suppressed or faked.

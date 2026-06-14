@@ -1,0 +1,10 @@
+# Graph-guided agent — text units read (targeted; graph/Obsidian-first)
+[graphify] artifacts/graphify/graph.json  chars=1790 est_tokens=448  — locate bug node + methods + edges (graph-first)
+[obsidian] obsidian/index.md  chars=2043 est_tokens=511  — vault navigation / reading order
+[obsidian] obsidian/hot.md  chars=2736 est_tokens=684  — focused bug context for TupleParameter.parse
+[obsidian] obsidian/parameter-subsystem.md  chars=2988 est_tokens=747  — meso parameter-subsystem analysis
+[source] target_repo/luigi_buggy/luigi/parameter.py L90-135  chars=1780 est_tokens=445  — Parameter base class basics (graph node @ L93)
+[source] target_repo/luigi_buggy/luigi/parameter.py L1006-1066  chars=1455 est_tokens=364  — ListParameter parse/serialize — inherited serialize is json.dumps (graph node @ L1006)
+[source] target_repo/luigi_buggy/luigi/parameter.py L1066-1120  chars=1731 est_tokens=433  — TupleParameter class + overridden parse — bug method (graph node @ L1066/L1095)
+
+TOTAL chars=14523 est_tokens=3631
