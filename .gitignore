@@ -43,6 +43,8 @@ artifacts/graphify/*.json
 artifacts/screenshots/*.png
 artifacts/screenshots/*.jpg
 artifacts/validation/*.log
+# ...but this baseline trace log is tracked deliberately as Stage 8 evidence (D-011):
+!artifacts/validation/baseline_naive_trace.log
 
 # Obsidian local workspace state
 obsidian/.obsidian/

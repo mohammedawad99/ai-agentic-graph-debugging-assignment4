@@ -1,0 +1,49 @@
+{
+  "created_at_utc": "2026-06-14",
+  "method": "estimated_tokens = characters / 4  (approximation; NOT exact API tokenization)",
+  "protocol": "naive raw-source investigation starting from the failure symptom + vendored repo only",
+  "total_files_read": 4,
+  "total_text_units_read": 4,
+  "total_characters_read": 97926,
+  "estimated_tokens": 24482,
+  "investigation_rounds": 5,
+  "root_cause_reached": true,
+  "graphify_used": false,
+  "obsidian_used": false,
+  "agent_used": false,
+  "bug_fix_applied": false,
+  "records": [
+    {
+      "path": "target_repo/luigi_buggy/luigi/parameter.py",
+      "start_line": 1,
+      "end_line": 1252,
+      "reason": "30+ parse/serialize methods across ~22 param classes; must read whole module to locate TupleParameter.parse (no graph to point there)",
+      "characters": 44065,
+      "estimated_tokens_chars_div_4": 11016
+    },
+    {
+      "path": "target_repo/luigi_buggy/luigi/__init__.py",
+      "start_line": 1,
+      "end_line": 63,
+      "reason": "confirm public API: how luigi.TupleParameter is exported (matches seed expression)",
+      "characters": 2328,
+      "estimated_tokens_chars_div_4": 582
+    },
+    {
+      "path": "target_repo/luigi_buggy/luigi/cmdline_parser.py",
+      "start_line": 1,
+      "end_line": 151,
+      "reason": "TupleParameter.parse docstring says tuple strings come from config/CLI; naively checked",
+      "characters": 5468,
+      "estimated_tokens_chars_div_4": 1367
+    },
+    {
+      "path": "target_repo/luigi_buggy/test/parameter_test.py",
+      "start_line": 1,
+      "end_line": 1202,
+      "reason": "scan parameter tests to find/reproduce the serialize->parse round-trip behavior",
+      "characters": 46065,
+      "estimated_tokens_chars_div_4": 11516
+    }
+  ]
+}

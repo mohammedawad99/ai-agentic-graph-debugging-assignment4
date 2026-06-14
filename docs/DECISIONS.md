@@ -121,3 +121,19 @@ no-LLM, so communities are unnamed and only structural (AST/heuristic) edges exi
 `obsidian/reverse-engineering-analysis.md`) that graders can verify against the artifacts; rendering the
 diagrams into the README is deferred to Stage 13 polish. No bug fix, agent, or baseline implied.
 Committed as `8991916 Analyze Luigi architecture and bug path` (pushed to `origin/main`).
+
+## D-011 — Baseline token estimate via `characters / 4`; controlled (not blind) baseline protocol
+**Date:** 2026-06-14
+**Context:** Stage 8 needs a comparable cost number for the naive (no-graph) investigation, with no paid API
+to produce exact token counts (OD-3). It also must be honest that the bug is already known (OD-4).
+**Decision:**
+- **Token estimate** = `characters / 4`, applied consistently and **labeled an estimate** (not exact API
+  tokenization). The same method will be applied to the graph-guided run for a like-for-like Stage 11
+  comparison.
+- **Controlled baseline** — the run is a **fixed protocol** measuring how much raw-code context a naive
+  investigator must read starting from the symptom + raw repo; it does **not** claim blind discovery. The
+  baseline path uses **no** Graphify/Obsidian/agent inputs (recorded as `false` in the metrics JSON).
+**Consequence:** baseline = **4 files / 97,926 chars / ~24,482 est. tokens / 5 rounds**, root cause reached
+(`reports/baseline_naive_investigation.md`, `artifacts/validation/baseline_naive_metrics.json`). Limitations
+(coarse estimate; protocol-defined, not an empirical average) are stated in the report. No comparison is
+claimed complete yet.

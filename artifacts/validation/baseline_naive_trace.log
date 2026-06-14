@@ -1,0 +1,116 @@
+# Baseline naive investigation trace (raw source only; NO Graphify/Obsidian)
+symptom: TypeError: 'int' object is not iterable
+seed expr: luigi.TupleParameter().parse(luigi.TupleParameter().serialize((1, 2, 3)))
+
+== ROUND 1: top-level repo structure ==
+target_repo/luigi_buggy
+target_repo/luigi_buggy/.coveragerc
+target_repo/luigi_buggy/.gitignore
+target_repo/luigi_buggy/.travis.yml
+target_repo/luigi_buggy/CONTRIBUTING.rst
+target_repo/luigi_buggy/LICENSE
+target_repo/luigi_buggy/MANIFEST.in
+target_repo/luigi_buggy/README.rst
+target_repo/luigi_buggy/RELEASE-PROCESS.rst
+target_repo/luigi_buggy/bin
+target_repo/luigi_buggy/codecov.yml
+target_repo/luigi_buggy/doc
+target_repo/luigi_buggy/examples
+target_repo/luigi_buggy/luigi
+target_repo/luigi_buggy/scripts
+target_repo/luigi_buggy/setup.py
+target_repo/luigi_buggy/test
+target_repo/luigi_buggy/tox.ini
+
+== ROUND 2: broad search for TupleParameter across repo ==
+target_repo/luigi_buggy/luigi/__init__.py:38:    TaskParameter, EnumParameter, DictParameter, ListParameter, TupleParameter,
+target_repo/luigi_buggy/luigi/__init__.py:60:    'ListParameter', 'TupleParameter', 'EnumParameter', 'DictParameter',
+target_repo/luigi_buggy/luigi/parameter.py:1066:class TupleParameter(ListParameter):
+target_repo/luigi_buggy/luigi/parameter.py:1075:          book_locations = luigi.TupleParameter()
+target_repo/luigi_buggy/test/contrib/redshift_test.py:68:    columns = luigi.TupleParameter(
+target_repo/luigi_buggy/test/contrib/redshift_test.py:96:    columns = luigi.TupleParameter(
+target_repo/luigi_buggy/test/parameter_test.py:78:    my_tuple = luigi.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:305:        a = luigi.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:472:            args = luigi.parameter.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:474:        p = luigi.parameter.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:479:            args = luigi.parameter.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:481:        p = luigi.parameter.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:487:            args = luigi.parameter.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:489:        p = luigi.parameter.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:964:            t = luigi.TupleParameter(default=((1, 2), (3, 4)))
+target_repo/luigi_buggy/test/parameter_test.py:965:            expected = luigi.TupleParameter()
+target_repo/luigi_buggy/test/parameter_test.py:981:        self.assertTrue(_value(luigi.TupleParameter(config_path=dict(section="foo", name="bar"))))
+target_repo/luigi_buggy/test/contrib/rdbms_test.py:49:    columns = luigi.TupleParameter(
+18
+
+== ROUND 3: search parse/serialize/literal_eval/json.loads in luigi/ ==
+target_repo/luigi_buggy/luigi/parameter.py:32:from ast import literal_eval
+target_repo/luigi_buggy/luigi/parameter.py:61:    def serialize(self):
+target_repo/luigi_buggy/luigi/parameter.py:242:    def parse(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:271:    def serialize(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:335:    def serialize(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:341:    def parse(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:372:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:378:    def serialize(self, dt):
+target_repo/luigi_buggy/luigi/parameter.py:523:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:529:    def serialize(self, dt):
+target_repo/luigi_buggy/luigi/parameter.py:590:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:623:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:638:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:685:    def parse(self, val):
+target_repo/luigi_buggy/luigi/parameter.py:725:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:789:    def parse(self, input):
+target_repo/luigi_buggy/luigi/parameter.py:803:    def serialize(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:843:    def parse(self, input):
+target_repo/luigi_buggy/luigi/parameter.py:849:    def serialize(self, cls):
+target_repo/luigi_buggy/luigi/parameter.py:885:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:891:    def serialize(self, e):
+target_repo/luigi_buggy/luigi/parameter.py:989:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:1000:        return json.loads(s, object_pairs_hook=_FrozenOrderedDict)
+target_repo/luigi_buggy/luigi/parameter.py:1002:    def serialize(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:1046:    def parse(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:1053:        return list(json.loads(x, object_pairs_hook=_FrozenOrderedDict))
+target_repo/luigi_buggy/luigi/parameter.py:1055:    def serialize(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:1095:    def parse(self, x):
+target_repo/luigi_buggy/luigi/parameter.py:1109:        # json.loads(t_json_str) == t
+target_repo/luigi_buggy/luigi/parameter.py:1110:        # json.loads(t_str) == ValueError: No JSON object could be decoded
+target_repo/luigi_buggy/luigi/parameter.py:1112:        # Therefore, if json.loads(x) returns a ValueError, try ast.literal_eval(x).
+target_repo/luigi_buggy/luigi/parameter.py:1113:        # ast.literal_eval(t_str) == t
+target_repo/luigi_buggy/luigi/parameter.py:1116:            return tuple(tuple(x) for x in json.loads(x, object_pairs_hook=_FrozenOrderedDict))
+target_repo/luigi_buggy/luigi/parameter.py:1118:            return literal_eval(x)  # if this causes an error, let that error be raised.
+target_repo/luigi_buggy/luigi/parameter.py:1187:    def parse(self, s):
+target_repo/luigi_buggy/luigi/parameter.py:1243:    def parse(self, s):
+
+== ROUND 4: locate the parameter class hierarchy ==
+48:class ParameterVisibility(IntEnum):
+65:class ParameterException(Exception):
+93:class Parameter(object):
+357:    Base class Parameter for date (not datetime).
+501:    Base class Parameter for datetime
+950:class DictParameter(Parameter):
+1006:class ListParameter(Parameter):
+1066:class TupleParameter(ListParameter):
+
+== ROUND 5: file sizes of candidate read units (lines + chars) ==
+48:class ParameterVisibility(IntEnum):
+65:class ParameterException(Exception):
+93:class Parameter(object):
+950:class DictParameter(Parameter):
+1006:class ListParameter(Parameter):
+1066:class TupleParameter(ListParameter):
+luigi/parameter.py               lines=1252  chars=44065
+luigi/__init__.py                lines=63    chars=2328
+luigi/cmdline_parser.py          lines=151   chars=5468
+test/parameter_test.py           lines=1202  chars=46065
+
+== ROUND 5 (cont): read set + root-cause finding ==
+Read full: luigi/parameter.py (1252 L), luigi/__init__.py (63 L), luigi/cmdline_parser.py (151 L), test/parameter_test.py (1202 L)
+Finding: TupleParameter (L1066) extends ListParameter; overrides parse (L1095) only.
+  ListParameter.serialize (L1055) = json.dumps -> (1,2,3) becomes '[1, 2, 3]'.
+  TupleParameter.parse: tuple(tuple(x) for x in json.loads(x)) over [1,2,3] -> tuple(1) -> TypeError.
+  Guard 'except ValueError' (L1117) does NOT catch TypeError -> propagates. ROOT CAUSE REACHED.
+
+== METRICS (estimated_tokens = characters/4) ==
+files_read=4  chars=97926  estimated_tokens=24482  rounds=5  root_cause_reached=true
+graphify_used=false  obsidian_used=false  agent_used=false  bug_fix_applied=false
+NOTE: Graphify graph.json/GRAPH_REPORT.md and Obsidian pages were intentionally NOT used in this baseline path.

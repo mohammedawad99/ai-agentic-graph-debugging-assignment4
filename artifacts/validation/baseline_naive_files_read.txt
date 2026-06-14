@@ -1,0 +1,7 @@
+# Baseline naive investigation — files/text units read (full files)
+target_repo/luigi_buggy/luigi/parameter.py  lines 1-1252  chars=44065  est_tokens=11016
+target_repo/luigi_buggy/luigi/__init__.py  lines 1-63  chars=2328  est_tokens=582
+target_repo/luigi_buggy/luigi/cmdline_parser.py  lines 1-151  chars=5468  est_tokens=1367
+target_repo/luigi_buggy/test/parameter_test.py  lines 1-1202  chars=46065  est_tokens=11516
+
+TOTAL chars=97926  est_tokens=24482  files=4
