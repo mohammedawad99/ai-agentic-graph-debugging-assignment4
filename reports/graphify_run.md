@@ -99,5 +99,9 @@ and `manifest.json` are ignored. To give graders the graph evidence, these will 
 (`git add -f`) at the Stage 5 commit (resolves OD-5: keep the full `graph.json` tracked). Decision recorded
 as **D-008**.
 
-## 16. Next planned stage
+## 16. Commit evidence
+Committed and pushed as `feb78ea Run Graphify on Luigi target repository` (artifacts under
+`artifacts/graphify/` tracked via the `.gitignore` exceptions from D-008).
+
+## 17. Next planned stage
 Stage 6 — Obsidian vault construction (now unblocked: real `graph.json` + Obsidian-wiki `GRAPH_REPORT.md`).
