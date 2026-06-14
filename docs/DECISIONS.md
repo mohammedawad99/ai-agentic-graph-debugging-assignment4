@@ -136,4 +136,4 @@ to produce exact token counts (OD-3). It also must be honest that the bug is alr
 **Consequence:** baseline = **4 files / 97,926 chars / ~24,482 est. tokens / 5 rounds**, root cause reached
 (`reports/baseline_naive_investigation.md`, `artifacts/validation/baseline_naive_metrics.json`). Limitations
 (coarse estimate; protocol-defined, not an empirical average) are stated in the report. No comparison is
-claimed complete yet.
+claimed complete yet. Committed as `8904b57 Measure naive baseline investigation` (pushed to `origin/main`).

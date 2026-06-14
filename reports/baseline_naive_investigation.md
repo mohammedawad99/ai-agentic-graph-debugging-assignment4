@@ -96,5 +96,8 @@ must scan many unrelated parameter classes before isolating `TupleParameter.pars
 - **No agent run.** No baseline-vs-graph comparison computed yet (Stage 11).
 - **No Luigi source changed** (read-only). **No bug fix applied** (`except ValueError:` still present).
 
-## 15. Next stage
+## 15. Commit evidence
+Committed and pushed as `8904b57 Measure naive baseline investigation`.
+
+## 16. Next stage
 Stage 9 — graph-guided agent workflow (the comparison counterpart to this baseline).

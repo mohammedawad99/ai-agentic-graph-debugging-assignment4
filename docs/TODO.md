@@ -11,7 +11,8 @@
 - **Done & committed:** Stage 5 — Graphify run with the official `graphifyy` tool (no LLM key). Real artifacts in `artifacts/graphify/` (`graph.json` 6,771 nodes / 15,365 edges, `GRAPH_REPORT.md`, `GRAPH_TREE.html`) — commit `feb78ea`.
 - **Done & committed:** Stage 6 — Obsidian vault under `obsidian/` (9 required + 2 optional pages, grounded in real Graphify artifacts) — commit `6cdfd2f`.
 - **Done & committed:** Stage 7 — Reverse engineering analysis: report + 3 Mermaid diagrams + Obsidian analysis page (macro/meso/micro, evidence-tagged) — commit `8991916`.
-- **In progress:** Stage 8 — Baseline naive investigation (controlled, no graph/agent): 4 files / ~24,482 est. tokens (chars/4) / 5 rounds, root cause reached; pending commit before marking DONE.
+- **Done & committed:** Stage 8 — Baseline naive investigation (controlled, no graph/agent): 4 files / ~24,482 est. tokens (chars/4) / 5 rounds, root cause reached — commit `8904b57`.
+- **Next up:** Stage 9 — Graph-guided agent workflow (PLANNED).
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -41,7 +42,7 @@
 | 5 | Graphify first run | **DONE** (`feb78ea`) | build code graph | Stage 4 done | `graph.json` + `GRAPH_REPORT.md` present + run logged | `Run Graphify on Luigi target repository` |
 | 6 | Obsidian vault | **DONE** (`6cdfd2f`) | active knowledge vault | Stage 5 done | linked vault (index/hot + pages) resolves | `Build Obsidian knowledge vault` |
 | 7 | Reverse engineering | **DONE** (`8991916`) | macro/meso/micro + diagrams | Stage 5–6 done | RE notes + block + OOP diagrams present | `Analyze Luigi architecture and bug path` |
-| 8 | Baseline naive run | **IN_PROGRESS** (report+metrics ready; commit pending) | uninformed investigation metrics | Stage 4 done | baseline report + logs present | `Add baseline naive investigation run` |
+| 8 | Baseline naive run | **DONE** (`8904b57`) | uninformed investigation metrics | Stage 4 done | baseline report + logs present | `Measure naive baseline investigation` |
 | 9 | Graph-guided agent | **PLANNED** | LangGraph graph-guided run | Stage 5–6 done | graph-guided report + logs present | `Add graph-guided LangGraph agent workflow` |
 | 10 | Fix + before/after | **PLANNED** | minimal fix + proof | Stage 4 (+9) done | fail-before + pass-after logs + diff evidence | `Add Luigi bug 3 fix with before/after evidence` |
 | 11 | Token-efficiency comparison | **PLANNED** | baseline vs graph-guided | Stages 8–9 done | comparison report (labeled) present | `Add token-efficiency comparison report` |
@@ -132,14 +133,14 @@
 **Artifacts:** `reports/reverse_engineering.md`, `artifacts/diagrams/*.mmd`, `obsidian/reverse-engineering-analysis.md` (+ updated pages).
 **Risks/blockers:** community naming + formal centrality ranking still open (no LLM) — tracked in `obsidian/open-questions.md`.
 
-## Stage 8 — Baseline naive investigation — **IN_PROGRESS** (report+metrics ready; not yet committed)
+## Stage 8 — Baseline naive investigation — **DONE** (commit `8904b57`)
 - [x] Define naive protocol (raw source only; NO Graphify/Obsidian/agent) — controlled, honest baseline
 - [x] Count files / text units read (4 full files)
 - [x] Estimate tokens via `characters/4` (labeled estimate, **D-011**) — 97,926 chars → ~24,482 est. tokens
 - [x] Count investigation rounds (5)
 - [x] Record root cause reached (yes — only after reading full `parameter.py` + base classes + test file)
 - [x] Save report + machine-readable metrics + trace + files-read list
-- [ ] Commit Stage 8 (then mark DONE — R1)
+- [x] Commit Stage 8 — commit `8904b57 Measure naive baseline investigation` (Stage 8 DONE)
 **Validation:** `baseline_naive_metrics.json` valid (graphify/obsidian/agent/fix = false); report tables labeled estimate.
 **Artifacts:** `reports/baseline_naive_investigation.md`, `artifacts/validation/baseline_naive_{metrics.json,trace.log,files_read.txt}`.
 **Risks/blockers:** token estimate is coarse (OD-3); baseline is protocol-defined, not an empirical average (OD-4) — both stated in the report's Limitations.
