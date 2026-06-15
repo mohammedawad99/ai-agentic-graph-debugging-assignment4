@@ -1,8 +1,9 @@
-"""ex04_graph_debugger — package placeholder.
+"""ex04_graph_debugger — graph-guided debugging workflow for Assignment 04 (MaRs-777).
 
-Skeleton stage only. No implementation yet (see docs/DECISIONS.md D-006).
-Modules for the graph-guided agent workflow, baseline workflow, and
-token-accounting utilities are added in later, approved stages.
+Modules: graph_guided_agent (LangGraph workflow), nodes/agent_state/source_reader/metrics
+(its support), and centrality_ranking (the original extension). All deterministic, no LLM/API.
 """
 
-__version__ = "0.1.0"
+from .version import __version__
+
+__all__ = ["__version__"]

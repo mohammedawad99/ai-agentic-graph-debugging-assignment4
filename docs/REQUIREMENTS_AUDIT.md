@@ -48,10 +48,10 @@ Final traceability of every requirement to its in-repo evidence.
 | R-34 | Docs | Prompts documentation | M | `docs/PROMPTS.md` (P-01…P-15) | DONE |
 | R-35 | Docs | Decisions documentation | M | `docs/DECISIONS.md` (D-001…D-015) | DONE |
 | R-36 | Docs | Cost / resource awareness | M | `docs/COSTS.md` ($0 LLM/API for all runs) | DONE |
-| R-37 | Quality | Quality gates defined & run | M | `docs/QUALITY.md`; pytest 13 pass / ruff clean | DONE |
+| R-37 | Quality | Quality gates defined & run | M | `docs/QUALITY.md`; pytest 16 pass / ruff clean / coverage 97% (≥85 gate) | DONE |
 | R-38 | Quality | uv usage | M | `pyproject.toml`, README reproduce steps | DONE |
 | R-39 | Quality | Ruff lint/format | M | `uv run ruff check .` / `format --check` → clean | DONE |
-| R-40 | Quality | pytest test suite | M | `tests/unit/`, `uv run pytest` → 13 passed | DONE |
+| R-40 | Quality | pytest test suite | M | `tests/unit/`, `uv run pytest` → 16 passed | DONE |
 | R-41 | Quality | 150-line Python file rule | M | 7 `src/` files, max 142 code lines (`docs/QUALITY.md`) | DONE |
 | R-42 | Security | No secrets / API keys committed | M | `.gitignore` (`.env` ignored), `.env.example` empty | DONE |
 | R-43 | Validation | Docker / Python 3.8 validation | M | `reports/bug_fix_validation.md`, `config/default.toml` (3.8.20) | DONE |
@@ -65,6 +65,29 @@ Final traceability of every requirement to its in-repo evidence.
 - The agent workflow and the extension are **deterministic and use no LLM / no paid API ($0)**.
 - The Luigi regression is a **focused** test under Docker/Python 3.8, not a full upstream-suite run.
 
+## Guideline applicability (V3 mapping)
+This is a **deterministic analysis/agent workflow**, not a hosted service SDK, so several service-runtime
+guideline items are **N/A by design**. Full table in `docs/QUALITY.md`; summary:
+
+| Guideline area | Applicability | Evidence |
+|----------------|:------------:|----------|
+| SDK architecture | Adapted | modular package `src/ex04_graph_debugger/` (≤150 code lines/file) |
+| API Gatekeeper | N/A | no external API/LLM calls in the submitted workflow |
+| Rate limits | N/A | no runtime external API calls |
+| Queue management | N/A | no async external request queue (synchronous StateGraph) |
+| Cost tracking | DONE | `docs/COSTS.md` — $0 external API cost |
+| Per-mechanism PRD | DONE | `docs/PRD_graph_guided_agent.md`, `docs/PRD_centrality_ranking.md` |
+| Versioning (start 1.00) | DONE | `pyproject.toml` + `src/ex04_graph_debugger/version.py` (guarded by `tests/unit/test_version.py`) |
+| Coverage gate ≥85% | DONE | `[tool.coverage.report] fail_under = 85`; latest run 97% |
+
+## Supplementary deliverables (final polish pass)
+- `reports/bug_analysis.md` — filled bug-analysis write-up (Extracted/Inferred/Verified tags).
+- `reports/before_after.md` — filled before/after summary (code + knowledge level), honest focused-test scope.
+- `obsidian/research-questions.md` + README "Research Questions (RQ1–RQ8)" — explicit answers to all eight
+  questions with evidence links.
+- `docs/PRD_graph_guided_agent.md`, `docs/PRD_centrality_ranking.md` — per-mechanism PRDs.
+- Versioning at `1.00`, widened Ruff rule set (`E,F,W,I,N,UP,B,C4,SIM`), and a coverage gate (≥85%, run 97%).
+
 ## Coverage summary
 All mandatory requirements (R-01 … R-45) are **DONE** with in-repo evidence. The only step outside the
-repository is the manual Moodle submission, which is **not** a repository deliverable.
+repository is the manual external course submission, which is **not** a repository deliverable.

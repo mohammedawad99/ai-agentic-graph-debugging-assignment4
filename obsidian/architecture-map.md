@@ -1,7 +1,8 @@
-# Architecture Map (initial)
+# Architecture Map
 
-A **first** macro map of the Luigi codebase, grounded in `graph.json` node counts and source paths.
-This is **not** the final Stage 7 reverse engineering — it is an orientation map.
+A macro map of the Luigi codebase, grounded in `graph.json` node counts and source paths. It is the
+orientation layer of the vault; the full analysis is in [[reverse-engineering-analysis]] /
+`reports/reverse_engineering.md`.
 
 ## Where the code mass is (grounded — top code files by node count in `graph.json`)
 | nodes | source file | role (from path/source) |
@@ -19,25 +20,25 @@ This is **not** the final Stage 7 reverse engineering — it is an orientation m
 > Reading: the runtime core clusters around **`scheduler.py`**, **`worker.py`**, **`parameter.py`**, and
 > `task.py` (the DAG/scheduling engine), while a large share of nodes are **tests** and vendored web-UI JS.
 
-## Core runtime subsystems (planned grouping for Stage 7)
+## Core runtime subsystems
 - **Parameters** → [[parameter-subsystem]] (`luigi/parameter.py`) — **bug location**.
-- **Tasks / registry** (`luigi/task.py`, `luigi/task_register.py`) — *planned (Stage 7)*.
-- **Scheduler** (`luigi/scheduler.py`) — *planned (Stage 7)*.
-- **Worker / execution** (`luigi/worker.py`) — *planned (Stage 7)*.
+- **Tasks / registry** (`luigi/task.py`, `luigi/task_register.py`) — task model & registration — INFERRED from module grouping.
+- **Scheduler** (`luigi/scheduler.py`) — DAG scheduling core (high degree, see [[graph-communities]]) — EXTRACTED.
+- **Worker / execution** (`luigi/worker.py`) — task execution — EXTRACTED.
 - **CLI / cmdline** (`luigi/cmdline_parser.py`) — connected to the bug node via an INFERRED `uses` edge.
 - **Web UI / static** (`luigi/static/…`) — non-core assets; mostly excluded from the bug analysis.
 
-## Stage 7 update
-A degree-based hub ranking now exists (see [[graph-communities]]): the runtime center is the
+## Hub reading
+A degree-based hub ranking (see [[graph-communities]]) shows the runtime center is the
 **scheduler/worker** core (`scheduler` deg≈137), while the very top God-nodes are **vendored d3 JS libs**
 (a measurement artifact, not core logic). Full analysis: [[reverse-engineering-analysis]]. The block
 diagram for this map is `artifacts/diagrams/architecture_block.mmd`.
 
 ## Pointers
-- Stage 7 analysis: [[reverse-engineering-analysis]]
+- Full reverse-engineering analysis: [[reverse-engineering-analysis]]
 - Community/hub view: [[graph-communities]]
 - Bug context: [[hot]]
 - How the graph was built: [[graphify-overview]]
 - Provenance: [[sources]]
 
-*Items still marked planned must be verified against `graph.json` edges before being stated as fact.*
+*Every claim above is tagged EXTRACTED (from `graph.json`/source) or INFERRED (reasoned from those facts).*

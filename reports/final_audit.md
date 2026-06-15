@@ -40,7 +40,7 @@ Stage 13 — README/docs hardening and final audit. Date: 2026-06-14.
 | Bug fix + before/after proof | ✅ | `reports/bug_fix_validation.md`, `stage10_{before_failure,after_success,fix_diff}.txt` |
 | Token-efficiency comparison | ✅ | `reports/token_efficiency.md`, `token_efficiency_comparison.json` (−85.17%) |
 | Original extension | ✅ | `reports/original_extension.md`, `centrality_suspect_ranking.{json,csv}` (bug method rank #6/2,169) |
-| Quality gates | ✅ | pytest 13 pass, ruff clean, ≤150-line rule (`docs/QUALITY.md`) |
+| Quality gates | ✅ | pytest 16 pass, ruff clean (`E,F,W,I,N,UP,B,C4,SIM`), coverage 97% (≥85 gate), ≤150-line rule (`docs/QUALITY.md`) |
 | Cost / resource awareness | ✅ | `docs/COSTS.md` — $0, no LLM/API for any stage |
 | AI workflow / prompt docs | ✅ | `docs/AI_WORKFLOW.md`, `docs/PROMPTS.md` |
 | Decisions log | ✅ | `docs/DECISIONS.md` (D-001 … D-015) |
@@ -48,7 +48,9 @@ Stage 13 — README/docs hardening and final audit. Date: 2026-06-14.
 ## 5. Evidence inventory
 - **Reports:** repository_selection, target_repository_acquisition, graphify_run, reverse_engineering,
   baseline_naive_investigation, graph_guided_agent, bug_fix_validation, token_efficiency, original_extension,
-  bug_validation, final_audit (this file).
+  bug_validation, bug_analysis, before_after, final_audit (this file).
+- **Per-mechanism PRDs:** `docs/PRD_graph_guided_agent.md`, `docs/PRD_centrality_ranking.md`.
+- **Research questions:** `obsidian/research-questions.md` (+ README "Research Questions (RQ1–RQ8)").
 - **Graphify:** `graph.json`, `GRAPH_REPORT.md`, `GRAPH_TREE.html`, `manifest.json`, `graphify_run.log`.
 - **Validation:** baseline/graph-guided metrics + traces + files-read; `stage10_*`; `token_efficiency_*`;
   `centrality_suspect_ranking.*`.
@@ -73,6 +75,17 @@ fix remains: `except (ValueError, TypeError):` + `return tuple(literal_eval(x))`
 - **No stale "bug not fixed" current-status claim** — the README's old "no final fix yet" line was removed;
   D-008 records only the **point-in-time Stage-5 state** (source intentionally left unchanged for graph
   generation; Stage 10 later applied the verified fix), which is accurate history, not a current-status claim.
+
+## 8a. Final polish pass (post-Stage-13 hardening)
+A documentation/quality polish pass was applied after Stage 13 (pending its own commit):
+- Filled `reports/bug_analysis.md` and `reports/before_after.md` (previously placeholders).
+- Added explicit **RQ1–RQ8** answers (`obsidian/research-questions.md` + README section).
+- Added per-mechanism PRDs (`docs/PRD_graph_guided_agent.md`, `docs/PRD_centrality_ranking.md`).
+- Removed stale "early vault / planned" wording from `obsidian/index.md`.
+- Versioning set to `1.00` (`pyproject.toml` + `version.py`, guarded by `tests/unit/test_version.py`).
+- Widened Ruff rule set to `E,F,W,I,N,UP,B,C4,SIM`; added a coverage gate (`fail_under = 85`).
+- Gate run: **16 passed**, **coverage 97%**, ruff clean, format clean, line-count guard 0 violations.
+- No code logic, target source, Graphify artifacts, validation evidence, or diagrams were changed.
 
 ## 9. Known limitations
 - Token comparison is a **controlled, single-case** study; not a benchmark.

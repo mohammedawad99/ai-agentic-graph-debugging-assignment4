@@ -13,6 +13,8 @@ This directory is an **Obsidian knowledge vault** for Assignment 04. Pages are p
 
 ## Scope / honesty
 Every architecture or graph claim is grounded in `artifacts/graphify/graph.json`,
-`artifacts/graphify/GRAPH_REPORT.md`, or the vendored source `target_repo/luigi_buggy/`. Items not yet
-verified are labeled *planned (Stage 7)*. This vault is an early knowledge space, **not** the final
-reverse-engineering analysis, and the bug is **not** fixed here. See [[sources]] for provenance.
+`artifacts/graphify/GRAPH_REPORT.md`, or the vendored source `target_repo/luigi_buggy/`, and tagged
+**EXTRACTED / INFERRED / interpretation** at point of use. This is the **final repository knowledge
+vault**; the full reverse-engineering analysis is in [[reverse-engineering-analysis]] and the bug **is
+fixed** in `target_repo/luigi_buggy/luigi/parameter.py` (Stage 10) with before/after proof in
+`reports/bug_fix_validation.md`. See [[sources]] for provenance.

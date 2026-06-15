@@ -8,6 +8,11 @@ dist/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
+# Coverage (pytest-cov gate writes these locally)
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
 
 # Virtual environments
 .venv/

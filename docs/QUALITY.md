@@ -1,20 +1,38 @@
 # Quality Gates — Assignment 04 (MaRs-777)
 
-Planned, runnable gates. They are **defined now** and executed in later stages once code/tests exist.
-Nothing here is claimed to pass yet (no implementation in the skeleton stage).
+Runnable gates, **defined and passing** for the completed repository (Stages 0–13). Commands below are
+real and reproducible; the latest gate-run evidence is recorded at the bottom of this file.
 
 ## Gates
-| # | Gate | Command (planned) | Pass condition |
-|---|------|-------------------|----------------|
+| # | Gate | Command | Pass condition |
+|---|------|---------|----------------|
 | Q1 | Tests | `uv run pytest` | all tests pass; bug regression test behaves as documented |
-| Q2 | Lint | `uv run ruff check .` | no lint errors |
+| Q2 | Lint | `uv run ruff check .` | no lint errors (rule set `E,F,W,I,N,UP,B,C4,SIM`) |
 | Q3 | Format | `uv run ruff format --check .` | no formatting diffs |
-| Q4 | File line-count rule | custom check: every `*.py` under `src/` ≤ **150 lines** | no file exceeds 150 lines |
+| Q4 | File line-count rule | custom check: every `*.py` under `src/` ≤ **150 code lines** | no file exceeds 150 |
 | Q5 | Secret scan | grep/secret-scan over tracked files | no API keys/secrets committed |
 | Q6 | Artifact scan | check no large/raw generated artifacts or raw target source committed | only intended artifacts tracked |
 | Q7 | README/docs consistency | manual + checklist cross-check | README claims match repo reality |
 | Q8 | No fake evidence | review of logs/screenshots/graphs vs sources | all evidence reproducible |
 | Q9 | No overclaiming | audit status labels vs actual artifacts | no stage claimed before complete |
+| Q10 | Coverage | `uv run pytest --cov=src/ex04_graph_debugger` | coverage **≥ 85%** (`[tool.coverage.report] fail_under = 85`) |
+| Q11 | Version | `tests/unit/test_version.py` | package version `1.00`, in sync across `pyproject.toml` / `version.py` / `__init__` |
+
+## Guideline applicability (V3 mapping)
+The course's V3 service-SDK guidelines are mapped to this project honestly. This is a **deterministic
+analysis/agent workflow**, not a hosted service SDK, so several service-runtime items are **N/A by
+design** rather than skipped:
+
+| Guideline area | Applicability | Rationale |
+|----------------|:------------:|-----------|
+| SDK architecture | **Adapted** | Not a service-SDK product; the project logic is modularized as a small package in `src/ex04_graph_debugger/` (agent, nodes, state, source reader, metrics, centrality), each file ≤150 code lines. |
+| API Gatekeeper | **N/A** | The final submitted workflow makes **no external API/LLM calls** (`llm_used = false`); there is no external surface to gate. |
+| Rate limits | **N/A** | No runtime external API calls, so there is nothing to rate-limit. |
+| Queue management | **N/A** | No asynchronous external request queue; the workflow is a synchronous, deterministic StateGraph. |
+| Cost tracking | **DONE** | `$0` external API cost, documented in `docs/COSTS.md` (`api_cost_usd = 0`). |
+| Per-mechanism PRD | **DONE** | `docs/PRD_graph_guided_agent.md` and `docs/PRD_centrality_ranking.md` (plus the overall `docs/PRD.md`). |
+| Versioning | **DONE** | Version starts at `1.00` (`pyproject.toml` + `src/ex04_graph_debugger/version.py`, guarded by Q11). |
+| Coverage gate | **DONE** | `fail_under = 85`; latest run **97%** (Q10). |
 
 ## Q4 — 150-line rule (detail)
 - Applies to Python source under `src/` (the project's own code).
@@ -69,6 +87,17 @@ this stage (`git diff` over them must be empty). No LLM/API used.
 At the final audit: `uv run pytest` → **13 passed**; `uv run ruff check .` → **All checks passed**;
 `uv run ruff format --check .` → clean; line-count guard → **0 violations** (7 `src/` files, max 142 code
 lines). No protected artifact mutated by the audit. Recorded in `reports/final_audit.md`.
+
+## Final polish pass — gate run (grade-100 hardening)
+After widening the Ruff rule set to `E,F,W,I,N,UP,B,C4,SIM`, adding the coverage gate, and adding the
+version guard:
+- `uv run pytest` → **16 passed** (3 new in `tests/unit/test_version.py`).
+- `uv run pytest --cov=src/ex04_graph_debugger` → **coverage 97%** (gate `fail_under = 85` reached).
+- `uv run ruff check .` → **All checks passed** (widened rule set).
+- `uv run ruff format --check .` → **clean** (11 files).
+- Line-count guard → **0 violations** (`src/` files ≤ 150 code lines; `version.py` added).
+- Ruff remains scoped to our code via `extend-exclude = ["target_repo", "artifacts", "obsidian", ".venv"]`
+  so the vendored Luigi source is **not** linted.
 
 ## Execution policy
 - Gates run **before any commit intended for submission** and again in the **final audit** (`reports/final_audit.md`).

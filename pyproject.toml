@@ -1,6 +1,8 @@
 [project]
 name = "ex04-graph-debugger"
-version = "0.1.0"
+# Versioning starts at 1.00 per the course guideline (single source of truth also in
+# src/ex04_graph_debugger/version.py, guarded by tests/unit/test_version.py).
+version = "1.00"
 description = "Agentic, graph-guided debugging of Luigi bug 3 (BugsInPy) for Assignment 04 — MaRs-777"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -17,6 +19,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "pytest>=8.0",
+  "pytest-cov>=5.0",
   "ruff>=0.6",
 ]
 # Placeholders for later stages (NOT installed yet):
@@ -38,11 +41,21 @@ src = ["src", "tests"]
 extend-exclude = ["target_repo", "artifacts", "obsidian", ".venv"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B"]
+# Guideline rule set: pycodestyle (E/W), pyflakes (F), isort (I), pep8-naming (N),
+# pyupgrade (UP), flake8-bugbear (B), flake8-comprehensions (C4), flake8-simplify (SIM).
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q"
+# Coverage gate: enforce >= 85% on the project package (pytest-cov in the dev extra).
+addopts = "-q --cov=src/ex04_graph_debugger --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src/ex04_graph_debugger"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
 
 # Project-specific quality rule (enforced by a custom gate, see docs/QUALITY.md):
 # every Python file under src/ must be <= 150 lines.

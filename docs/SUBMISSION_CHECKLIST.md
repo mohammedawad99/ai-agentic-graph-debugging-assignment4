@@ -55,7 +55,7 @@ Tick only when real, in-repo evidence exists. Mirrors `docs/REQUIREMENTS_AUDIT.m
 - [x] Quality gates defined (R-37)
 - [x] uv configured (R-38)
 - [x] Ruff clean (R-39) — `uv run ruff check .` → All checks passed
-- [x] pytest green (R-40) — 13 passed
+- [x] pytest green (R-40) — 16 passed (coverage ≥85% gate; 97% latest)
 - [x] 150-line rule enforced (R-41) — 7 `src/` files, max 142 code lines
 - [x] No secrets committed (R-42)
 - [x] No overclaiming (R-44, ongoing)

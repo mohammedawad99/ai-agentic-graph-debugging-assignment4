@@ -18,7 +18,8 @@ committed, and pushed; final repository-scope correction baseline `2561f1b`, lat
 - **Done & committed:** Stage 11 — Token-efficiency comparison: graph-guided ~3,631 vs baseline ~24,482 est. tokens = **−85.17% (≈6.74×)** context, both reached root cause; controlled (not universal) — commit `dad0413`.
 - **Done & committed:** Stage 12 — Original extension (centrality-based suspect ranking): deterministic/no-LLM; bug method ranks #6/2,169, 13 of top 20 in `parameter.py`; 13 tests pass — commit `de32d76`.
 - **Done & committed:** Stage 13 — README/docs hardening + final audit: README rewritten, checklist aligned to real evidence, `reports/final_audit.md` written (gates green; repository deliverables complete) — commit `cf55bac`.
-- **Repository work complete** through Stage 13 (all gates green, final audit done). Moodle submission is a manual step **outside** the repository — not a tracked stage/task.
+- **Repository work complete** through Stage 13 (all gates green, final audit done). The external course submission is a manual step **outside** the repository — not a tracked stage/task.
+- **Final polish pass (within Stage 13, grade-100 hardening):** filled `reports/bug_analysis.md` + `reports/before_after.md`; added RQ1–RQ8 (`obsidian/research-questions.md` + README); added per-mechanism PRDs (`docs/PRD_graph_guided_agent.md`, `docs/PRD_centrality_ranking.md`); versioning `1.00`; widened Ruff (`E,F,W,I,N,UP,B,C4,SIM`); coverage gate ≥85% (run 97%). Gate run: **16 passed**. (Not a new stage; no code logic/target/artifacts changed.)
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass proven in the final repo under Docker/Python 3.8.20 (Stage 10, commit `a3c59f1`).
 - **Outside the repository:** submitting on Moodle is a manual step the student performs externally — not a tracked stage, task, or repo artifact.
 

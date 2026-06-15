@@ -38,10 +38,32 @@ extension** (centrality-based suspect ranking).
   so `serialize((1,2,3))` → `"[1, 2, 3]"`; `parse` then `json.loads` → `[1,2,3]` and runs `tuple(1)` → `TypeError`,
   which the narrow `except ValueError` does not catch.
 
+## Research Questions (RQ1–RQ8)
+Explicit answers (concise here; full versions with evidence links in `obsidian/research-questions.md`):
+- **RQ1 — Architecture?** Luigi is a workflow/DAG engine (`Task`/`Target`/scheduler/`Parameter`); graph =
+  6,771 nodes / 15,365 edges. → `reports/reverse_engineering.md`, `artifacts/diagrams/architecture_block.mmd`.
+- **RQ2 — Central components?** Task model, parameters, scheduling, targets/IO, CLI. →
+  `reports/reverse_engineering.md` §5, `obsidian/parameter-subsystem.md`.
+- **RQ3 — God-nodes / risky hubs?** High-centrality hubs at task/register, scheduler, and the `Parameter`
+  family (triage signal, not a smell verdict). → `obsidian/graph-communities.md`, `reports/original_extension.md`.
+- **RQ4 — Block & OOP schema extraction?** From Graphify module/community structure and `inherits`/`method`
+  edges in `graph.json`, confirmed vs source. → `artifacts/diagrams/{architecture_block,oop_parameter_diagram}.mmd`.
+- **RQ5 — Bug & root cause?** `TupleParameter` inherits `ListParameter.serialize` (`json.dumps`) but
+  overrides `parse`; round-trip `"[1, 2, 3]"` → `tuple(1)` → `TypeError`. Fix: widen guard + `tuple(...)`. →
+  `reports/bug_analysis.md`, `reports/bug_fix_validation.md`, `artifacts/diagrams/bug_path.mmd`.
+- **RQ6 — Graph vs linear reading?** Jumps to the bug neighborhood via edges; fewer characters to the same
+  root cause (single-case). → `reports/token_efficiency.md`.
+- **RQ7 — Token reduction (and what not)?** ~3,631 vs ~24,482 est. tokens (≈85.17%); did **not** reduce
+  step count or model-reasoning cost (deterministic, no LLM). → `reports/token_efficiency.md`.
+- **RQ8 — Original extension?** Deterministic centrality+relevance suspect ranking; bug method ranks
+  **#6/2,169**. → `reports/original_extension.md`, `docs/PRD_centrality_ranking.md`.
+
+Full answers: **`obsidian/research-questions.md`** (linked from `obsidian/index.md`).
+
 ## How to reproduce
 ```bash
 uv sync --extra dev               # install deps (incl. pytest, ruff)
-uv run pytest                     # project unit tests (13 pass)
+uv run pytest                     # project unit tests (16 pass, coverage ≥85% gate)
 uv run ruff check .               # lint
 uv run ruff format --check .      # format check
 # Optional — regenerate the extension / graph-guided metrics (deterministic, no LLM):
