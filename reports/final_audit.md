@@ -7,6 +7,7 @@ Stage 13 — README/docs hardening and final audit. Date: 2026-06-14.
 - **GitHub:** https://github.com/mohammedawad99/ai-agentic-graph-debugging-assignment4
 - **Branch:** `main`
 - **Latest commit at audit start:** `52e5593 Mark original extension complete`
+- **Final repository status commit:** `2561f1b final repository-scope correction` (current `main` head).
 - **Group code:** `MaRs-777`
 
 ## 3. Completed stages (0–12)
@@ -25,7 +26,7 @@ Stage 13 — README/docs hardening and final audit. Date: 2026-06-14.
 | 10 | Bug fix + before/after proof | `a3c59f1`, `c468622` |
 | 11 | Token-efficiency comparison | `dad0413`, `0baf7d9` |
 | 12 | Original extension (centrality ranking) | `de32d76`, `52e5593` |
-| 13 | This final audit | _pending commit_ |
+| 13 | README/docs hardening + final audit | `cf55bac`, `39e4912`, `2561f1b` |
 
 ## 4. Requirement coverage
 | Requirement | Status | Evidence |
@@ -69,8 +70,8 @@ fix remains: `except (ValueError, TypeError):` + `return tuple(literal_eval(x))`
 - **No exact-tokenizer claim** — all token figures labeled `chars/4` estimates.
 - **No "centrality proves root cause" claim** — the extension is framed as a triage heuristic.
 - **No stale "bug not fixed" current-status claim** — the README's old "no final fix yet" line was removed;
-  remaining "bug still unfixed" text exists only inside D-008 as a **point-in-time record of the Stage-5
-  state**, which is accurate history.
+  D-008 records only the **point-in-time Stage-5 state** (source intentionally left unchanged for graph
+  generation; Stage 10 later applied the verified fix), which is accurate history, not a current-status claim.
 
 ## 9. Known limitations
 - Token comparison is a **controlled, single-case** study; not a benchmark.
@@ -83,7 +84,8 @@ fix remains: `except (ValueError, TypeError):` + `return tuple(literal_eval(x))`
   manually outside this repository and is not a repo task.
 
 ## 11. Commit evidence
-This audit was committed and pushed as `cf55bac Harden final documentation and audit`.
+This audit was committed as `cf55bac Harden final documentation and audit` and `39e4912 Mark final audit
+complete`; the final repository-scope correction is `2561f1b` — the current `main` head.
 
 ## 12. Submission readiness conclusion
 **Repository deliverables are complete. Moodle submission is handled manually outside this repository.**

@@ -2,8 +2,8 @@
 
 **Project:** Agentic, graph-guided debugging of a real Python bug — Assignment 04 (group `MaRs-777`)
 **Repository:** `ai-agentic-graph-debugging-assignment4` · branch `main`
-**Document status:** TODO stage (Stage 3, IN_PROGRESS). This list operationalizes `docs/PRD.md` and
-`docs/PLAN.md`. It does **not** implement anything.
+**Document status:** Final task ledger — **repository work is complete through Stage 13** (Stages 0–13 done,
+committed, and pushed; latest commit `2561f1b`). This file is now a historical record, not an active TODO.
 
 ## 1. Project status summary
 - **Done & committed:** Stage 0 skeleton + requirements audit (`3fc110d`), Stage 1 PRD (`018c580`), Stage 2 PLAN (`8a7ff9c`), Stage 3 TODO (`485f3b5`).
@@ -18,8 +18,8 @@
 - **Done & committed:** Stage 12 — Original extension (centrality-based suspect ranking): deterministic/no-LLM; bug method ranks #6/2,169, 13 of top 20 in `parameter.py`; 13 tests pass — commit `de32d76`.
 - **Done & committed:** Stage 13 — README/docs hardening + final audit: README rewritten, checklist aligned to real evidence, `reports/final_audit.md` written (gates green; repository deliverables complete) — commit `cf55bac`.
 - **Repository work complete** through Stage 13 (all gates green, final audit done). Moodle submission is a manual step **outside** the repository — not a tracked stage/task.
-- **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
-- **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
+- **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass proven in the final repo under Docker/Python 3.8.20 (Stage 10, commit `a3c59f1`).
+- **Outside the repository:** submitting on Moodle is a manual step the student performs externally — not a tracked stage, task, or repo artifact.
 
 ## 2. Status legend
 | Status | Meaning |
@@ -79,13 +79,12 @@ repository — it is not a repo stage, task, or deliverable._
 **Validation:** `git show 8a7ff9c --stat` · **Evidence:** commit `8a7ff9c`, `docs/PLAN.md`.
 **Risks/blockers:** none.
 
-## Stage 3 — TODO — **IN_PROGRESS**
+## Stage 3 — TODO — **DONE** (commit `485f3b5`)
 - [x] Draft full stage-by-stage TODO (this file)
-- [ ] Student review of TODO
-- [ ] Commit TODO (`Write assignment 4 execution TODO`)
-**Goal:** complete and review `docs/TODO.md`; **no implementation.**
-**Validation:** `sed -n '1,320p' docs/TODO.md`; `git diff -- docs/TODO.md` · **Evidence (on commit):** TODO commit hash.
-**Exit criteria:** TODO reviewed and committed → unlocks Stage 4 (R2).
+- [x] Student review of TODO
+- [x] Commit TODO — commit `485f3b5 Write assignment 4 task plan`
+**Goal:** complete and review `docs/TODO.md`; no implementation.
+**Validation:** committed `485f3b5`; unlocked Stage 4 (R2).
 **Risks/blockers:** none.
 
 ## Stage 4 — Target repository acquisition — **DONE** (commit `1299535`)

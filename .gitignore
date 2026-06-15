@@ -30,7 +30,8 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Cloned target source (added in a later stage, never committed raw)
+# Target source: target_repo/luigi_buggy/ is INTENTIONALLY TRACKED as the selected buggy
+# target (vendored for reproducibility; D-007). Only stray/alternate clone paths are ignored.
 target_repo/luigi/
 target_repo/src/
 

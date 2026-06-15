@@ -85,7 +85,8 @@ key). Also resolves **OD-5**: the full `graph.json` is **tracked** (force-added 
 `artifacts/graphify/*.json` ignore rule) so graders can access the graph evidence.
 **Evidence / guardrails:** real artifacts in `artifacts/graphify/` (`graph.json` 6,771 nodes / 15,365
 edges; `GRAPH_REPORT.md`; `GRAPH_TREE.html`); token cost 0; vendored source verified pristine (in-tree
-`graphify-out/` removed); bug still unfixed; full method in `reports/graphify_run.md` and
+`graphify-out/` removed); at Stage 5 the target source was intentionally left unchanged for graph
+generation (Stage 10 later applied the verified TupleParameter fix); full method in `reports/graphify_run.md` and
 `artifacts/graphify/graphify_run.log`. Committed as `feb78ea Run Graphify on Luigi target repository`
 (pushed to `origin/main`).
 

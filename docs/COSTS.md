@@ -1,11 +1,12 @@
 # Costs & Resource Awareness — Assignment 04 (MaRs-777)
 
-## Current status
-- **No paid API usage to date — through Stage 9.** Selection, validation, Graphify, Obsidian, reverse
-  engineering, the naive baseline, and the **graph-guided agent (Stage 9)** all ran with **no billed LLM
-  API calls**.
-- **Stage 9 agent: `llm_used = false`, `api_cost_usd = 0`.** The graph-guided workflow is a **deterministic
-  LangGraph** state machine (no API key required) — see `docs/DECISIONS.md` D-012.
+## Final result (whole project)
+- **$0 external API cost.** Every project run — selection, Docker validation, Graphify, Obsidian, reverse
+  engineering, baseline, graph-guided agent, bug fix, token comparison, and the centrality extension — ran
+  with **no billed LLM/API calls**.
+- **No paid LLM/API in execution:** Graphify ran no-key; the graph-guided agent and the extension are
+  **deterministic** (`llm_used = false`, `api_cost_usd = 0`, D-012/D-015); the fix was applied manually under
+  Docker/Python 3.8.
 - No secrets or API keys are stored in the repository (`.env` is git-ignored; only `.env.example` exists).
 
 ## Measured run costs so far (estimate, `characters/4`; D-011)
@@ -19,17 +20,12 @@
 - **Final result (controlled, NOT universal):** graph-guided ~3,631 vs baseline ~24,482 est. tokens →
   **−85.17% (~6.74×) less context** for the same root cause. Estimate via `chars/4`, not exact tokenization.
 
-## Future token / cost tracking (agent stage)
-The **token-efficiency experiment** will compare two workflows on the same Luigi bug:
-- **Baseline (naive):** unguided exploration of the codebase.
-- **Graph-guided:** investigation steered by the Graphify graph (hubs, paths, communities).
-
-For each workflow we will record:
-- total tokens (prompt + completion),
-- number of files / text units read,
-- number of iterations / agent steps,
-- wall-clock (informational),
-- approximate monetary cost (if a paid model is used).
+## Token-efficiency experiment (done — Stage 11)
+The comparison between the two workflows on the same Luigi bug is complete (`reports/token_efficiency.md`):
+- **Baseline (naive):** unguided raw-source reading — 4 files / ~24,482 est. tokens / 5 rounds.
+- **Graph-guided:** Graphify/Obsidian-steered routing — 5 files / ~3,631 est. tokens / 8 states.
+Both reached the same root cause; the result is a **controlled, single-case** comparison (not universal),
+estimated via `chars/4` (not exact tokenization).
 
 ## Provenance labeling rule (mandatory)
 Every numeric value reported anywhere in this repo must carry one of these labels:
@@ -39,7 +35,8 @@ Every numeric value reported anywhere in this repo must carry one of these label
 
 Unlabeled numbers are not permitted. This rule is enforced by review and noted in `docs/QUALITY.md`.
 
-## Cost-control intentions
-- Prefer small, cached prompts and reuse of graph artifacts to keep the graph-guided run cheap.
-- Use the most capable Claude model only where it adds value; record the model used.
-- Avoid re-running expensive steps; persist intermediate artifacts under `artifacts/`.
+## How cost was kept at $0
+- The graph-guided agent and the extension were built **deterministic** (no LLM call), so investigation
+  cost is **context volume**, not paid tokens.
+- Graphify ran via its **no-key** code path; the bug fix was a manual 2-line edit validated under Docker.
+- Intermediate artifacts are persisted under `artifacts/` and reused, so no step is re-run unnecessarily.

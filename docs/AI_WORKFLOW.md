@@ -1,9 +1,17 @@
 # AI Workflow & Responsibility Policy — Assignment 04 (MaRs-777)
 
 ## Role of AI in this project
-AI (Claude Code) assists across the lifecycle: **planning, repository selection, codebase analysis,
-validation, and later implementation** of the Graphify post-processing, the Obsidian vault, the
-agent workflow, and the bug fix. AI is a tool that accelerates and structures the work.
+AI (Claude Code) assisted across the whole lifecycle — **planning, repository selection, codebase analysis,
+validation, and implementation** of the Graphify post-processing, the Obsidian vault, the deterministic
+LangGraph agent workflow, the bug fix, the token comparison, and the centrality-ranking extension. AI is a
+tool that accelerated and structured the work; **every final artifact is validated with in-repo evidence**.
+
+## Actual workflow (how each stage ran)
+**Staged: plan → review → commit → closeout.** Each stage produced its artifact, was reviewed against
+real evidence, committed with a clean student-authored message, then a small *closeout* commit recorded the
+commit hash and flipped the stage to DONE. Implementation began only after PRD/PLAN/TODO were committed.
+The project ran **with no LLM / no paid API** — the graph-guided agent and the extension are **deterministic**
+(`llm_used=false`, `api_cost_usd=0`), Graphify ran no-key, and the fix was applied manually under Docker.
 
 ## Human responsibility (non-negotiable)
 - The **student remains fully responsible** for every artifact and claim in this repository.
@@ -18,7 +26,7 @@ agent workflow, and the bug fix. AI is a tool that accelerates and structures th
 |-------|---------------|--------------------|
 | Selection / re-selection | inspect candidates, score, draft reports | confirm counts, accept final pick |
 | Validation | run Docker fail→pass, capture logs | confirm reverted pristine state |
-| Skeleton + audit (now) | scaffold files, draft requirement mapping | review structure & wording |
+| Skeleton + audit | scaffold files, draft requirement mapping | review structure & wording |
 | Graphify | run tool, summarize graph | sanity-check nodes/edges vs source |
 | Obsidian | draft linked pages | verify links + technical accuracy |
 | Agent workflow | implement baseline & graph-guided runs | review code, re-run, inspect logs |
@@ -27,13 +35,13 @@ agent workflow, and the bug fix. AI is a tool that accelerates and structures th
 
 ## Evidence & honesty rules
 1. Every metric is labeled **measured**, **estimated**, or **manual count** (see `docs/COSTS.md`).
-2. No stage is reported complete until its real artifacts exist in the repo (see `docs/REQUIREMENTS_AUDIT.md` status labels).
+2. No stage was reported complete until its real artifacts existed in the repo (see `docs/REQUIREMENTS_AUDIT.md`).
 3. No fabricated screenshots, logs, graphs, or prompts.
 4. No self-assigned grade.
-5. Quality gates (`docs/QUALITY.md`) run before submission; failures are fixed, not hidden.
+5. Quality gates (`docs/QUALITY.md`) were run; failures were fixed, not hidden.
 
 ## Commit discipline
-- Work happens on a branch; nothing is committed or pushed without explicit student review and approval.
+- Work was committed on `main` in small, reviewed, single-purpose commits; nothing was committed or pushed without explicit student review and approval.
 - Generated heavy artifacts are git-ignored or stored deliberately. The target source is **vendored** under `target_repo/luigi_buggy/` (tracked, Apache-2.0, LICENSE/provenance preserved, upstream `.git` excluded; **D-007**).
 
 ## Vendored-source handling policy (D-007)
