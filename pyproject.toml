@@ -9,22 +9,18 @@ requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "MaRs-777" }]
 
-# NOTE: dependencies are intentionally minimal at the skeleton stage.
-# Agent/Graphify/token-accounting deps are added in their respective stages,
-# after PRD/PLAN/TODO approval (see docs/DECISIONS.md D-006).
+# Runtime dependencies for the submitted deterministic workflow (LangGraph graph-guided agent).
 dependencies = [
     "langgraph>=1.2.5",
 ]
 
 [project.optional-dependencies]
+# Development dependencies for pytest, coverage, and Ruff quality gates.
 dev = [
   "pytest>=8.0",
   "pytest-cov>=5.0",
   "ruff>=0.6",
 ]
-# Placeholders for later stages (NOT installed yet):
-# agent = ["langgraph", "langchain-anthropic"]   # confirmed in agent stage (D-004)
-# graph = ["networkx"]                            # if Graphify post-processing needs it
 
 [build-system]
 requires = ["hatchling"]

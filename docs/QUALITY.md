@@ -1,7 +1,9 @@
 # Quality Gates — Assignment 04 (MaRs-777)
 
-Runnable gates, **defined and passing** for the completed repository (Stages 0–13). Commands below are
-real and reproducible; the latest gate-run evidence is recorded at the bottom of this file.
+Final quality-gate record for the completed repository. The gates below were defined early, executed
+throughout implementation, and re-run during the final audit / grade-polish pass. **Current final status:
+all project gates pass.** Commands are real and reproducible; the latest gate-run evidence is recorded at
+the bottom of this file.
 
 ## Gates
 | # | Gate | Command | Pass condition |
