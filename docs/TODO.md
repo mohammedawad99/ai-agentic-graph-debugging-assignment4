@@ -16,7 +16,8 @@
 - **Done & committed:** Stage 10 — Bug fix applied + proven (Docker/Python 3.8.20): before `TypeError`, after `1 passed`; minimal 2-line fix + regression test — commit `a3c59f1`.
 - **Done & committed:** Stage 11 — Token-efficiency comparison: graph-guided ~3,631 vs baseline ~24,482 est. tokens = **−85.17% (≈6.74×)** context, both reached root cause; controlled (not universal) — commit `dad0413`.
 - **Done & committed:** Stage 12 — Original extension (centrality-based suspect ranking): deterministic/no-LLM; bug method ranks #6/2,169, 13 of top 20 in `parameter.py`; 13 tests pass — commit `de32d76`.
-- **In progress:** Stage 13 — README/docs hardening + final audit: README rewritten, checklist aligned to real evidence, `reports/final_audit.md` written (gates green; "ready, pending Moodle PDF"); pending commit before marking DONE.
+- **Done & committed:** Stage 13 — README/docs hardening + final audit: README rewritten, checklist aligned to real evidence, `reports/final_audit.md` written (gates green; "ready, pending Moodle PDF") — commit `cf55bac`.
+- **Next up:** Stage 14/15 — Moodle wrapper / submission packaging (PLANNED).
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -51,7 +52,7 @@
 | 10 | Fix + before/after | **DONE** (`a3c59f1`) | minimal fix + proof | Stage 4 (+9) done | fail-before + pass-after logs + diff evidence | `Fix TupleParameter round-trip parsing` |
 | 11 | Token-efficiency comparison | **DONE** (`dad0413`) | baseline vs graph-guided | Stages 8–9 done | comparison report (labeled) present | `Compare baseline and graph-guided token use` |
 | 12 | Original extension | **DONE** (`de32d76`) | one extension implemented | Stage 5 (+9) done | extension code + output + doc present | `Add centrality suspect ranking extension` |
-| 13 | README/docs hardening + final audit | **IN_PROGRESS** (audit done; commit pending) | finalize docs | Stages 5–12 done | docs consistent with artifacts | `Harden README and add final audit` |
+| 13 | README/docs hardening + final audit | **DONE** (`cf55bac`) | finalize docs | Stages 5–12 done | docs consistent with artifacts | `Harden final documentation and audit` |
 | 14 | Quality gates + final audit | **PLANNED** | gates pass + audit | Stage 13 done | gates green + `final_audit.md` complete | `Run quality gates and final audit` |
 | 15 | Moodle submission prep | **PLANNED** | wrapper PDF + submit | Stage 14 done | template PDF ready (outside repo if required) | _(no repo commit unless template required in-repo)_ |
 
@@ -196,13 +197,13 @@
 **Artifacts:** `src/ex04_graph_debugger/centrality_ranking.py`, `tests/unit/test_centrality_ranking.py`, `reports/original_extension.md`, `artifacts/validation/centrality_suspect_ranking.{json,csv}`, `…_top20.txt`.
 **Risks/blockers:** none — read-only on `graph.json`; no universal/root-cause claim (it's a triage heuristic).
 
-## Stage 13 — README/docs hardening + final audit — **IN_PROGRESS** (audit done; not yet committed)
+## Stage 13 — README/docs hardening + final audit — **DONE** (commit `cf55bac`)
 - [x] Rewrite README (reproduce steps, evidence map, headline results, honest non-claims; removed stale "no fix yet"/"placeholder" text)
 - [x] Align `SUBMISSION_CHECKLIST` to real evidence (only Moodle PDF/link left unchecked)
 - [x] Update `COSTS`/`QUALITY` with final gate evidence; `DECISIONS` already current (D-001…D-015)
 - [x] Write `reports/final_audit.md` (requirement coverage, evidence inventory, claims audit, readiness)
 - [x] Re-run gates at audit: pytest 13 pass, ruff check/format clean, ≤150-line rule (max 142)
-- [ ] Commit Stage 13 (then mark DONE — R1)
+- [x] Commit Stage 13 — commit `cf55bac Harden final documentation and audit` (Stage 13 DONE)
 **Validation:** README claims cross-checked vs files; checklist ticked only against evidence; gates green; no protected artifact mutated.
 **Artifacts:** `README.md`, `docs/{SUBMISSION_CHECKLIST,COSTS,QUALITY,TODO}.md`, `reports/final_audit.md`.
 **Risks/blockers:** none — only the Moodle wrapper PDF (Stage 15) remains.

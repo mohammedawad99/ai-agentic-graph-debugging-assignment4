@@ -78,7 +78,8 @@ exact command in `reports/bug_fix_validation.md`.
 | 10 | Bug fix + before/after proof | `a3c59f1` |
 | 11 | Token-efficiency comparison | `dad0413` |
 | 12 | Original extension | `de32d76` |
-| 13 | README/docs hardening + final audit | _this stage_ |
+| 13 | README/docs hardening + final audit | `cf55bac` |
+| 14/15 | Moodle wrapper / submission PDF | _pending_ |
 
 ## Repository layout
 ```

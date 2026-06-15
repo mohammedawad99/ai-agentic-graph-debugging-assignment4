@@ -82,7 +82,10 @@ fix remains: `except (ValueError, TypeError):` + `return tuple(literal_eval(x))`
 - **Moodle wrapper / submission PDF** (from the provided template) — **not** created in this stage.
 - **Final commit closeout** of Stage 13 (mark Stage 13 DONE after its commit exists).
 
-## 11. Submission readiness conclusion
+## 11. Commit evidence
+This audit was committed and pushed as `cf55bac Harden final documentation and audit`.
+
+## 12. Submission readiness conclusion
 **Ready for submission** (pending only the Moodle wrapper PDF). All mandatory deliverables exist with
 reproducible evidence, all quality gates pass, no protected artifact was mutated, the bug fix is present and
 proven, and no overclaiming or stale current-status contradictions remain.

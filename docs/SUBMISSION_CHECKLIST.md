@@ -59,6 +59,6 @@ Tick only when real, in-repo evidence exists. Mirrors `docs/REQUIREMENTS_AUDIT.m
 - [x] 150-line rule enforced (R-41) — 7 `src/` files, max 142 code lines
 - [x] No secrets committed (R-42)
 - [x] No overclaiming (R-44, ongoing)
-- [x] Final audit complete (R-45) — `reports/final_audit.md` (Stage 13; commit pending)
+- [x] Final audit complete (R-45) — `reports/final_audit.md` (Stage 13; commit `cf55bac`)
 
 > The only outstanding item is the **Moodle wrapper PDF + submission** (and recording the link).
