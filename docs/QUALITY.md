@@ -65,6 +65,11 @@ this stage (`git diff` over them must be empty). No LLM/API used.
 - `src/ex04_graph_debugger/centrality_ranking.py` ≤ 150 code lines; deterministic, no LLM/API; reads
   `graph.json` read-only.
 
+## Stage 13 — final audit gate run
+At the final audit: `uv run pytest` → **13 passed**; `uv run ruff check .` → **All checks passed**;
+`uv run ruff format --check .` → clean; line-count guard → **0 violations** (7 `src/` files, max 142 code
+lines). No protected artifact mutated by the audit. Recorded in `reports/final_audit.md`.
+
 ## Execution policy
 - Gates run **before any commit intended for submission** and again in the **final audit** (`reports/final_audit.md`).
 - A failing gate is fixed; results are never suppressed or faked.

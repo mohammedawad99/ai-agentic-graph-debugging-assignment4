@@ -14,6 +14,8 @@
 - Stage 10 bug fix + before/after proof: **$0 / no LLM API** (manual 2-line fix + Docker/Python 3.8 pytest) — commit `a3c59f1`.
 - Stage 11 token-efficiency comparison: **$0 / no LLM API** (pure arithmetic over committed Stage 8/9 metrics) — commit `dad0413`.
 - Stage 12 original extension (centrality suspect ranking): **$0 / no LLM API** (deterministic stdlib analytic over `graph.json`) — commit `de32d76`.
+- Stage 13 final audit + docs hardening: **$0 / no LLM API** (documentation + local quality gates only).
+- **Whole project to date: $0 in LLM/API costs** (Graphify no-key, agent + extension deterministic, fix manual under Docker).
 - **Final result (controlled, NOT universal):** graph-guided ~3,631 vs baseline ~24,482 est. tokens →
   **−85.17% (~6.74×) less context** for the same root cause. Estimate via `chars/4`, not exact tokenization.
 

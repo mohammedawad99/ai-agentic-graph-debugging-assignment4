@@ -3,56 +3,108 @@
 **Agentic, graph-guided debugging of a real Python bug** — Assignment 04, _Agentic Software Engineering / Vibe Coding_.
 
 - **Group code:** `MaRs-777`
+- **Repository:** https://github.com/mohammedawad99/ai-agentic-graph-debugging-assignment4 (branch `main`)
 - **Selected target:** **Luigi — bug 3** from the **BugsInPy** dataset
-  - File under investigation: `luigi/parameter.py` → `TupleParameter.parse`
-  - Regression test: `test/parameter_test.py::TestSerializeTupleParameter::testSerialize`
+  - File under investigation: `luigi/parameter.py` → `TupleParameter.parse` (vendored at `target_repo/luigi_buggy/`)
   - Buggy commit: `a0f1db01ddab5b4b2bda3fbe58bad09a6d94a7b4`
+  - Regression test: `test/parameter_test.py::TestSerializeTupleParameter::testSerialize`
 
-## What this project will do (scope)
-Reverse-engineer an unfamiliar Python codebase (Luigi), build a code graph with **Graphify**, document it as an **Obsidian** knowledge vault, then run an **AI agent workflow** (LangGraph preferred) that investigates and fixes the bug **graph-guided**, compared against a **baseline naive** workflow on **token efficiency**, with **before/after test proof**.
+## What this project does
+Reverse-engineers an unfamiliar Python codebase (**Luigi**), builds a code graph with **Graphify**,
+documents it as an **Obsidian** knowledge vault, then runs a **deterministic LangGraph agent workflow**
+that investigates the bug **graph-guided**, compared against a **baseline naive** workflow on **token
+efficiency** — then applies a **minimal real fix** with **before/after test proof**, plus an **original
+extension** (centrality-based suspect ranking).
 
-## Validation summary (done)
-The selected bug was **faithfully reproduced and validated in Docker** using **Python 3.8.20**:
-- Failing-before: target test raised `TypeError: 'int' object is not iterable` on the buggy commit.
-- Passing-after: the known 2-line fix to `TupleParameter.parse` made the same test pass.
-- The temporary validation checkout was **reverted to pristine** afterward.
-- **No final fix is implemented in this repository yet.** See `reports/bug_validation.md`.
+## Headline results
+- **Bug fix (Stage 10):** `TupleParameter.parse` round-trip raised `TypeError: 'int' object is not iterable`;
+  the minimal 2-line fix makes the regression test pass — **before: `1 failed (TypeError)` → after: `1 passed`**,
+  proven faithfully under **Docker / Python 3.8.20**. See `reports/bug_fix_validation.md`.
+- **Token efficiency (Stage 11, controlled single-case):** graph-guided **~3,631** vs naive baseline
+  **~24,482** estimated tokens (`chars/4`) = **−20,851 (≈85.17%, ~6.74×) less context**, both reaching the
+  same root cause. See `reports/token_efficiency.md`.
+- **Original extension (Stage 12):** a deterministic, no-LLM centrality ranking places the bug method
+  **`TupleParameter.parse` at rank #6 of 2,169** candidates (13 of the top 20 in `luigi/parameter.py`).
+  See `reports/original_extension.md`.
 
-## Current repository status
-> **Skeleton + PRD/PLAN/TODO done; Stage 4 (target acquisition) complete** (commit `1299535`). **Stage 5 (Graphify) complete** (commit `feb78ea`) — real graph built with the official `graphifyy` tool (no LLM key): `artifacts/graphify/graph.json` (6,771 nodes / 15,365 edges), `GRAPH_REPORT.md`, and a `GRAPH_TREE.html` visual; see `reports/graphify_run.md`.
-> **Stage 6 (Obsidian vault) complete** (commit `6cdfd2f`). **Stage 7 (reverse engineering) complete** (commit `8991916`). **Stage 8 (baseline naive investigation) complete** (commit `8904b57`) — 4 files / ~24,482 est. tokens / 5 rounds. **Stage 9 (graph-guided agent workflow) complete** (commit `3b0e3c0`) — a **deterministic LangGraph** workflow (no LLM, $0): graph/Obsidian-first context routing reads 5 targeted files / ~3,631 est. tokens / 8 states, root cause reached; see `reports/graph_guided_agent.md`.
-> **Stage 10 (bug fix + before/after proof) complete** (commit `a3c59f1`) — the minimal 2-line fix to `TupleParameter.parse` is applied to `target_repo/luigi_buggy/` with a focused regression test; proven under Docker/Python 3.8.20 (before: `TypeError: 'int' object is not iterable`; after: `1 passed`); see `reports/bug_fix_validation.md`. **Stage 11 (token-efficiency comparison) is next.**
-> **Stage 11 (token-efficiency comparison) complete** (commit `dad0413`) — graph-guided **~3,631** vs baseline **~24,482** est. tokens (`chars/4`) = **−20,851 (≈85.17%, ~6.74×) less context**, both reaching the same root cause; a **controlled** comparison (NOT a universal benchmark), $0/no LLM; see `reports/token_efficiency.md`.
-> **Stage 12 (original extension — centrality-based suspect ranking) complete** (commit `de32d76`) — a deterministic, no-LLM tool (`src/ex04_graph_debugger/centrality_ranking.py`) that ranks 2,169 Luigi code nodes by `0.6·relevance + 0.4·normalized-degree`: the bug method `TupleParameter.parse` ranks **#6 / 2,169** and **13 of the top 20** are in `luigi/parameter.py`; see `reports/original_extension.md`. A triage heuristic (NOT proof of causality). **Stage 13 (final README/docs hardening + audit) is next.** Final audit and Moodle packaging still to come. Nothing here claims a completed stage that has not been completed.
+## Architecture / Graphify / Obsidian summary
+- **Graphify** (`graphifyy`, no LLM key) built `artifacts/graphify/graph.json` — **6,771 nodes / 15,365
+  edges** — plus `GRAPH_REPORT.md` and a `GRAPH_TREE.html` visual.
+- **Obsidian vault** (`obsidian/`) documents the graph macro→meso→micro (`index.md`, `hot.md`,
+  `architecture-map.md`, `parameter-subsystem.md`, `graph-communities.md`, `reverse-engineering-analysis.md`).
+- **Diagrams** (`artifacts/diagrams/*.mmd`): block architecture, `Parameter`→`ListParameter`→`TupleParameter`
+  OOP, and the micro bug path.
+- **Root cause:** `TupleParameter` overrides `parse` only and inherits `ListParameter.serialize` (`json.dumps`),
+  so `serialize((1,2,3))` → `"[1, 2, 3]"`; `parse` then `json.loads` → `[1,2,3]` and runs `tuple(1)` → `TypeError`,
+  which the narrow `except ValueError` does not catch.
 
-## Planned workflow stages
-1. **Skeleton + Requirements Audit** ✅
-2. PRD / PLAN / TODO ✅ (`docs/PRD.md`, `docs/PLAN.md`, `docs/TODO.md`)
-3. **Target source acquisition** ✅ — Luigi at the buggy commit **vendored** under `target_repo/luigi_buggy/` (tracked, pristine, LICENSE preserved; commit `1299535`; see `docs/DECISIONS.md` D-007)
-4. **Graphify** run → `graph.json`, `GRAPH_REPORT.md` (`artifacts/graphify/`) ✅ (commit `feb78ea`)
-5. **Obsidian vault** → `obsidian/index.md`, `obsidian/hot.md`, linked analysis pages (macro/meso/micro) ✅ (commit `6cdfd2f`)
-6. Reverse engineering + architecture **block diagram** + **OOP diagram** (`artifacts/diagrams/`) ✅ (commit `8991916`)
-7. **Baseline naive investigation** (Stage 8) ✅ (commit `8904b57`); **graph-guided LangGraph agent** (Stage 9) ✅ (commit `3b0e3c0`, deterministic/no LLM)
-8. **Bug fix** + **before/after** test proof ✅ (commit `a3c59f1`, proven under Docker/Python 3.8)
-9. **Token-efficiency comparison** report ✅ (commit `dad0413`, ~85% less context)
-10. **Original extension** (centrality-based suspect ranking) ✅ (commit `de32d76`, #6/2,169); then final README, diagrams, **final audit** ← _next stage_
+## How to reproduce
+```bash
+uv sync --extra dev               # install deps (incl. pytest, ruff)
+uv run pytest                     # project unit tests (13 pass)
+uv run ruff check .               # lint
+uv run ruff format --check .      # format check
+# Optional — regenerate the extension / graph-guided metrics (deterministic, no LLM):
+uv run python -m ex04_graph_debugger.graph_guided_agent
+uv run python -m ex04_graph_debugger.centrality_ranking
+```
+The **Luigi regression test** runs under Docker / Python 3.8 (Luigi 2.8.3 cannot import on host 3.12) —
+exact command in `reports/bug_fix_validation.md`.
+
+## Evidence map
+| Stage | Report | Key artifacts |
+|------|--------|---------------|
+| Selection / acquisition | `reports/repository_selection.md`, `reports/target_repository_acquisition.md` | `target_repo/luigi_buggy/` |
+| Graphify | `reports/graphify_run.md` | `artifacts/graphify/{graph.json, GRAPH_REPORT.md, GRAPH_TREE.html}` |
+| Obsidian | — | `obsidian/*.md` |
+| Reverse engineering | `reports/reverse_engineering.md` | `artifacts/diagrams/*.mmd` |
+| Baseline (naive) | `reports/baseline_naive_investigation.md` | `artifacts/validation/baseline_naive_*` |
+| Graph-guided agent | `reports/graph_guided_agent.md` | `artifacts/validation/graph_guided_agent_*`, `src/ex04_graph_debugger/` |
+| Bug fix | `reports/bug_fix_validation.md` | `artifacts/validation/stage10_*` |
+| Token efficiency | `reports/token_efficiency.md` | `artifacts/validation/token_efficiency_*` |
+| Original extension | `reports/original_extension.md` | `artifacts/validation/centrality_suspect_ranking.*` |
+| Final audit | `reports/final_audit.md` | — |
+
+## Stage status (all implementation stages complete)
+| # | Stage | Commit |
+|---|-------|--------|
+| 0–3 | Skeleton, PRD, PLAN, TODO | `3fc110d`, `018c580`, `8a7ff9c`, `485f3b5` |
+| 4 | Target acquisition (vendored, D-007) | `1299535` |
+| 5 | Graphify run | `feb78ea` |
+| 6 | Obsidian vault | `6cdfd2f` |
+| 7 | Reverse engineering + diagrams | `8991916` |
+| 8 | Baseline naive investigation | `8904b57` |
+| 9 | Graph-guided LangGraph agent | `3b0e3c0` |
+| 10 | Bug fix + before/after proof | `a3c59f1` |
+| 11 | Token-efficiency comparison | `dad0413` |
+| 12 | Original extension | `de32d76` |
+| 13 | README/docs hardening + final audit | _this stage_ |
 
 ## Repository layout
 ```
-docs/        requirements audit, PRD/PLAN/TODO, AI workflow, prompts, decisions, costs, quality, checklist
-src/         ex04_graph_debugger package (placeholder; implemented in later stages)
-tests/       unit/ and integration/ (empty; tests added with implementation)
+docs/        PRD, PLAN, TODO, requirements audit, AI workflow, prompts, decisions, costs, quality, checklist
+src/         ex04_graph_debugger/ — graph-guided agent (LangGraph) + centrality ranking (≤150 lines/file)
+tests/       unit/ — pytest tests for the agent and the extension
 config/      default.toml (target + validation metadata)
-target_repo/ vendored Luigi buggy source under luigi_buggy/ (tracked, pristine; D-007)
-artifacts/   graphify/, screenshots/, diagrams/, validation/ outputs (later stages)
-obsidian/    knowledge vault (index.md, hot.md + analysis pages later)
-reports/     selection, validation, analysis, token-efficiency, before/after, final audit
+target_repo/ vendored Luigi buggy source under luigi_buggy/ (tracked, pristine + Stage-10 fix; D-007)
+artifacts/   graphify/ (graph), diagrams/ (.mmd), validation/ (metrics, before/after, rankings)
+obsidian/    knowledge vault (index.md, hot.md, macro/meso/micro analysis pages)
+reports/     selection, graphify, RE, baseline, graph-guided, bug-fix, token-efficiency, extension, final audit
 ```
 
 ## Tooling
-- **uv** for environment/runs, **Ruff** for lint/format, **pytest** for tests.
+- **uv** for environment/runs, **Ruff** for lint/format, **pytest** for tests (gate evidence in `docs/QUALITY.md`).
 - **Docker + Python 3.8** for faithful BugsInPy validation (Luigi requires 3.8-era stdlib).
-- See `docs/QUALITY.md` for the planned quality gates (including the ≤150-line Python file rule and secret scanning).
+- Every Python file under `src/` is ≤150 code lines (project rule).
+
+## Honest non-claims
+- Token counts are **estimates** (`characters / 4`), **not** exact model-tokenizer counts.
+- The token comparison is a **controlled, single-case** study — **not** a universal benchmark; it does not
+  imply ~85% savings on other bugs.
+- The centrality ranking is a **triage heuristic**, **not** proof of root cause.
+- The graph-guided agent and the extension are **deterministic and use no LLM / no paid API ($0)**.
+- The Luigi regression is a **focused** test, not a full upstream-suite run.
 
 ## Evidence & honesty policy
-All token counts and metrics will be explicitly labeled **measured / estimated / manual**. No fabricated evidence, no overclaiming, and no self-assigned grade. See `docs/AI_WORKFLOW.md`.
+All metrics are labeled **measured / estimated / manual**. No fabricated evidence, no overclaiming, and
+no self-assigned grade. See `docs/AI_WORKFLOW.md` and `reports/final_audit.md`.
