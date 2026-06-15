@@ -3,7 +3,8 @@
 **Project:** Agentic, graph-guided debugging of a real Python bug — Assignment 04 (group `MaRs-777`)
 **Repository:** `ai-agentic-graph-debugging-assignment4` · branch `main`
 **Document status:** Final task ledger — **repository work is complete through Stage 13** (Stages 0–13 done,
-committed, and pushed; latest commit `2561f1b`). This file is now a historical record, not an active TODO.
+committed, and pushed; final repository-scope correction baseline `2561f1b`, latest documentation commit
+`a683db1`). This file is now a historical record, not an active TODO.
 
 ## 1. Project status summary
 - **Done & committed:** Stage 0 skeleton + requirements audit (`3fc110d`), Stage 1 PRD (`018c580`), Stage 2 PLAN (`8a7ff9c`), Stage 3 TODO (`485f3b5`).

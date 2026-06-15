@@ -3,7 +3,8 @@
 Final traceability of every requirement to its in-repo evidence.
 
 - **Repository status:** complete through **Stage 13** (Stages 0–13 done, committed, and pushed).
-- **Latest commit:** `2561f1b final repository-scope correction`.
+- **Final repository-scope correction baseline:** `2561f1b`.
+- **Final documentation consistency polish (latest documentation commit):** `a683db1`.
 - The external course submission is a **manual step performed outside this repository** — it is **not** a repo
   artifact, stage, or task, and is not tracked here.
 

@@ -7,7 +7,8 @@ Stage 13 — README/docs hardening and final audit. Date: 2026-06-14.
 - **GitHub:** https://github.com/mohammedawad99/ai-agentic-graph-debugging-assignment4
 - **Branch:** `main`
 - **Latest commit at audit start:** `52e5593 Mark original extension complete`
-- **Final repository status commit:** `2561f1b final repository-scope correction` (current `main` head).
+- **Final repository-scope correction baseline:** `2561f1b`.
+- **Latest pushed documentation commit (current `main` head):** `a683db1 Polish final documentation consistency`.
 - **Group code:** `MaRs-777`
 
 ## 3. Completed stages (0–12)
@@ -85,7 +86,9 @@ fix remains: `except (ValueError, TypeError):` + `return tuple(literal_eval(x))`
 
 ## 11. Commit evidence
 This audit was committed as `cf55bac Harden final documentation and audit` and `39e4912 Mark final audit
-complete`; the final repository-scope correction is `2561f1b` — the current `main` head.
+complete`; `2561f1b` records the final repository-scope correction. `a683db1 Polish final documentation
+consistency` records the final documentation consistency polish and is the latest pushed documentation
+commit (the current `main` head).
 
 ## 12. Submission readiness conclusion
 **Repository deliverables are complete. Moodle submission is handled manually outside this repository.**
