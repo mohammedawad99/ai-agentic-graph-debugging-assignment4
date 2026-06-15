@@ -5,7 +5,7 @@ Tick only when real, in-repo evidence exists. Mirrors `docs/REQUIREMENTS_AUDIT.m
 ## Identity & submission
 - [x] Public GitHub repo created and pushed (R-01) — https://github.com/mohammedawad99/ai-agentic-graph-debugging-assignment4
 - [x] Group code `MaRs-777` present in README/docs (R-02)
-- [ ] Final Moodle submission link recorded — **pending** (wrapper PDF + submit not done)
+- Moodle submission itself is a **manual step done outside this repository** — not a repo deliverable, and not tracked here.
 
 ## Selection & validation
 - [x] Luigi bug 3 selected with justification (R-03)
@@ -61,4 +61,5 @@ Tick only when real, in-repo evidence exists. Mirrors `docs/REQUIREMENTS_AUDIT.m
 - [x] No overclaiming (R-44, ongoing)
 - [x] Final audit complete (R-45) — `reports/final_audit.md` (Stage 13; commit `cf55bac`)
 
-> The only outstanding item is the **Moodle wrapper PDF + submission** (and recording the link).
+> **All repository deliverables are complete.** Submitting on Moodle (and any wrapper the course requires)
+> is handled **manually outside this repository** and is not a repo requirement tracked here.

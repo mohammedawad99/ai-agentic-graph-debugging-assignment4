@@ -79,7 +79,10 @@ exact command in `reports/bug_fix_validation.md`.
 | 11 | Token-efficiency comparison | `dad0413` |
 | 12 | Original extension | `de32d76` |
 | 13 | README/docs hardening + final audit | `cf55bac` |
-| 14/15 | Moodle wrapper / submission PDF | _pending_ |
+
+**Repository work is complete (Stages 0–13).** All quality gates pass and the final audit is done
+(`reports/final_audit.md`). Submitting on Moodle is a manual step performed **outside this repository** and
+is not tracked as a repo artifact, stage, or task.
 
 ## Repository layout
 ```

@@ -79,13 +79,14 @@ fix remains: `except (ValueError, TypeError):` + `return tuple(literal_eval(x))`
 - The Luigi regression is a **focused** test under Docker/3.8, not a full upstream-suite run.
 
 ## 10. Remaining work
-- **Moodle wrapper / submission PDF** (from the provided template) — **not** created in this stage.
-- **Final commit closeout** of Stage 13 (mark Stage 13 DONE after its commit exists).
+- **None inside the repository.** Repository deliverables are complete. Moodle submission is handled
+  manually outside this repository and is not a repo task.
 
 ## 11. Commit evidence
 This audit was committed and pushed as `cf55bac Harden final documentation and audit`.
 
 ## 12. Submission readiness conclusion
-**Ready for submission** (pending only the Moodle wrapper PDF). All mandatory deliverables exist with
-reproducible evidence, all quality gates pass, no protected artifact was mutated, the bug fix is present and
-proven, and no overclaiming or stale current-status contradictions remain.
+**Repository deliverables are complete. Moodle submission is handled manually outside this repository.**
+All mandatory deliverables exist with reproducible evidence, all quality gates pass, no protected artifact
+was mutated, the bug fix is present and proven, and no overclaiming or stale current-status contradictions
+remain.

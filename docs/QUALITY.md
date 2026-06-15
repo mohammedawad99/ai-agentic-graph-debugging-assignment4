@@ -34,7 +34,7 @@ Nothing here is claimed to pass yet (no implementation in the skeleton stage).
 | Q4 Line limit | `wc -l src/ex04_graph_debugger/*.py` | all ≤150 (max 137) |
 - Ruff is scoped to our code via `[tool.ruff] extend-exclude = ["target_repo", "artifacts", "obsidian", ".venv"]`
   so the vendored Luigi source (Stage-4) is **not** linted (it has thousands of pre-existing upstream style issues).
-- Q5 secret-scan, Q6 artifact-scan, and the dedicated Q4 checker script run in the final audit (Stage 14).
+- Q5 secret-scan, Q6 artifact-scan, and the dedicated Q4 checker script run as part of the final audit (Stage 13).
 
 ## Stage 10 — bug-fix test evidence (commit `a3c59f1`)
 - Project gates re-run after the fix: `uv run pytest` → **6 passed**; `uv run ruff check .` → **All checks passed**; `uv run ruff format --check .` → **clean**.

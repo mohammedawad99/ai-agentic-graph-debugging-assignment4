@@ -16,8 +16,8 @@
 - **Done & committed:** Stage 10 — Bug fix applied + proven (Docker/Python 3.8.20): before `TypeError`, after `1 passed`; minimal 2-line fix + regression test — commit `a3c59f1`.
 - **Done & committed:** Stage 11 — Token-efficiency comparison: graph-guided ~3,631 vs baseline ~24,482 est. tokens = **−85.17% (≈6.74×)** context, both reached root cause; controlled (not universal) — commit `dad0413`.
 - **Done & committed:** Stage 12 — Original extension (centrality-based suspect ranking): deterministic/no-LLM; bug method ranks #6/2,169, 13 of top 20 in `parameter.py`; 13 tests pass — commit `de32d76`.
-- **Done & committed:** Stage 13 — README/docs hardening + final audit: README rewritten, checklist aligned to real evidence, `reports/final_audit.md` written (gates green; "ready, pending Moodle PDF") — commit `cf55bac`.
-- **Next up:** Stage 14/15 — Moodle wrapper / submission packaging (PLANNED).
+- **Done & committed:** Stage 13 — README/docs hardening + final audit: README rewritten, checklist aligned to real evidence, `reports/final_audit.md` written (gates green; repository deliverables complete) — commit `cf55bac`.
+- **Repository work complete** through Stage 13 (all gates green, final audit done). Moodle submission is a manual step **outside** the repository — not a tracked stage/task.
 - **Confirmed target:** Luigi bug 3 (BugsInPy), buggy commit `a0f1db01…`; fail→pass validated in a **temporary candidate repo** under Docker/Python 3.8.20.
 - **Not started (planned):** Luigi import into this repo, Graphify, Obsidian analysis, reverse-engineering, baseline, agent, fix, token comparison, extension, doc hardening, audit, submission.
 
@@ -53,8 +53,10 @@
 | 11 | Token-efficiency comparison | **DONE** (`dad0413`) | baseline vs graph-guided | Stages 8–9 done | comparison report (labeled) present | `Compare baseline and graph-guided token use` |
 | 12 | Original extension | **DONE** (`de32d76`) | one extension implemented | Stage 5 (+9) done | extension code + output + doc present | `Add centrality suspect ranking extension` |
 | 13 | README/docs hardening + final audit | **DONE** (`cf55bac`) | finalize docs | Stages 5–12 done | docs consistent with artifacts | `Harden final documentation and audit` |
-| 14 | Quality gates + final audit | **PLANNED** | gates pass + audit | Stage 13 done | gates green + `final_audit.md` complete | `Run quality gates and final audit` |
-| 15 | Moodle submission prep | **PLANNED** | wrapper PDF + submit | Stage 14 done | template PDF ready (outside repo if required) | _(no repo commit unless template required in-repo)_ |
+
+_Repository work ends at Stage 13. Quality gates ran green and the final audit is complete
+(`reports/final_audit.md`). Submitting on Moodle is a manual step the student performs **outside** this
+repository — it is not a repo stage, task, or deliverable._
 
 ---
 
@@ -199,38 +201,18 @@
 
 ## Stage 13 — README/docs hardening + final audit — **DONE** (commit `cf55bac`)
 - [x] Rewrite README (reproduce steps, evidence map, headline results, honest non-claims; removed stale "no fix yet"/"placeholder" text)
-- [x] Align `SUBMISSION_CHECKLIST` to real evidence (only Moodle PDF/link left unchecked)
+- [x] Align `SUBMISSION_CHECKLIST` to real evidence (only the external/manual Moodle submission is left, not a repo deliverable)
 - [x] Update `COSTS`/`QUALITY` with final gate evidence; `DECISIONS` already current (D-001…D-015)
 - [x] Write `reports/final_audit.md` (requirement coverage, evidence inventory, claims audit, readiness)
 - [x] Re-run gates at audit: pytest 13 pass, ruff check/format clean, ≤150-line rule (max 142)
 - [x] Commit Stage 13 — commit `cf55bac Harden final documentation and audit` (Stage 13 DONE)
 **Validation:** README claims cross-checked vs files; checklist ticked only against evidence; gates green; no protected artifact mutated.
 **Artifacts:** `README.md`, `docs/{SUBMISSION_CHECKLIST,COSTS,QUALITY,TODO}.md`, `reports/final_audit.md`.
-**Risks/blockers:** none — only the Moodle wrapper PDF (Stage 15) remains.
+**Risks/blockers:** none — repository deliverables are complete.
 
-## Stage 14 — Quality gates and final audit — **PLANNED**
-- [ ] `uv run pytest`
-- [ ] `uv run ruff check .`
-- [ ] `uv run ruff format --check .`
-- [ ] line-count check (`src/**/*.py` ≤ 150)
-- [ ] secret scan
-- [ ] artifact scan (no raw target source / no oversized blobs)
-- [ ] verify GitHub pushed + README/docs match repo
-- [ ] verify no fake evidence; no self-score in repo
-- [ ] verify no external submission PDF in repo unless required
-**Validation:** all gate commands pass; `reports/final_audit.md` re-checks every mandatory requirement.
-**Artifacts:** `reports/final_audit.md`, gate outputs.
-**Risks/blockers:** any failing gate must be fixed, not suppressed.
-
-## Stage 15 — Moodle submission preparation — **PLANNED**
-- [ ] Prepare wrapper PDF from the **provided template only**, when ready
-- [ ] Include GitHub link + group code `MaRs-777`
-- [ ] Use required filename format (e.g., `MaRs-777-ex04.pdf` or the exact required format)
-- [ ] No extra text outside the template
-- [ ] Submit individually on Moodle
-**Validation:** filename + contents match the template/spec; link resolves.
-**Artifacts:** wrapper PDF (kept outside the repo unless the spec requires it in-repo).
-**Risks/blockers:** confirm exact required filename/format before generating.
+> **Repository work is complete through Stage 13.** The quality gates and final audit ran green
+> (`reports/final_audit.md`). Submitting on Moodle is a **manual step done outside this repository** and is
+> **not** tracked here as a stage, task, or deliverable.
 
 ---
 
