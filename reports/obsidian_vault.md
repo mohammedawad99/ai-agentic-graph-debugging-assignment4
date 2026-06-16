@@ -1,5 +1,9 @@
 # Obsidian Vault Report — Stage 6
 
+> **Historical note:** this report is the Stage-6 Obsidian vault snapshot. Items marked as planned for
+> later stages (Stage 7/10/11) were completed in those later stages; see `reports/final_audit.md` for the
+> final repository state.
+
 ## 1. Stage name and date/time
 Stage 6 — Obsidian vault construction. Date: 2026-06-14.
 
